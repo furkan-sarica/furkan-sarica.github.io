@@ -21,7 +21,7 @@ services:
     restart: unless-stopped
 
   portfolio-ui:
-    image: fufuizm/web:latest
+    image: furkan-sarica/web:latest
     expose:
       - "3000"
     networks:
@@ -46,7 +46,7 @@ services:
     restart: unless-stopped
 
   ai-pipeline:
-    image: fufuizm/ai-pipeline:latest
+    image: furkan-sarica/ai-pipeline:latest
     environment:
       - AI_API_KEY=${AI_API_KEY}          # set in .env — no secrets in code
       - APPROVAL_MODE=human               # require human confirmation
