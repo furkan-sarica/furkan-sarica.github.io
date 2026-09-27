@@ -23,6 +23,10 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
 <meta name="theme-color" content="#0a0c10">
 <link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Furkan SARICA">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
 <!-- Structured Data: Person Schema -->
@@ -3685,47 +3689,16 @@ function stopMatrixRain() {
 
 
 
-// ===== 10/10 FINAL: Custom Terminal Cursor =====
-(function() {
-    var cursor = document.createElement('div');
-    cursor.id = 'terminal-cursor';
-    document.body.appendChild(cursor);
-    document.body.classList.add('custom-cursor');
-    
-    var mouseX = 0, mouseY = 0;
-    var cursorX = 0, cursorY = 0;
-    
-    document.addEventListener('mousemove', function(e) {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    }, { passive: true });
-    
-    // Smooth follow
-    function updateCursor() {
-        cursorX += (mouseX - cursorX) * 0.25;
-        cursorY += (mouseY - cursorY) * 0.25;
-        cursor.style.left = cursorX + 'px';
-        cursor.style.top = cursorY + 'px';
-        requestAnimationFrame(updateCursor);
-    }
-    requestAnimationFrame(updateCursor);
-    
-    // Hover detection
-    document.addEventListener('mouseover', function(e) {
-        var target = e.target;
-        if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('a') || target.closest('button') || target.classList.contains('skill-tag') || target.classList.contains('project-card') || target.classList.contains('contact-item')) {
-            cursor.classList.add('hover');
-        }
-    }, { passive: true });
-    
-    document.addEventListener('mouseout', function(e) {
-        cursor.classList.remove('hover');
-    }, { passive: true });
-    
-    // Click effect
-    document.addEventListener('mousedown', function() { cursor.classList.add('click'); });
-    document.addEventListener('mouseup', function() { cursor.classList.remove('click'); });
-}());
+// ===== PWA Service Worker Registration =====
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js').then(function(reg) {
+            console.log('[PWA] Service Worker registered, scope:', reg.scope);
+        }).catch(function(err) {
+            console.log('[PWA] Service Worker registration failed:', err);
+        });
+    });
+}
 
 // ===== 10/10 FINAL: CRT Grain Overlay =====
 (function() {

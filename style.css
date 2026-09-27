@@ -2408,35 +2408,7 @@ section > * {
 
 /* ===== 10/10 FINAL UPGRADES ===== */
 
-/* Custom Terminal Cursor */
-body.custom-cursor, body.custom-cursor * {
-    cursor: none !important;
-}
-
-#terminal-cursor {
-    position: fixed;
-    width: 10px;
-    height: 18px;
-    background: var(--terminal-green);
-    pointer-events: none;
-    z-index: 100000;
-    mix-blend-mode: difference;
-    transition: transform 0.08s ease-out, opacity 0.15s;
-    opacity: 0.85;
-    box-shadow: 0 0 8px var(--terminal-green), 0 0 16px var(--terminal-green-dim);
-    will-change: transform;
-}
-
-#terminal-cursor.hover {
-    transform: scale(1.6);
-    opacity: 1;
-    box-shadow: 0 0 15px var(--terminal-green), 0 0 30px var(--terminal-green), 0 0 60px var(--terminal-green-dim);
-}
-
-#terminal-cursor.click {
-    transform: scale(0.8);
-    opacity: 0.6;
-}
+/* Custom Terminal Cursor removed for native performance and mobile compatibility */
 
 /* CRT Grain Overlay */
 #crt-grain {
@@ -2476,10 +2448,6 @@ body.crt-active::before {
 }
 
 /* Konami Code Hacker Mode Enhancements */
-body.hacker-mode #terminal-cursor {
-    background: #39ff14;
-    box-shadow: 0 0 8px #39ff14, 0 0 16px rgba(57, 255, 20, 0.5);
-}
 
 /* Hero Scramble Effect Base */
 .hero h1 .typing {
