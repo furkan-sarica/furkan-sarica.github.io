@@ -520,10 +520,11 @@
 <p class="section-subtitle">tree ~/projects/</p>
 </div>
 
+<!-- Project 1: Tracefold (Flagship Applied AI / Microsoft) -->
 <div class="project-card reveal reveal-delay-0">
 <div class="project-header">
 <div class="project-title"><span data-lang-tr>Tracefold: Gizlilik Odaklı Yerel RAG Asistanı</span><span data-lang-en>Tracefold: Privacy-First Local RAG Assistant</span></div>
-<div class="project-tag"><span data-lang-tr>Microsoft AI Innovators Projesi | AI | RAG | Microsoft Foundry Local</span><span data-lang-en>Microsoft AI Innovators Project | AI | RAG | Microsoft Foundry Local</span></div>
+<div class="project-tag"><span data-lang-tr>AMİRAL GEMİSİ | Microsoft AI Innovators | Yerel RAG | Microsoft Foundry Local</span><span data-lang-en>FLAGSHIP | Microsoft AI Innovators | Local RAG | Microsoft Foundry Local</span></div>
 </div>
 <div class="project-body">
 <ul data-lang-tr-block>
@@ -547,11 +548,36 @@
 </div>
 </div>
 
-<!-- Project: Roadmind -->
+<!-- Project 2: SAP Business One AI Platform (Enterprise AI & ERP Integration) -->
 <div class="project-card reveal reveal-delay-1">
 <div class="project-header">
+<div class="project-title"><span data-lang-tr>AI Destekli SAP Business One Ajan Platformu</span><span data-lang-en>AI-Powered SAP Business One Agent Platform</span></div>
+<div class="project-tag"><span data-lang-tr>KURUMSAL MİMARİ | SAP B1 | AI Ajanları | ERP Otomasyonu</span><span data-lang-en>ENTERPRISE ARCHITECTURE | SAP B1 | AI Agents | ERP Automation</span></div>
+</div>
+<div class="project-body">
+<ul data-lang-tr-block>
+<li>SAP Business One Service Layer ile entegre Flask bileşenleri geliştirerek 58+ nesne tipini yerel SQLite önbelleğe eşitledim.</li>
+<li>Deterministik doğrulama ve onay mekanizmalı 53 yapay zekâ asistanı iş akışı tasarladım.</li>
+<li>Paralel worker veri çekme, katmanlı TTL önbellekleme ve ETag tabanlı optimistik eşzamanlılık uyguladım.</li>
+<li>Finans, satış ve stok modüllerinde karmaşık ERP iş süreçlerini yapay zekâ yetenekleriyle otomatize ettim.</li>
+</ul>
+<ul data-lang-en-block>
+<li>Engineered Flask-based Service Layer integration synchronizing 58+ SAP Business One entity types into a local SQLite cache.</li>
+<li>Implemented 53 AI assistant workflows featuring deterministic-first validation and approval-based SAP write operations.</li>
+<li>Designed parallel multi-worker data fetching, tiered TTL caching, and ETag-based optimistic concurrency.</li>
+<li>Automated complex cross-functional ERP data flows across finance, sales, and inventory modules.</li>
+</ul>
+</div>
+<div class="project-tech">
+<span>SAP Business One</span><span>Python</span><span>Flask</span><span>SQLite</span><span>AI Agents</span><span>REST APIs</span><span>ERP Automation</span>
+</div>
+</div>
+
+<!-- Project 3: Roadmind (Agentic AI & Prompt Engineering Studio) -->
+<div class="project-card reveal reveal-delay-2">
+<div class="project-header">
 <div class="project-title"><span data-lang-tr>Roadmind: Kodlama Ajanları İçin AI Prompt Stüdyosu</span><span data-lang-en>Roadmind: AI Project Prompt Studio for Coding Agents</span></div>
-<div class="project-tag"><span data-lang-tr>Kişisel Proje | AI | Kodlama Ajanları | Prompt Engineering</span><span data-lang-en>Personal Project | AI | Coding Agents | Prompt Engineering</span></div>
+<div class="project-tag"><span data-lang-tr>AI ARAÇLARI | Kodlama Ajanları | Prompt Engineering | Full-Stack</span><span data-lang-en>AI TOOLING | Coding Agents | Prompt Engineering | Full-Stack</span></div>
 </div>
 <div class="project-body">
 <ul data-lang-tr-block>
@@ -570,115 +596,86 @@
 </div>
 </div>
 
-<!-- Project: SAP Business One AI Platform -->
-<div class="project-card reveal reveal-delay-2">
+<!-- Project 4: AI Container Infrastructure & Homelab (Capstone Project) -->
+<div class="project-card reveal reveal-delay-0">
 <div class="project-header">
-<div class="project-title"><span data-lang-tr>AI Destekli SAP Business One Ajan Platformu</span><span data-lang-en>AI-Powered SAP Business One Agent Platform</span></div>
-<div class="project-tag"><span data-lang-tr>Kurumsal Proje | SAP B1 | AI Ajanları | ERP Otomasyonu</span><span data-lang-en>Enterprise Project | SAP B1 | AI Agents | ERP Automation</span></div>
+<div class="project-title"><span data-lang-tr>AI Destekli Altyapı Yönetimi ve Homelab Otomasyonu</span><span data-lang-en>AI-Supported Infrastructure Management & Homelab Automation</span></div>
+<div class="project-tag"><span data-lang-tr>BİTİRME PROJESİ | Docker | Linux | AI Otomasyonu | DevOps</span><span data-lang-en>CAPSTONE PROJECT | Docker | Linux | AI Automation | DevOps</span></div>
 </div>
 <div class="project-body">
 <ul data-lang-tr-block>
-<li>SAP Business One Service Layer ile entegre Flask bileşenleri geliştirerek 58+ nesne tipini yerel SQLite önbelleğe eşitledim.</li>
-<li>Deterministik doğrulama ve onay mekanizmalı 53 yapay zekâ asistanı iş akışı tasarladım.</li>
-<li>Paralel worker veri çekme, katmanlı TTL önbellekleme ve ETag tabanlı optimistik eşzamanlılık uyguladım.</li>
+<li>Düşük kaynaklı Linux sunucuda Docker ve docker-compose ile modüler, tekrarlanabilir ve versiyon kontrollü konteyner altyapısı.</li>
+<li>Web UI, DNS filtreleme ve monitoring bileşenlerini ters vekil (reverse proxy) arkasında izole servis olarak çalıştırma.</li>
+<li>OpenClaw ve Kimi K2.5 API ile sunucu metriklerini (CPU, RAM, disk, servis durumu) analiz eden AI otomasyon pipeline'ı.</li>
+<li>Model çıktılarını komut ve script'lere dönüştüren kontrollü yürütme mekanizması; kritik operasyonlar için onay adımı.</li>
+<li>Git tabanlı konfigürasyon versiyonlaması, standart dağıtım, rollback ve yedekleme prosedürleri.</li>
 </ul>
 <ul data-lang-en-block>
-<li>Engineered Flask-based Service Layer integration synchronizing 58+ SAP Business One entity types into a local SQLite cache.</li>
-<li>Implemented 53 AI assistant workflows featuring deterministic-first validation and approval-based SAP write operations.</li>
-<li>Designed parallel multi-worker data fetching, tiered TTL caching, and ETag-based optimistic concurrency.</li>
-</ul>
-</div>
-<div class="project-tech">
-<span>SAP Business One</span><span>Python</span><span>Flask</span><span>SQLite</span><span>AI Agents</span><span>REST APIs</span><span>ERP Automation</span>
-</div>
-</div>
-
-<!-- Project 1: AI Container Infrastructure -->
-<div class="project-card reveal reveal-delay-1">
-<div class="project-header">
-<div class="project-title"><span data-lang-tr>AI Destekli Altyapı Yönetimi ve Otomasyon Platformu</span><span data-lang-en>AI-Supported Infrastructure Management & Automation Platform</span></div>
-<div class="project-tag"><span data-lang-tr>BİTİRME_PROJESİ | Docker | Linux | AI | DevOps</span><span data-lang-en>GRADUATION_PROJECT | Docker | Linux | AI | DevOps</span></div>
-</div>
-<div class="project-body">
-<ul data-lang-tr-block>
-<li>Düşük kaynaklı Linux sunucuda Docker ve docker-compose ile modüler, tekrarlanabilir ve versiyon kontrollü konteyner altyapısı</li>
-<li>Web UI, DNS filtreleme ve monitoring bileşenlerini ters vekil (reverse proxy) arkasında izole servis olarak çalıştırma</li>
-<li>OpenClaw ve Kimi K2.5 API ile sunucu metriklerini (CPU, RAM, disk, servis durumu) analiz eden AI otomasyon pipeline'ı</li>
-<li>Model çıktılarını komut ve script'lere dönüştüren kontrollü yürütme mekanizması; kritik operasyonlar için onay adımı</li>
-<li>Git tabanlı konfigürasyon versiyonlaması, standart dağıtım, rollback ve yedekleme prosedürleri</li>
-</ul>
-<ul data-lang-en-block>
-<li>Modular, repeatable, and version-controlled container infrastructure on a low-resource Linux server using Docker and docker-compose</li>
-<li>Web UI, DNS filtering, and monitoring components running as isolated services behind a reverse proxy</li>
-<li>AI automation pipeline analyzing server metrics (CPU, RAM, disk, service health) via OpenClaw and Kimi K2.5 API</li>
-<li>Controlled execution converting model outputs to commands and scripts; approval gate for critical operations</li>
-<li>Git-based configuration versioning for standardized deployments, rollbacks, and backup workflows</li>
+<li>Modular, repeatable, and version-controlled container infrastructure on a low-resource Linux server using Docker and docker-compose.</li>
+<li>Web UI, DNS filtering, and monitoring components running as isolated services behind a reverse proxy.</li>
+<li>AI automation pipeline analyzing server metrics (CPU, RAM, disk, service health) via OpenClaw and Kimi K2.5 API.</li>
+<li>Controlled execution converting model outputs to commands and scripts; approval gate for critical operations.</li>
+<li>Git-based configuration versioning for standardized deployments, rollbacks, and backup workflows.</li>
 </ul>
 </div>
 <div class="project-tech">
 <span>Linux</span><span>Docker</span><span>docker-compose</span><span>Git</span><span>LLM API</span><span>Reverse Proxy</span><span>Bash</span><span>Infrastructure Automation</span>
 </div>
 <div class="artifact-links">
+  <a href="https://github.com/furkan-sarica/k8s-homelab" class="artifact-btn" target="_blank" rel="noopener">🔗 GitHub: furkan-sarica/k8s-homelab</a>
   <a href="https://github.com/furkan-sarica/furkan-sarica.github.io/tree/main/artifacts" class="artifact-btn" target="_blank" rel="noopener"><span data-lang-tr>📐 Topoloji ve IaC Dosyaları</span><span data-lang-en>📐 Topology &amp; IaC Files</span></a>
 </div>
 </div>
 
-
-<!-- Project 2: ERPNext -->
-<div class="project-card reveal reveal-delay-2">
+<!-- Project 5: ERPNext Self-Hosted Deployment & Operations -->
+<div class="project-card reveal reveal-delay-1">
 <div class="project-header">
 <div class="project-title"><span data-lang-tr>ERPNext Self-Hosted Kurulum ve Operasyon Altyapısı</span><span data-lang-en>ERPNext Self-Hosted Deployment & Operations Infrastructure</span></div>
-<div class="project-tag"><span data-lang-tr>ÜNİVERSİTE_PROJESI | ERP | Docker | K3s | DevOps</span><span data-lang-en>UNIVERSITY_PROJECT | ERP | Docker | K3s | DevOps</span></div>
+<div class="project-tag"><span data-lang-tr>AKADEMİK MİMARİ | ERP | Docker | K3s | DevOps</span><span data-lang-en>ACADEMIC ARCHITECTURE | ERP | Docker | K3s | DevOps</span></div>
 </div>
 <div class="project-body">
 <ul data-lang-tr-block>
-<li>Konteynerize ERPNext dağıtımı; CRM, satış, envanter, satın alma, muhasebe, İK ve raporlama modülleri</li>
-<li>K3s/Docker tabanlı barındırma modeli; ters vekil, TLS, ortam izolasyonu, zamanlanmış yedekleme ve geri yükleme prosedürleri</li>
-<li>Lead-to-cash, purchase-to-pay, stok hareketi, rol izinleri ve onay akışları gibi temel ERP süreçlerinin haritalanması</li>
-<li>Prometheus/Grafana tarzı dashboard'lar, log birleştirme, uptime kontrolleri ve iş kritik servisler için alerting planı</li>
-<li>Tekrarlanabilir, denetlenebilir ve bakımı kolaylaştıran GitOps uyumlu konfigürasyon ve versiyonlama pratikleri</li>
+<li>Konteynerize ERPNext dağıtımı; CRM, satış, envanter, satın alma, muhasebe, İK ve raporlama modülleri.</li>
+<li>K3s/Docker tabanlı barındırma modeli; ters vekil, TLS, ortam izolasyonu, zamanlanmış yedekleme ve geri yükleme prosedürleri.</li>
+<li>Lead-to-cash, purchase-to-pay, stok hareketi, rol izinleri ve onay akışları gibi temel ERP süreçlerinin haritalanması.</li>
+<li>Prometheus/Grafana dashboard'ları, log birleştirme, uptime kontrolleri ve iş kritik servisler için alerting planı.</li>
+<li>Tekrarlanabilir, denetlenebilir ve bakımı kolaylaştıran GitOps uyumlu konfigürasyon ve versiyonlama pratikleri.</li>
 </ul>
 <ul data-lang-en-block>
-<li>Containerized ERPNext deployment covering CRM, sales, inventory, purchasing, accounting, HR, and reporting modules</li>
-<li>K3s/Docker-based hosting model with reverse proxy, TLS, environment isolation, scheduled backups, and restore procedures</li>
-<li>Mapping core ERP business flows: lead-to-cash, purchase-to-pay, stock movement, role permissions, and approval workflows</li>
-<li>Observability plans with Prometheus/Grafana-style dashboards, log aggregation, uptime checks, and alerting for business-critical services</li>
-<li>GitOps-friendly configuration and versioning practices to make ERP operations repeatable, auditable, and easier to maintain</li>
+<li>Containerized ERPNext deployment covering CRM, sales, inventory, purchasing, accounting, HR, and reporting modules.</li>
+<li>K3s/Docker-based hosting model with reverse proxy, TLS, environment isolation, scheduled backups, and restore procedures.</li>
+<li>Mapping core ERP business flows: lead-to-cash, purchase-to-pay, stock movement, role permissions, and approval workflows.</li>
+<li>Observability plans with Prometheus/Grafana-style dashboards, log aggregation, uptime checks, and alerting for business-critical services.</li>
+<li>GitOps-friendly configuration and versioning practices to make ERP operations repeatable, auditable, and easier to maintain.</li>
 </ul>
 </div>
 <div class="project-tech">
-<span>ERPNext</span><span>Frappe</span><span>Docker</span><span>K3s</span><span>PostgreSQL/MariaDB</span><span>Nginx</span><span>Prometheus</span><span>Grafana</span><span>RBAC</span><span>Business Process Management</span>
-</div>
-<div class="artifact-links">
-  <a href="https://#" class="artifact-btn" target="_blank" rel="noopener">🔗 GitHub: erpnext-selfhosted-ops</a>
+<span>ERPNext</span><span>Frappe</span><span>Docker</span><span>K3s</span><span>PostgreSQL/MariaDB</span><span>Nginx</span><span>Prometheus</span><span>Grafana</span><span>RBAC</span>
 </div>
 </div>
 
-<!-- Project 3: AI CRM -->
-<div class="project-card reveal reveal-delay-3">
+<!-- Project 6: AI-Supported Operational CRM -->
+<div class="project-card reveal reveal-delay-2">
 <div class="project-header">
 <div class="project-title"><span data-lang-tr>AI Destekli Operasyonel CRM ve Karar Destek Platformu</span><span data-lang-en>AI-Supported Operational CRM & Decision Support Platform</span></div>
-<div class="project-tag"><span data-lang-tr>KİŞİSEL_PROJE | CRM | OCR | AI | Full-Stack</span><span data-lang-en>PERSONAL_PROJECT | CRM | OCR | AI | Full-Stack</span></div>
+<div class="project-tag"><span data-lang-tr>KİŞİSEL PROJE | CRM | OCR | AI | Full-Stack</span><span data-lang-en>PERSONAL PROJECT | CRM | OCR | AI | Full-Stack</span></div>
 </div>
 <div class="project-body">
 <ul data-lang-tr-block>
-<li>React + TypeScript + Vite önyüz; Express.js ve SQLite backend ile müşteri ve operasyonel kayıt yönetimi</li>
-<li>OCR destekli ürün alım akışı — fiziksel ürün verisi girişini hızlandırma ve müşteri-kayıt eşleştirmesini otomatikleştirme</li>
-<li>Operasyonel veriyi yorumlayan ve özet, öncelik ve eylem odaklı öneriler üreten AI destekli içgörü paneli</li>
-<li>Rol tabanlı erişim kontrolü (RBAC), oturum yönetimi, RESTful API dokümantasyonu ve veritabanı migrasyon yapısı</li>
+<li>React + TypeScript + Vite önyüz; Express.js ve SQLite backend ile müşteri ve operasyonel kayıt yönetimi.</li>
+<li>OCR destekli ürün alım akışı — fiziksel ürün verisi girişini hızlandırma ve müşteri-kayıt eşleştirmesini otomatikleştirme.</li>
+<li>Operasyonel veriyi yorumlayan ve özet, öncelik ve eylem odaklı öneriler üreten AI destekli içgörü paneli.</li>
+<li>Rol tabanlı erişim kontrolü (RBAC), oturum yönetimi, RESTful API dokümantasyonu ve veritabanı migrasyon yapısı.</li>
 </ul>
 <ul data-lang-en-block>
-<li>React + TypeScript + Vite frontend with Express.js and SQLite backend for unified customer and operational record management</li>
-<li>OCR-assisted product intake flow to accelerate physical product data entry and automate customer-to-record matching</li>
-<li>AI-powered insight panel interpreting operational data and generating summaries, priorities, and action-oriented recommendations</li>
-<li>Role-based access control (RBAC), session handling, RESTful API documentation, and database migration structures</li>
+<li>React + TypeScript + Vite frontend with Express.js and SQLite backend for unified customer and operational record management.</li>
+<li>OCR-assisted product intake flow to accelerate physical product data entry and automate customer-to-record matching.</li>
+<li>AI-powered insight panel interpreting operational data and generating summaries, priorities, and action-oriented recommendations.</li>
+<li>Role-based access control (RBAC), session handling, RESTful API documentation, and database migration structures.</li>
 </ul>
 </div>
 <div class="project-tech">
 <span>React</span><span>TypeScript</span><span>Vite</span><span>Express.js</span><span>SQLite</span><span>OCR</span><span>REST APIs</span><span>RBAC</span>
-</div>
-<div class="artifact-links">
-  <a href="https://#" class="artifact-btn" target="_blank" rel="noopener">🔗 GitHub: ai-operational-crm-decision-support</a>
 </div>
 </div>
 
