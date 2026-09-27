@@ -27,7 +27,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Furkan SARICA">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=20260927-4">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
 <!-- Structured Data: Person Schema -->
 <script type="application/ld+json">
@@ -45,11 +45,17 @@
     "addressLocality": "Çankaya, Ankara",
     "addressCountry": "TR"
   },
-  "alumniOf": {
-    "@type": "CollegeOrUniversity",
-    "name": "Istanbul Gelisim University",
-    "department": "Management Information Systems"
-  },
+  "alumniOf": [
+    {
+      "@type": "CollegeOrUniversity",
+      "name": "Istanbul Gelisim University",
+      "department": "Management Information Systems"
+    },
+    {
+      "@type": "HighSchool",
+      "name": "Özel Aksaray Vizyon Akademi Anadolu Lisesi"
+    }
+  ],
   "knowsAbout": ["Enterprise Software", "ERP", "SAP Business One", "AI", "RAG", "DevOps", "Linux", "Docker", "Python", "TypeScript", "Flask", "REST API", "Business Process Automation", "CI/CD", "Monitoring", "FastAPI", "Kubernetes", "NVIDIA NIM", "Ollama", "Microsoft Foundry"],
   "sameAs": [
     "https://github.com/furkan-sarica",
@@ -61,7 +67,10 @@
 <body class="lang-tr">
 
 <!-- Skip to content for accessibility -->
-<a href="#about" class="skip-link" aria-label="İçeriğe geç / Skip to content">İçeriğe geç</a>
+<a href="#about" class="skip-link">
+  <span data-lang-tr>İçeriğe geç</span>
+  <span data-lang-en>Skip to content</span>
+</a>
 
 <!-- Noscript fallback -->
 <noscript>
@@ -82,21 +91,21 @@
 </div>
 
 <!-- Language Toggle -->
-<button class="lang-toggle" onclick="toggleLang()" title="Switch language / Dil değiştir">
+<button class="lang-toggle" onclick="toggleLang()" id="lang-toggle-btn" title="Dil Değiştir" aria-label="Toggle language">
 <span class="lang-option active" id="lang-tr-btn">TR</span>
 <span class="lang-separator">/</span>
 <span class="lang-option" id="lang-en-btn">EN</span>
 </button>
 
 <!-- Sound Toggle -->
-<button class="mute-toggle" id="mute-btn" title="Enable sounds / Sesi aç" aria-label="Toggle sound">🔇</button>
+<button class="mute-toggle" id="mute-btn" title="Sesi Aç" aria-label="Toggle sound">🔇</button>
 
 <!-- Hero Section -->
 <header class="hero">
 <div class="hero-prompt">whoami</div>
 
 <h1>
-<span class="typing">Furkan SARICA</span><span class="cursor"></span>
+<span class="typing">Furkan SARICA</span>
 </h1>
 
 <p class="hero-subtitle">
@@ -218,7 +227,10 @@
                     </span>
 </div>
 <div class="edu-school">İstanbul Gelişim Üniversitesi</div>
-<div class="edu-gpa">GPA: 3.10 / 4.00</div>
+<div class="edu-gpa">
+<span data-lang-tr>Genel Not Ortalaması: 3.10 / 4.00 (Onur Derecesi)</span>
+<span data-lang-en>GPA: 3.10 / 4.00 (Honor Degree)</span>
+</div>
 
 <div class="courses-grid" data-lang-tr-grid>
 <span class="course-item">ERP Sistemleri</span>
@@ -232,6 +244,27 @@
 <span class="course-item">Database Management</span>
 <span class="course-item">Systems Analysis & Design</span>
 <span class="course-item">CRM & Decision Support Systems</span>
+</div>
+</div>
+
+<div class="edu-item reveal">
+<div class="edu-header">
+<span class="edu-title">
+<span data-lang-tr>Anadolu Lisesi Diploması — Eşit Ağırlık (Türkçe - Matematik)</span>
+<span data-lang-en>High School Diploma — Equal Weight (Mathematics - Literature)</span>
+</span>
+<span class="edu-date">
+<span data-lang-tr>Eylül 2016 – Haziran 2020</span>
+<span data-lang-en>September 2016 – June 2020</span>
+</span>
+</div>
+<div class="edu-school">
+<span data-lang-tr>Özel Aksaray Vizyon Akademi Anadolu Lisesi</span>
+<span data-lang-en>Özel Aksaray Vizyon Akademi Anatolian High School</span>
+</div>
+<div class="edu-gpa">
+<span data-lang-tr>Mezuniyet Notu: 90.07 / 100</span>
+<span data-lang-en>Graduation Grade: 90.07 / 100</span>
 </div>
 </div>
 
@@ -401,7 +434,7 @@
 <span class="cert-title"><span data-lang-tr>Stanford University - Artificial Intelligence Professional Certificate</span><span data-lang-en>Stanford University - Artificial Intelligence Professional Certificate</span></span>
 <span class="cert-status"><span data-lang-tr>TAMAMLANDI</span><span data-lang-en>COMPLETED</span></span>
 </div>
-<div class="cert-provider">@ Stanford University | Tem 2026 / Jul 2026</div>
+<div class="cert-provider">@ Stanford University | <span data-lang-tr>Temmuz 2026</span><span data-lang-en>July 2026</span></div>
 <div class="cert-desc">
 <span data-lang-tr>Yapay zeka, makine öğrenmesi, derin öğrenme ve modern AI teknikleri</span>
 <span data-lang-en>Artificial intelligence, machine learning, deep learning, and modern AI techniques</span>
@@ -419,7 +452,7 @@
 <span class="cert-title"><span data-lang-tr>Microsoft AI & ML Engineering Professional Certificate</span><span data-lang-en>Microsoft AI & ML Engineering Professional Certificate</span></span>
 <span class="cert-status"><span data-lang-tr>TAMAMLANDI</span><span data-lang-en>COMPLETED</span></span>
 </div>
-<div class="cert-provider">@ Microsoft | Mar 2026 / Mar 2026</div>
+<div class="cert-provider">@ Microsoft | <span data-lang-tr>Mart 2026</span><span data-lang-en>March 2026</span></div>
 <div class="cert-desc">
 <span data-lang-tr>Azure AI, makine öğrenmesi modelleri geliştirme ve dağıtma süreçleri</span>
 <span data-lang-en>Azure AI, machine learning model development and deployment processes</span>
@@ -437,7 +470,7 @@
 <span class="cert-title"><span data-lang-tr>Generative AI Software Engineering Specialization</span><span data-lang-en>Generative AI Software Engineering Specialization</span></span>
 <span class="cert-status"><span data-lang-tr>TAMAMLANDI</span><span data-lang-en>COMPLETED</span></span>
 </div>
-<div class="cert-provider">@ Vanderbilt University | Şub 2026 / Feb 2026</div>
+<div class="cert-provider">@ Vanderbilt University | <span data-lang-tr>Şubat 2026</span><span data-lang-en>February 2026</span></div>
 <div class="cert-desc">
 <span data-lang-tr>Üretken yapay zeka, prompt mühendisliği ve AI destekli yazılım geliştirme</span>
 <span data-lang-en>Generative AI, prompt engineering, and AI-assisted software development</span>
@@ -455,7 +488,7 @@
 <span class="cert-title"><span data-lang-tr>NVIDIA Developer Program Member</span><span data-lang-en>NVIDIA Developer Program Member</span></span>
 <span class="cert-status"><span data-lang-tr>TAMAMLANDI</span><span data-lang-en>COMPLETED</span></span>
 </div>
-<div class="cert-provider">@ NVIDIA | Şub 2026 / Feb 2026</div>
+<div class="cert-provider">@ NVIDIA | <span data-lang-tr>Şubat 2026</span><span data-lang-en>February 2026</span></div>
 <div class="cert-desc">
 <span data-lang-tr>Yazılım geliştirme, makine öğrenmesi ve GPU hızlandırmalı uygulamalar alanında NVIDIA ekosistemine erişim. CUDA, cuDNN ve AI/ML framework'leri üzerine geliştirme yetkinlikleri.</span>
 <span data-lang-en>Access to NVIDIA ecosystem for software development, machine learning, and GPU-accelerated applications. Development competencies in CUDA, cuDNN, and AI/ML frameworks.</span>
@@ -473,7 +506,7 @@
 <span class="cert-title"><span data-lang-tr>IBM and ISC2 Cybersecurity Specialist Professional Certificate</span><span data-lang-en>IBM and ISC2 Cybersecurity Specialist Professional Certificate</span></span>
 <span class="cert-status"><span data-lang-tr>TAMAMLANDI</span><span data-lang-en>COMPLETED</span></span>
 </div>
-<div class="cert-provider">@ IBM & ISC2 | Haz 2025 / Jun 2025</div>
+<div class="cert-provider">@ IBM & ISC2 | <span data-lang-tr>Haziran 2025</span><span data-lang-en>June 2025</span></div>
 <div class="cert-desc">
 <span data-lang-tr>Siber güvenlik temelleri, ağ güvenliği, tehdit istihbaratı ve olay müdahalesi</span>
 <span data-lang-en>Cybersecurity fundamentals, network security, threat intelligence, and incident response</span>
@@ -491,7 +524,7 @@
 <span class="cert-title"><span data-lang-tr>AWS Cloud Solutions Architect Professional Certificate</span><span data-lang-en>AWS Cloud Solutions Architect Professional Certificate</span></span>
 <span class="cert-status"><span data-lang-tr>TAMAMLANDI</span><span data-lang-en>COMPLETED</span></span>
 </div>
-<div class="cert-provider">@ AWS | Eki 2024 / Oct 2024</div>
+<div class="cert-provider">@ AWS | <span data-lang-tr>Ekim 2024</span><span data-lang-en>October 2024</span></div>
 <div class="cert-desc">
 <span data-lang-tr>Bulut mimarisi tasarımı, AWS servisleri, güvenlik ve ölçeklenebilir sistemler</span>
 <span data-lang-en>Cloud architecture design, AWS services, security, and scalable systems</span>
@@ -509,7 +542,7 @@
 <span class="cert-title"><span data-lang-tr>Meta iOS Developer Professional Certificate</span><span data-lang-en>Meta iOS Developer Professional Certificate</span></span>
 <span class="cert-status"><span data-lang-tr>TAMAMLANDI</span><span data-lang-en>COMPLETED</span></span>
 </div>
-<div class="cert-provider">@ Meta | Tem 2024 / Jul 2024</div>
+<div class="cert-provider">@ Meta | <span data-lang-tr>Temmuz 2024</span><span data-lang-en>July 2024</span></div>
 <div class="cert-desc">
 <span data-lang-tr>iOS uygulama geliştirme, Swift, UI tasarımı ve sürüm kontrolü</span>
 <span data-lang-en>iOS application development, Swift, UI design, and version control</span>
@@ -527,7 +560,7 @@
 <span class="cert-title"><span data-lang-tr>Google IT Support Professional Certificate</span><span data-lang-en>Google IT Support Professional Certificate</span></span>
 <span class="cert-status"><span data-lang-tr>TAMAMLANDI</span><span data-lang-en>COMPLETED</span></span>
 </div>
-<div class="cert-provider">@ Google | Haz 2024 / Jun 2024</div>
+<div class="cert-provider">@ Google | <span data-lang-tr>Haziran 2024</span><span data-lang-en>June 2024</span></div>
 <div class="cert-desc">
 <span data-lang-tr>IT destek temelleri, bilgisayar ağları, sistem yönetimi ve güvenlik</span>
 <span data-lang-en>IT support fundamentals, computer networking, systems administration, and security</span>
@@ -545,7 +578,7 @@
 <span class="cert-title"><span data-lang-tr>IBM DevOps ve Yazılım Mühendisliği Profesyonel Sertifikası</span><span data-lang-en>IBM DevOps and Software Engineering Professional Certificate</span></span>
 <span class="cert-status"><span data-lang-tr>TAMAMLANDI</span><span data-lang-en>COMPLETED</span></span>
 </div>
-<div class="cert-provider">@ IBM | Haz 2024 / Jun 2024</div>
+<div class="cert-provider">@ IBM | <span data-lang-tr>Haziran 2024</span><span data-lang-en>June 2024</span></div>
 <div class="cert-desc">
 <span data-lang-tr>DevOps prensipleri, Agile/Scrum, CI/CD, bulut bilişim mimarisi, Linux komutları, Git, konteyner tabanlı uygulama dağıtımı ve gözlemlenebilirlik (Grafana vb.)</span>
 <span data-lang-en>DevOps principles, Agile/Scrum, CI/CD, cloud computing architecture, Linux commands, Git, container-based application deployment and observability (Grafana, etc.)</span>
@@ -563,7 +596,7 @@
 <span class="cert-title"><span data-lang-tr>Akamai Ağ Mühendisliği Profesyonel Sertifikası</span><span data-lang-en>Akamai Network Engineering Professional Certificate</span></span>
 <span class="cert-status"><span data-lang-tr>TAMAMLANDI</span><span data-lang-en>COMPLETED</span></span>
 </div>
-<div class="cert-provider">@ Akamai Technologies | May 2024 / May 2024</div>
+<div class="cert-provider">@ Akamai Technologies | <span data-lang-tr>Mayıs 2024</span><span data-lang-en>May 2024</span></div>
 <div class="cert-desc">
 <span data-lang-tr>TCP/IP, routing, Linux ağ araçları, ağ güvenliği ve ağ operasyonları</span>
 <span data-lang-en>TCP/IP, routing, Linux network tools, network security and network operations</span>
@@ -1007,9 +1040,9 @@ traceroute to github.com/furkan-sarica (140.82.121.4), 30 hops max
   <div class="cert-modal-backdrop" onclick="closeCertModal()"></div>
   <div class="cert-modal-window">
     <div class="terminal-header">
-      <span class="t-btn t-btn-red" onclick="closeCertModal()" title="Close / Kapat"></span>
-      <span class="t-btn t-btn-yellow" onclick="toggleCertZoom()" title="Zoom / Yakınlaştır"></span>
-      <span class="t-btn t-btn-green" onclick="toggleCertFullscreen()" title="Fullscreen / Tam Ekran"></span>
+      <span class="t-btn t-btn-red" onclick="closeCertModal()" title="Kapat"></span>
+      <span class="t-btn t-btn-yellow" onclick="toggleCertZoom()" title="Yakınlaştır"></span>
+      <span class="t-btn t-btn-green" onclick="toggleCertFullscreen()" title="Tam Ekran"></span>
       <span class="terminal-title" id="cert-modal-title">view ~/certs/credential.jpg</span>
       <button class="cert-modal-close-btn" onclick="closeCertModal()" aria-label="Close">✕</button>
     </div>
@@ -1074,37 +1107,78 @@ traceroute to github.com/furkan-sarica (140.82.121.4), 30 hops max
 </div>
 
 <script>
+// Clean up any stale custom cursor elements or classes from browser cache immediately
+(function() {
+    var old = document.getElementById('terminal-cursor');
+    if (old) old.remove();
+    document.body.classList.remove('custom-cursor');
+})();
+
 // Language state
-let currentLang = 'tr';
+var currentLang = 'tr';
+
+function applyLang(lang) {
+    currentLang = lang;
+    document.body.classList.remove('lang-tr', 'lang-en');
+    document.body.classList.add('lang-' + currentLang);
+    document.documentElement.lang = currentLang;
+
+    // Update toggle button states
+    var trBtn = document.getElementById('lang-tr-btn');
+    var enBtn = document.getElementById('lang-en-btn');
+    if (trBtn) trBtn.classList.toggle('active', currentLang === 'tr');
+    if (enBtn) enBtn.classList.toggle('active', currentLang === 'en');
+
+    // Update toggle button tooltip
+    var langToggle = document.getElementById('lang-toggle-btn');
+    if (langToggle) langToggle.title = currentLang === 'tr' ? 'Dili Değiştir (EN)' : 'Switch Language (TR)';
+
+    // Update back-to-top button title
+    var btn = document.getElementById('backToTop');
+    if (btn) btn.title = currentLang === 'tr' ? 'Yukarı Çık' : 'Back to Top';
+
+    // Update sound button title
+    var muteBtn = document.getElementById('mute-btn');
+    if (muteBtn) {
+        var isMuted = muteBtn.textContent === '🔇';
+        muteBtn.title = isMuted 
+            ? (currentLang === 'tr' ? 'Sesi Aç' : 'Enable Sounds')
+            : (currentLang === 'tr' ? 'Sesi Kapat' : 'Mute Sounds');
+    }
+
+    // Modal button titles
+    var mClose = document.querySelector('#cert-modal .t-btn-red');
+    var mZoom = document.querySelector('#cert-modal .t-btn-yellow');
+    var mFull = document.querySelector('#cert-modal .t-btn-green');
+    if (mClose) mClose.title = currentLang === 'tr' ? 'Kapat' : 'Close';
+    if (mZoom) mZoom.title = currentLang === 'tr' ? 'Yakınlaştır' : 'Zoom';
+    if (mFull) mFull.title = currentLang === 'tr' ? 'Tam Ekran' : 'Fullscreen';
+
+    // Screen reader fix: set aria-hidden on inactive language elements
+    document.querySelectorAll('[data-lang-tr], [data-lang-tr-block], [data-lang-tr-grid], [data-lang-tr-li]').forEach(function(el) {
+        el.setAttribute('aria-hidden', currentLang === 'en' ? 'true' : 'false');
+    });
+    document.querySelectorAll('[data-lang-en], [data-lang-en-block], [data-lang-en-grid], [data-lang-en-li]').forEach(function(el) {
+        el.setAttribute('aria-hidden', currentLang === 'tr' ? 'true' : 'false');
+    });
+
+    try {
+        localStorage.setItem('preferredLang', currentLang);
+    } catch(e) {}
+}
 
 function toggleLang() {
-currentLang = currentLang === 'tr' ? 'en' : 'tr';
-document.body.classList.remove('lang-tr', 'lang-en');
-document.body.classList.add('lang-' + currentLang);
-document.documentElement.lang = currentLang;
-
-// Update toggle button
-document.getElementById('lang-tr-btn').classList.toggle('active', currentLang === 'tr');
-document.getElementById('lang-en-btn').classList.toggle('active', currentLang === 'en');
-
-// Update back-to-top button title
-const btn = document.getElementById('backToTop');
-if (btn) btn.title = currentLang === 'tr' ? 'Yukarı Çık' : 'Back to Top';
-
-// Screen reader fix: set aria-hidden on inactive language elements
-document.querySelectorAll('[data-lang-tr]').forEach(function(el) {
-    el.setAttribute('aria-hidden', currentLang === 'en' ? 'true' : 'false');
-});
-document.querySelectorAll('[data-lang-en]').forEach(function(el) {
-    el.setAttribute('aria-hidden', currentLang === 'tr' ? 'true' : 'false');
-});
-document.querySelectorAll('[data-lang-tr-block], [data-lang-tr-grid], [data-lang-tr-li]').forEach(function(el) {
-    el.setAttribute('aria-hidden', currentLang === 'en' ? 'true' : 'false');
-});
-document.querySelectorAll('[data-lang-en-block], [data-lang-en-grid], [data-lang-en-li]').forEach(function(el) {
-    el.setAttribute('aria-hidden', currentLang === 'tr' ? 'true' : 'false');
-});
+    var nextLang = currentLang === 'tr' ? 'en' : 'tr';
+    applyLang(nextLang);
 }
+
+// Initialize preferred language from storage if present
+try {
+    var savedLang = localStorage.getItem('preferredLang');
+    if (savedLang === 'en' || savedLang === 'tr') {
+        applyLang(savedLang);
+    }
+} catch(e) {}
 
 // Typing effect for hero
 document.addEventListener('DOMContentLoaded', () => {
@@ -2651,7 +2725,9 @@ runBootSequence();
         muteBtn.addEventListener('click', function () {
             soundEnabled = !soundEnabled;
             muteBtn.textContent = soundEnabled ? '🔊' : '🔇';
-            muteBtn.title = soundEnabled ? 'Mute sounds / Sesi kapat' : 'Enable sounds / Sesi aç';
+            muteBtn.title = soundEnabled 
+                ? (currentLang === 'tr' ? 'Sesi Kapat' : 'Mute Sounds') 
+                : (currentLang === 'tr' ? 'Sesi Aç' : 'Enable Sounds');
         });
     }
 }());
