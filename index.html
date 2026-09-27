@@ -520,87 +520,76 @@
 <p class="section-subtitle">tree ~/projects/</p>
 </div>
 
-<!-- Project 0: Tracefold -->
 <div class="project-card reveal reveal-delay-0">
 <div class="project-header">
-<div class="project-title"><span data-lang-tr>Tracefold: Yerel RAG Asistanı</span><span data-lang-en>Tracefold: Privacy-First Local RAG Assistant</span></div>
+<div class="project-title"><span data-lang-tr>Tracefold: Gizlilik Odaklı Yerel RAG Asistanı</span><span data-lang-en>Tracefold: Privacy-First Local RAG Assistant</span></div>
 <div class="project-tag"><span data-lang-tr>Microsoft AI Innovators Projesi | AI | RAG | Microsoft Foundry Local</span><span data-lang-en>Microsoft AI Innovators Project | AI | RAG | Microsoft Foundry Local</span></div>
 </div>
 <div class="project-body">
 <ul data-lang-tr-block>
-<li>Microsoft Foundry Local tarafından desteklenen, tamamen yerel, gizlilik odaklı RAG asistanı Tracefold'u tasarladım ve geliştirdim.</li>
-<li>Yerel yerleştirmeler, LLM çıkarımı ve SQLite tabanlı vektör depolama ile uçtan uca bir RAG veri hattı mühendisliğini yaptım.</li>
-<li>Atıf doğrulama sistemine sahip kontrollü İngilizce-Türkçe çift dilli sistem mimarisini kurdum.</li>
-<li>Doğrulanmış çift dilli değerlendirme paketinde 24/24 başarılı senaryo sonucuna ulaştım.</li>
+<li>Microsoft Foundry Local ile çalışan, tamamen yerel ve gizlilik öncelikli doküman zekâsı asistanı geliştirdim.</li>
+<li>Yerel embedding (Qwen3), LLM çıkarımı (Qwen2.5) ve SQLite tabanlı Float32 vektör depolamayla uçtan uca RAG mimarisi kurdum.</li>
+<li>Kaynak atıf doğrulaması, yerel OPUS-MT TR↔EN çeviri katmanı ve deterministik güvenli ret mekanizmaları tasarladım.</li>
+<li>Doğrulanmış çift dilli test paketinde 24/24 başarılı senaryo sonucuna ulaşarak tam kaynak tutarlılığı sağladım.</li>
 </ul>
 <ul data-lang-en-block>
 <li>Designed and developed Tracefold, a privacy-first, fully local RAG assistant powered by Microsoft Foundry Local.</li>
-<li>Engineered an end-to-end RAG pipeline with local embeddings, LLM inference, and SQLite-based vector storage.</li>
-<li>Built a controlled English–Turkish bilingual pipeline with citation validation.</li>
-<li>Achieved 24/24 successful cases in the verified bilingual evaluation suite.</li>
+<li>Engineered an end-to-end RAG pipeline with local embeddings (Qwen3), LLM inference (Qwen2.5), and SQLite Float32 vector storage.</li>
+<li>Built a controlled English–Turkish bilingual pipeline with offline translation (OPUS-MT), citation validation, and safe-refusal mechanisms.</li>
+<li>Achieved 24/24 successful cases in the verified bilingual evaluation suite with reproducible quality reporting.</li>
 </ul>
 </div>
 <div class="project-tech">
-<span>Microsoft Foundry Local</span><span>Python</span><span>SQLite</span><span>RAG</span><span>Embeddings</span><span>LLM</span>
+<span>Microsoft Foundry Local</span><span>FastAPI</span><span>Python</span><span>SQLite</span><span>RAG</span><span>Embeddings</span><span>LLM</span>
+</div>
+<div class="artifact-links">
+  <a href="https://github.com/furkan-sarica/tracefold" class="artifact-btn" target="_blank" rel="noopener">🔗 GitHub: furkan-sarica/tracefold</a>
 </div>
 </div>
 
 <!-- Project: Roadmind -->
 <div class="project-card reveal reveal-delay-1">
 <div class="project-header">
-<div class="project-title"><span data-lang-tr>Roadmind</span><span data-lang-en>Roadmind</span></div>
-<div class="project-tag"><span data-lang-tr>AI | Kodlama Ajanları | Prompt Engineering</span><span data-lang-en>AI | Coding Agents | Prompt Engineering</span></div>
+<div class="project-title"><span data-lang-tr>Roadmind: Kodlama Ajanları İçin AI Prompt Stüdyosu</span><span data-lang-en>Roadmind: AI Project Prompt Studio for Coding Agents</span></div>
+<div class="project-tag"><span data-lang-tr>Kişisel Proje | AI | Kodlama Ajanları | Prompt Engineering</span><span data-lang-en>Personal Project | AI | Coding Agents | Prompt Engineering</span></div>
 </div>
 <div class="project-body">
 <ul data-lang-tr-block>
-<li>Kodlama ajanları için AI Proje Prompt Stüdyosu.</li>
-<li>Geliştirici üretkenliğini ve ajanlar ile olan etkileşimi artırmak için tasarlandı.</li>
+<li>Kodlama ajanları için yapılandırılmış prompt üretimi ve mimari planlama sağlayan full-stack stüdyo geliştirdim.</li>
+<li>Ollama ile yerel model çıkarımını ve NVIDIA NIM API'leri ile hızlandırılmış bulut modellerini entegre ettim.</li>
+<li>Prompt şablon versiyonlaması, şema doğrulaması ve çoklu model kıyaslama iş akışları oluşturdum.</li>
 </ul>
 <ul data-lang-en-block>
-<li>AI Project Prompt Studio for Coding Agents.</li>
-<li>Designed to enhance developer productivity and interaction with coding agents.</li>
+<li>Engineered a full-stack studio for structured AI coding agent prompts and architectural project planning.</li>
+<li>Integrated local LLM inference via Ollama alongside accelerated cloud models through NVIDIA NIM APIs.</li>
+<li>Built prompt template versioning, schema validation, and multi-model benchmark workflows.</li>
 </ul>
 </div>
 <div class="project-tech">
-<span>AI</span><span>Prompt Engineering</span><span>Coding Agents</span>
+<span>React</span><span>TypeScript</span><span>Vite</span><span>Express.js</span><span>Prisma</span><span>SQLite</span><span>NVIDIA NIM</span><span>Ollama</span>
 </div>
 </div>
 
-<!-- Project: vCalendar -->
+<!-- Project: SAP Business One AI Platform -->
 <div class="project-card reveal reveal-delay-2">
 <div class="project-header">
-<div class="project-title"><span data-lang-tr>vCalendar (Planlanan)</span><span data-lang-en>vCalendar (Planned)</span></div>
-<div class="project-tag"><span data-lang-tr>AI | Verimlilik</span><span data-lang-en>AI | Productivity</span></div>
+<div class="project-title"><span data-lang-tr>AI Destekli SAP Business One Ajan Platformu</span><span data-lang-en>AI-Powered SAP Business One Agent Platform</span></div>
+<div class="project-tag"><span data-lang-tr>Kurumsal Proje | SAP B1 | AI Ajanları | ERP Otomasyonu</span><span data-lang-en>Enterprise Project | SAP B1 | AI Agents | ERP Automation</span></div>
 </div>
 <div class="project-body">
 <ul data-lang-tr-block>
-<li>Yapay Zeka Destekli Takvim ve Verimlilik Asistanı.</li>
+<li>SAP Business One Service Layer ile entegre Flask bileşenleri geliştirerek 58+ nesne tipini yerel SQLite önbelleğe eşitledim.</li>
+<li>Deterministik doğrulama ve onay mekanizmalı 53 yapay zekâ asistanı iş akışı tasarladım.</li>
+<li>Paralel worker veri çekme, katmanlı TTL önbellekleme ve ETag tabanlı optimistik eşzamanlılık uyguladım.</li>
 </ul>
 <ul data-lang-en-block>
-<li>AI-Powered Calendar & Productivity Assistant.</li>
+<li>Engineered Flask-based Service Layer integration synchronizing 58+ SAP Business One entity types into a local SQLite cache.</li>
+<li>Implemented 53 AI assistant workflows featuring deterministic-first validation and approval-based SAP write operations.</li>
+<li>Designed parallel multi-worker data fetching, tiered TTL caching, and ETag-based optimistic concurrency.</li>
 </ul>
 </div>
 <div class="project-tech">
-<span>AI</span><span>Productivity</span><span>Scheduling</span>
-</div>
-</div>
-
-<!-- Project: vHealth -->
-<div class="project-card reveal reveal-delay-0">
-<div class="project-header">
-<div class="project-title"><span data-lang-tr>vHealth (Planlanan)</span><span data-lang-en>vHealth (Planned)</span></div>
-<div class="project-tag"><span data-lang-tr>AI | Sağlık</span><span data-lang-en>AI | Health</span></div>
-</div>
-<div class="project-body">
-<ul data-lang-tr-block>
-<li>Yapay Zeka Destekli Kişisel Sağlık Asistanı.</li>
-</ul>
-<ul data-lang-en-block>
-<li>AI-Powered Personal Health Assistant.</li>
-</ul>
-</div>
-<div class="project-tech">
-<span>AI</span><span>Health</span><span>Personal Assistant</span>
+<span>SAP Business One</span><span>Python</span><span>Flask</span><span>SQLite</span><span>AI Agents</span><span>REST APIs</span><span>ERP Automation</span>
 </div>
 </div>
 
