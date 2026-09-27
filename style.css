@@ -2476,3 +2476,166 @@ body.crt-active::before {
     animation-delay: calc(var(--char-index) * 0.1s);
 }
 
+/* ===== Certificate Preview Modal & Actions ===== */
+.cert-actions {
+    margin-top: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.cert-view-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    color: var(--terminal-green);
+    background: rgba(0, 255, 136, 0.06);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none;
+}
+
+.cert-view-btn:hover {
+    background: rgba(0, 255, 136, 0.18);
+    border-color: var(--terminal-green);
+    box-shadow: 0 0 14px rgba(0, 255, 136, 0.28);
+    transform: translateY(-2px);
+    color: #ffffff;
+}
+
+#cert-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100005;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+    padding: 1.5rem;
+}
+
+#cert-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cert-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 7, 10, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.cert-modal-window {
+    position: relative;
+    z-index: 1;
+    max-width: 920px;
+    width: 100%;
+    max-height: 90vh;
+    background: var(--bg-card);
+    border: 1px solid var(--terminal-green);
+    border-radius: 8px;
+    box-shadow: 0 0 35px rgba(0, 255, 136, 0.22), 0 20px 50px rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0.94);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#cert-modal.active .cert-modal-window {
+    transform: scale(1);
+}
+
+.cert-modal-window .terminal-header {
+    background: #0d1117;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.cert-modal-close-btn {
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    transition: color 0.2s ease;
+}
+
+.cert-modal-close-btn:hover {
+    color: var(--terminal-red);
+}
+
+.cert-modal-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 0, 0, 0.45);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.cert-modal-status {
+    color: var(--terminal-green);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.cert-toolbar-btn {
+    color: var(--accent-cyan);
+    text-decoration: none;
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    background: rgba(0, 212, 255, 0.08);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    transition: all 0.2s ease;
+}
+
+.cert-toolbar-btn:hover {
+    background: rgba(0, 212, 255, 0.22);
+    color: #fff;
+}
+
+.cert-modal-body {
+    padding: 1rem;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #07090d;
+}
+
+.cert-modal-image {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: transform 0.3s ease;
+    cursor: zoom-in;
+}
+
+.cert-modal-image.zoomed {
+    transform: scale(1.35);
+    cursor: zoom-out;
+}
+
