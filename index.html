@@ -142,6 +142,24 @@
 
 </header>
 
+<!-- Floating Cyber Dock / Pill Navigation (Reveals on scroll) -->
+<nav class="floating-nav" id="floating-nav" aria-label="Hızlı Bölüm Navigasyonu">
+  <div class="floating-nav-pill">
+    <a href="#about" class="fnav-link" data-section="about">./about</a>
+    <a href="#experience" class="fnav-link" data-section="experience">./exp</a>
+    <a href="#certificates" class="fnav-link" data-section="certificates">./certs</a>
+    <a href="#projects" class="fnav-link" data-section="projects">./projects</a>
+    <a href="#contact" class="fnav-link" data-section="contact">./contact</a>
+    <span class="fnav-divider" aria-hidden="true"></span>
+    <button type="button" class="fnav-cmd-btn" onclick="openCmdPalette()" title="Komut Paleti (⌘K / Ctrl+K)" aria-label="Open Command Palette">
+      <span class="fnav-kbd">⌘K</span>
+    </button>
+    <button type="button" class="fnav-top-btn" onclick="window.scrollToTop()" title="Yukarı Çık" aria-label="Scroll to top">
+      <span class="fnav-top-arrow">↑</span>
+    </button>
+  </div>
+</nav>
+
 <main>
 <!-- About Section -->
 <section id="about">
@@ -179,7 +197,7 @@
         <code class="keyword">return</code> <span class="string">"Production-focused AI solutions"</span></pre>
 </div>
 
-<p style="color: var(--text-secondary); margin-top: 1.5rem; font-size: 0.9rem;">
+<p class="about-bio" style="color: var(--text-secondary); margin-top: 1.5rem; font-size: 0.9rem;">
 <span data-lang-tr>Yönetim Bilişim Sistemleri mezunu olarak yapay zeka ajanları, RAG, LLM uygulamaları, kurumsal entegrasyonlar ve arka uç sistemleri üzerinden üretime odaklı yapay zeka çözümleri geliştiriyorum. Uygulamalı yapay zeka, kurumsal yazılım, DevOps ve altyapı alanlarındaki tecrübem; geçmiş Microsoft deneyimimi ve Python, FastAPI, Docker, Kubernetes ile SAP Business One üzerindeki pratik çalışmalarımı kapsıyor. Stanford, IBM, Akamai ve NVIDIA gibi kurumlardan aldığım eğitim ve sertifikalarla teknik altyapımı genişlettim. Odak noktam basit: sadece etkileyici demolar değil, gerçek iş problemlerini çözen güvenilir yapay zeka sistemleri inşa etmek.</span>
 <span data-lang-en>I build production-focused AI solutions across AI agents, RAG, LLM applications, enterprise integrations, and backend systems. My experience spans applied AI, enterprise software, DevOps, and infrastructure, including previous experience at Microsoft and hands-on work with Python, FastAPI, Docker, Kubernetes, and SAP Business One. I hold a degree in Management Information Systems and have expanded my technical background through programs and certifications from Stanford, IBM, Akamai Technologies, and NVIDIA. My focus is simple: building reliable AI systems that solve real business problems, not just impressive demos.</span>
 </p>
@@ -1063,6 +1081,17 @@ traceroute to github.com/furkan-sarica (140.82.121.4), 30 hops max
       <div id="cli-input-line">
         <span id="cli-prompt">furkan@devops:~$</span>
         <input type="text" id="cli-input" autocomplete="off" spellcheck="false" aria-label="Terminal input">
+      </div>
+      <div class="cli-quick-chips" aria-label="Hızlı Terminal Komutları">
+        <span class="cli-chip-label" data-lang-tr>Hızlı Çalıştır:</span>
+        <span class="cli-chip-label" data-lang-en>Quick Runs:</span>
+        <button type="button" class="cli-chip" onclick="runCliQuick('neofetch')">neofetch</button>
+        <button type="button" class="cli-chip" onclick="runCliQuick('help')">help</button>
+        <button type="button" class="cli-chip" onclick="runCliQuick('tracefold')">tracefold</button>
+        <button type="button" class="cli-chip" onclick="runCliQuick('vitonom')">vitonom</button>
+        <button type="button" class="cli-chip" onclick="runCliQuick('cmatrix')">cmatrix</button>
+        <button type="button" class="cli-chip" onclick="runCliQuick('theme cyberpunk')">cyberpunk</button>
+        <button type="button" class="cli-chip" onclick="runCliQuick('clear')">clear</button>
       </div>
     </div>
   </div>
@@ -2742,7 +2771,21 @@ runBootSequence();
         }
         if (cmdHandled) invalidCount = 0;
     });
+
+    window.executeCliCmd = function(cmd) {
+        if (!cmd) return;
+        input.value = cmd;
+        var enterEvt = new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', which: 13, keyCode: 13, bubbles: true });
+        input.dispatchEvent(enterEvt);
+    };
 }());
+
+window.runCliQuick = function(cmd) {
+    if (typeof playClick === 'function') playClick();
+    if (window.executeCliCmd) {
+        window.executeCliCmd(cmd);
+    }
+};
 
 // ===== Feature: Live Server Metrics =====
 (function () {
@@ -4179,6 +4222,60 @@ document.addEventListener('keydown', function(e) {
         }
     });
 }());
+
+// ===== 10/10 Polish: Floating Cyber Pill Navigation Controller =====
+(function () {
+    var nav = document.getElementById('floating-nav');
+    if (!nav) return;
+    
+    var links = nav.querySelectorAll('.fnav-link');
+    var sections = ['about', 'experience', 'certificates', 'projects', 'contact'];
+    
+    function onScroll() {
+        var scrollY = window.scrollY;
+        if (scrollY > 380) {
+            nav.classList.add('visible');
+        } else {
+            nav.classList.remove('visible');
+        }
+        
+        var scrollMiddle = scrollY + window.innerHeight * 0.35;
+        var current = '';
+        for (var i = 0; i < sections.length; i++) {
+            var el = document.getElementById(sections[i]);
+            if (el) {
+                var top = el.offsetTop;
+                var height = el.offsetHeight;
+                if (scrollMiddle >= top && scrollMiddle < top + height) {
+                    current = sections[i];
+                    break;
+                }
+            }
+        }
+        
+        links.forEach(function (l) {
+            if (l.getAttribute('data-section') === current) {
+                l.classList.add('active');
+            } else {
+                l.classList.remove('active');
+            }
+        });
+    }
+    
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    
+    links.forEach(function (l) {
+        l.addEventListener('click', function () {
+            if (typeof playClick === 'function') playClick();
+        });
+    });
+}());
+
+window.scrollToTop = function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (typeof playClick === 'function') playClick();
+};
 </script>
 
 </body>
