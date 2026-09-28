@@ -29,7 +29,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Furkan SARICA">
-<link rel="stylesheet" href="style.css?v=20260928-7">
+<link rel="stylesheet" href="style.css?v=20260928-8">
 <link rel="preload" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"></noscript>
 <!-- Structured Data: Person Schema -->
@@ -1128,12 +1128,11 @@ traceroute to github.com/furkan-sarica (140.82.121.4), 30 hops max
 <!-- Vitonom AI Terminal Shell Modal -->
 <div id="ai-chat-overlay" role="dialog" aria-modal="true" aria-label="Vitonom AI Terminal Shell" aria-hidden="true">
   <div class="terminal-window ai-terminal-window">
-    <div class="terminal-header">
-      <span class="t-btn t-btn-red" onclick="closeAIChat()" title="Kapat (ESC)"></span>
-      <span class="t-btn t-btn-yellow" onclick="closeAIChat()" title="Simge Durumuna"></span>
-      <span class="t-btn t-btn-green" onclick="closeAIChat()" title="Kapat"></span>
+    <div class="terminal-header" onclick="handleAiHeaderClick(event)">
+      <span class="t-btn t-btn-red" onclick="event.stopPropagation(); closeAIChat()" title="Kapat (ESC)"></span>
+      <span class="t-btn t-btn-yellow" onclick="event.stopPropagation(); minimizeAIChat()" title="Simge Durumuna Küçült"></span>
+      <span class="t-btn t-btn-green" onclick="event.stopPropagation(); toggleMaximizeAIChat()" title="Tam Ekran"></span>
       <span class="terminal-title">guest@furkan-sarica:~$ vitonom-cli --interactive</span>
-      <span class="ai-term-esc" onclick="closeAIChat()" title="Kapat">[ESC / :q]</span>
     </div>
 
     <!-- Terminal Screen Body -->
@@ -3650,6 +3649,7 @@ function stopMatrixRain() {
 
     function openAIChat() {
         if (!overlay) return;
+        overlay.classList.remove('is-minimized');
         overlay.classList.add('active');
         overlay.setAttribute('aria-hidden', 'false');
         if (input) {
@@ -3661,7 +3661,48 @@ function stopMatrixRain() {
     function closeAIChat() {
         if (!overlay) return;
         overlay.classList.remove('active');
+        overlay.classList.remove('is-minimized');
+        var win = overlay.querySelector('.ai-terminal-window');
+        if (win) win.classList.remove('is-maximized');
         overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    function minimizeAIChat() {
+        if (!overlay) return;
+        var isMin = overlay.classList.toggle('is-minimized');
+        var yellowBtn = overlay.querySelector('.t-btn-yellow');
+        if (yellowBtn) {
+            yellowBtn.title = isMin
+                ? (currentLang === 'tr' ? 'Geri Yükle' : 'Restore')
+                : (currentLang === 'tr' ? 'Simge Durumuna Küçült' : 'Minimize');
+        }
+        if (!isMin) {
+            if (input) setTimeout(function() { input.focus(); }, 100);
+            scrollTerminalToBottom();
+        }
+    }
+
+    function toggleMaximizeAIChat() {
+        if (!overlay) return;
+        if (overlay.classList.contains('is-minimized')) {
+            overlay.classList.remove('is-minimized');
+        }
+        var win = overlay.querySelector('.ai-terminal-window');
+        if (!win) return;
+        var isMax = win.classList.toggle('is-maximized');
+        var greenBtn = win.querySelector('.t-btn-green');
+        if (greenBtn) {
+            greenBtn.title = isMax
+                ? (currentLang === 'tr' ? 'Önceki Boyut' : 'Restore')
+                : (currentLang === 'tr' ? 'Tam Ekran' : 'Fullscreen');
+        }
+        scrollTerminalToBottom();
+    }
+
+    function handleAiHeaderClick(e) {
+        if (overlay && overlay.classList.contains('is-minimized')) {
+            minimizeAIChat();
+        }
     }
 
     function scrollTerminalToBottom() {
@@ -4091,6 +4132,9 @@ function stopMatrixRain() {
 
     window.openAIChat = openAIChat;
     window.closeAIChat = closeAIChat;
+    window.minimizeAIChat = minimizeAIChat;
+    window.toggleMaximizeAIChat = toggleMaximizeAIChat;
+    window.handleAiHeaderClick = handleAiHeaderClick;
     window.runAiQuick = runAiQuick;
     window.handleAiTerminalSubmit = handleAiTerminalSubmit;
     window.openCmdPalette = openAIChat;

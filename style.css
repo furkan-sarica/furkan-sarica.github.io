@@ -2037,6 +2037,64 @@ body.glitch-mode {
     overflow: hidden;
     font-family: 'JetBrains Mono', monospace;
     animation: ai-modal-pop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: max-width 0.22s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.22s cubic-bezier(0.16, 1, 0.3, 1), width 0.22s ease, height 0.22s ease;
+}
+
+/* Maximized Fullscreen AI Terminal */
+.ai-terminal-window.is-maximized {
+    max-width: 96vw;
+    width: 96vw;
+    height: 94vh;
+    max-height: 94vh;
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 45px rgba(0, 212, 255, 0.25), 0 25px 60px rgba(0, 0, 0, 0.95);
+}
+
+/* Minimized Floating Dock Mode */
+#ai-chat-overlay.is-minimized {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    pointer-events: none;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 1.25rem;
+}
+
+#ai-chat-overlay.is-minimized .ai-terminal-window {
+    pointer-events: auto;
+    width: 320px;
+    max-width: calc(100vw - 2.5rem);
+    height: 42px;
+    max-height: 42px;
+    border-color: var(--accent-cyan);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.85), 0 0 15px rgba(0, 212, 255, 0.3);
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+#ai-chat-overlay.is-minimized .ai-terminal-window:hover {
+    border-color: var(--terminal-green);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 255, 136, 0.4);
+    transform: translateY(-2px);
+}
+
+#ai-chat-overlay.is-minimized .ai-terminal-window .terminal-header {
+    height: 100%;
+    padding: 0.5rem 0.85rem;
+}
+
+#ai-chat-overlay.is-minimized .ai-terminal-body,
+#ai-chat-overlay.is-minimized .cli-quick-chips,
+#ai-chat-overlay.is-minimized .ai-term-input-form {
+    display: none !important;
+}
+
+#ai-chat-overlay.is-minimized .terminal-title::after {
+    content: " [minimized]";
+    color: var(--accent-cyan);
+    font-size: 0.7rem;
+    font-weight: 500;
 }
 
 @keyframes ai-modal-pop {
@@ -2052,6 +2110,7 @@ body.glitch-mode {
     align-items: center;
     gap: 0.6rem;
     user-select: none;
+    cursor: default;
 }
 
 .ai-terminal-window .terminal-title {
@@ -2061,17 +2120,6 @@ body.glitch-mode {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-
-.ai-term-esc {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: color 0.15s ease;
-}
-
-.ai-term-esc:hover {
-    color: #ff5555;
 }
 
 /* Terminal Body Screen */
