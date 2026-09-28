@@ -1450,14 +1450,24 @@ function runBootSequence() {
         } else {
             setTimeout(function () {
                 screen.style.opacity = '0';
+                screen.classList.add('fade-out');
                 setTimeout(function () {
                     screen.style.display = 'none';
-                }, 500);
-            }, 400);
+                }, 400);
+            }, 300);
         }
     }
 
     printNext();
+
+    // Absolute failsafe: dismiss boot screen after 2.2s no matter what
+    setTimeout(function () {
+        if (screen && screen.style.display !== 'none') {
+            screen.style.opacity = '0';
+            screen.classList.add('fade-out');
+            setTimeout(function () { screen.style.display = 'none'; }, 300);
+        }
+    }, 2200);
 }
 
 runBootSequence();
@@ -4201,6 +4211,7 @@ document.addEventListener('keydown', function(e) {
             }
         }
     });
+}());
 </script>
 
 </body>
