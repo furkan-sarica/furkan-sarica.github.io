@@ -5,3 +5,17 @@
 node_modules/
 dist/
 .cache/
+
+# Sensitive environment, keys and credentials (DevSecOps)
+.env
+.env.*
+*.env
+*.pem
+*.key
+*.cert
+*.id_rsa
+*.id_ed25519
+*.secret
+*.token
+credentials.json
+secrets/
