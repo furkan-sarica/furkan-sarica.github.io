@@ -93,18 +93,16 @@
   <div id="boot-log"></div>
 </div>
 
-<!-- Language Toggle -->
-<button class="lang-toggle" onclick="toggleLang()" id="lang-toggle-btn" title="Dil Değiştir" aria-label="Toggle language">
-<span class="lang-option active" id="lang-tr-btn">TR</span>
-<span class="lang-separator">/</span>
-<span class="lang-option" id="lang-en-btn">EN</span>
-</button>
-
-<!-- Command Palette Quick Trigger -->
-<button class="cmd-k-trigger" id="cmd-k-btn" title="Komut Paleti (Cmd+K / Ctrl+K)" onclick="openCmdPalette()">⌘K CLI</button>
-
-<!-- Sound Toggle -->
-<button class="mute-toggle" id="mute-btn" title="Sesi Aç" aria-label="Toggle sound">🔇</button>
+<!-- Top Controls Bar -->
+<div class="top-bar-controls" id="top-bar-controls">
+  <button class="cmd-k-trigger" id="cmd-k-btn" title="Komut Paleti (Cmd+K / Ctrl+K)" onclick="openCmdPalette()">⌘K CLI</button>
+  <button class="mute-toggle" id="mute-btn" title="Sesi Aç" aria-label="Toggle sound">🔇</button>
+  <button class="lang-toggle" onclick="toggleLang()" id="lang-toggle-btn" title="Dil Değiştir" aria-label="Toggle language">
+    <span class="lang-option active" id="lang-tr-btn">TR</span>
+    <span class="lang-separator">/</span>
+    <span class="lang-option" id="lang-en-btn">EN</span>
+  </button>
+</div>
 
 <!-- Hero Section -->
 <header class="hero">
