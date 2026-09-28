@@ -3638,15 +3638,6 @@ function stopMatrixRain() {
     var body = document.getElementById('ai-term-body');
     var isExecuting = false;
 
-    // Secure runtime key retrieval (obfuscated, no plaintext secret in repo)
-    function _getNvidiaKey() {
-        try {
-            var _raw = "==wXadUN5xUTOpmVFZDUlhmQrllWFdGOx1mZud1YHpVTP5mMSl1RtoENjJUMtIHa4hEUwJzNxkDb1dVV1YEe3dWWtkGchZnb";
-            return atob(_raw.split("").reverse().join(""));
-        } catch (e) {
-            return null;
-        }
-    }
 
     function openAIChat() {
         if (!overlay) return;
