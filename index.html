@@ -9,16 +9,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <meta property="og:title" content="Furkan SARICA | AI Solutions Engineer">
-<meta property="og:description" content="Kurumsal sistemler, DevOps/bulut altyapıları ve AI destekli iş uygulamaları üzerine çalışmalar.">
-<meta property="og:image" content="https://furkan-sarica.github.io/Fufuizm.PNG">
+<meta property="og:description" content="AI Solutions Engineer @ CloudSpark | Kurumsal AI, RAG & LLM Uygulamaları, Enterprise DevOps.">
+<meta property="og:image" content="https://furkan-sarica.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:url" content="https://furkan-sarica.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://furkan-sarica.github.io/Fufuizm.PNG">
+<meta name="twitter:image" content="https://furkan-sarica.github.io/og-image.png">
 <meta name="twitter:title" content="Furkan SARICA | AI Solutions Engineer">
-<meta name="twitter:description" content="Kurumsal sistemler, DevOps/bulut altyapıları ve AI destekli iş uygulamaları üzerine çalışmalar.">
+<meta name="twitter:description" content="AI Solutions Engineer @ CloudSpark | Enterprise AI, RAG & LLM Applications, Enterprise DevOps.">
 <link rel="canonical" href="https://furkan-sarica.github.io/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
 <meta name="theme-color" content="#0a0c10">
@@ -27,8 +29,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Furkan SARICA">
-<link rel="stylesheet" href="style.css?v=20260927-4">
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+<link rel="stylesheet" href="style.css?v=20260928-1">
+<link rel="preload" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"></noscript>
 <!-- Structured Data: Person Schema -->
 <script type="application/ld+json">
 {
@@ -97,6 +100,9 @@
 <span class="lang-option" id="lang-en-btn">EN</span>
 </button>
 
+<!-- Command Palette Quick Trigger -->
+<button class="cmd-k-trigger" id="cmd-k-btn" title="Komut Paleti (Cmd+K / Ctrl+K)" onclick="openCmdPalette()">⌘K CLI</button>
+
 <!-- Sound Toggle -->
 <button class="mute-toggle" id="mute-btn" title="Sesi Aç" aria-label="Toggle sound">🔇</button>
 
@@ -146,7 +152,10 @@
 
 <div class="about-grid">
 <div class="about-image">
-<img src="Fufuizm.PNG" alt="Furkan SARICA - AI Destekli Kurumsal Yazılım, ERP ve Altyapı Otomasyonu Geliştiricisi Portfolyo Fotoğrafı" class="about-avatar">
+<picture>
+  <source srcset="Fufuizm.webp" type="image/webp">
+  <img src="Fufuizm.PNG" alt="Furkan SARICA - AI Solutions Engineer" class="about-avatar" width="140" height="140" loading="lazy" decoding="async">
+</picture>
 </div>
 <div class="about-text">
 <div class="terminal-window" data-win-title="~/profile.md">
@@ -268,6 +277,7 @@
 </div>
 </div>
 
+</div>
 </div>
 </section>
 
@@ -637,6 +647,31 @@
 <li>Achieved 24/24 successful cases in the verified bilingual evaluation suite with reproducible quality reporting.</li>
 </ul>
 </div>
+<div class="tracefold-arch-flow" aria-label="Tracefold RAG Pipeline Architecture">
+  <div class="arch-step">
+    <span class="step-num">01 INGEST</span>
+    <span class="step-title">Local Ingest</span>
+    <span class="step-desc">Offline Parser (PDF, MD, TXT)</span>
+  </div>
+  <div class="arch-arrow">→</div>
+  <div class="arch-step">
+    <span class="step-num">02 EMBED</span>
+    <span class="step-title">Foundry Embed</span>
+    <span class="step-desc">Qwen3 · SQLite Float32</span>
+  </div>
+  <div class="arch-arrow">→</div>
+  <div class="arch-step">
+    <span class="step-num">03 RETRIEVE</span>
+    <span class="step-title">Cosine Match</span>
+    <span class="step-desc">Top-K Grounded Chunks</span>
+  </div>
+  <div class="arch-arrow">→</div>
+  <div class="arch-step highlight-step">
+    <span class="step-num">04 VERIFY</span>
+    <span class="step-title">Guardrail Pass</span>
+    <span class="step-desc">24/24 Bilingual Pass Rate</span>
+  </div>
+</div>
 <div class="project-tech">
 <span>Microsoft Foundry Local</span><span>FastAPI</span><span>Python</span><span>SQLite</span><span>RAG</span><span>Embeddings</span><span>LLM</span>
 </div>
@@ -986,7 +1021,21 @@ traceroute to github.com/furkan-sarica (140.82.121.4), 30 hops max
 </a>
 </div>
 
-<p style="margin-top: 3rem; color: var(--text-muted); font-size: 0.85rem;">
+<div class="curl-box" id="curl-card-box">
+  <div>
+    <div style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.35rem;">
+      <span data-lang-tr>⚡ Terminalden doğrudan dijital kartvizit çek:</span>
+      <span data-lang-en>⚡ Fetch digital business card directly from terminal:</span>
+    </div>
+    <div class="curl-cmd">curl -s https://furkan-sarica.github.io/api.json | jq .</div>
+  </div>
+  <button class="curl-copy-btn" onclick="copyCurlCmd(this)" title="Kopyala">
+    <span data-lang-tr>Kopyala</span>
+    <span data-lang-en>Copy</span>
+  </button>
+</div>
+
+<p style="margin-top: 2rem; color: var(--text-muted); font-size: 0.85rem;">
 <span data-lang-tr><span style="color: var(--accent-cyan);">DİL:</span> TR (Anadil) | EN (B1)</span><span data-lang-en><span style="color: var(--accent-cyan);">LANG:</span> TR (Native) | EN (B1)</span>
 </p>
 </section>
@@ -1048,6 +1097,11 @@ traceroute to github.com/furkan-sarica (140.82.121.4), 30 hops max
     </div>
     <div class="cert-modal-toolbar">
       <span class="cert-modal-status">● VERIFIED_CREDENTIAL [200 OK]</span>
+      <div class="cert-modal-nav">
+        <button class="cert-nav-btn" onclick="navCert(-1)" title="Önceki (←)">◀</button>
+        <span class="cert-counter" id="cert-modal-counter">1 / 10</span>
+        <button class="cert-nav-btn" onclick="navCert(1)" title="Sonraki (→)">▶</button>
+      </div>
       <a id="cert-modal-download" href="#" target="_blank" rel="noopener" class="cert-toolbar-btn">
         <span data-lang-tr>Tam Boyut Aç ↗</span>
         <span data-lang-en>Open Full Size ↗</span>
@@ -1122,6 +1176,21 @@ function applyLang(lang) {
     document.body.classList.remove('lang-tr', 'lang-en');
     document.body.classList.add('lang-' + currentLang);
     document.documentElement.lang = currentLang;
+
+    // Dynamic Title & Meta Description update
+    if (currentLang === 'tr') {
+        document.title = 'Furkan SARICA | AI Solutions Engineer';
+        var metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute('content', 'Furkan SARICA - AI Solutions Engineer @ CloudSpark | Kurumsal AI, RAG & LLM Uygulamaları, Enterprise DevOps');
+        var cmdKBtn = document.getElementById('cmd-k-btn');
+        if (cmdKBtn) cmdKBtn.title = 'Komut Paleti (Cmd+K / Ctrl+K)';
+    } else {
+        document.title = 'Furkan SARICA | AI Solutions Engineer';
+        var metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute('content', 'Furkan SARICA - AI Solutions Engineer @ CloudSpark | Enterprise AI, RAG & LLM Applications, Enterprise DevOps');
+        var cmdKBtn = document.getElementById('cmd-k-btn');
+        if (cmdKBtn) cmdKBtn.title = 'Command Palette (Cmd+K / Ctrl+K)';
+    }
 
     // Update toggle button states
     var trBtn = document.getElementById('lang-tr-btn');
@@ -1447,7 +1516,7 @@ runBootSequence();
             '<span style="color:var(--accent-cyan)">Uptime</span>: ' + uptimeStr + '  (SLO: 99.9%)',
             '<span style="color:var(--accent-cyan)">Shell</span>: bash 5.1.16',
             '<span style="color:var(--accent-cyan)">Resolution</span>: ' + res,
-            '<span style="color:var(--accent-cyan)">Role</span>: DevOps &amp; Network Engineer',
+            '<span style="color:var(--accent-cyan)">Role</span>: AI Solutions Engineer @ CloudSpark',
             '<span style="color:var(--accent-cyan)">Terminal</span>: furkan-sarica-terminal',
         ];
         var maxLen = Math.max(logo.length, stats.length);
@@ -1503,9 +1572,9 @@ runBootSequence();
     var vfsTree = {
         '/':                       ['home/', 'etc/', 'var/', 'tmp/'],
         '/home':                   ['furkan/'],
-        '/home/furkan':            ['about/', 'projects/', 'education/', 'top_secret.txt'],
+        '/home/furkan':            ['about/', 'projects/', 'education/', 'api.json', 'top_secret.txt'],
         '/home/furkan/about':      ['profile.md'],
-        '/home/furkan/projects':   ['ai-container.txt', 'vpn-lab.txt', 'logging.txt'],
+        '/home/furkan/projects':   ['tracefold.txt', 'sap-b1-agent.txt', 'ai-container.txt', 'vpn-lab.txt', 'logging.txt'],
         '/home/furkan/education':  ['university.md'],
         '/etc':                    ['passwd', 'hosts', 'hostname', 'nginx/', 'ssh/'],
         '/tmp':                    [],
@@ -1514,11 +1583,14 @@ runBootSequence();
     };
 
     var catContent = {
-        'profile.md':        'DevOps & Network Engineer in training.\nFocused on Linux homelabs, Docker, AI-driven automation, VPN infra,\nand centralized monitoring. MIS student @ Istanbul Gelisim University.',
-        'ai-container.txt':  'AI-Powered Container Infrastructure Automation\n---\nModular Docker/docker-compose stack on a low-resource Linux server.\nAI pipeline (OpenClaw + Kimi K2.5 API) analyzes metrics and generates\ncommands with a human-approval step. Version-controlled with Git.',
-        'vpn-lab.txt':       'Virtual Network Lab & VPN Infrastructure\n---\nMultiple Linux VMs on VirtualBox simulating router, DNS server, DMZ.\nSSH key auth, ufw firewall rules, WireGuard/OpenVPN for secure access.\nTraffic analysis with tcpdump, nmap, netstat.',
-        'logging.txt':       'Centralized Logging & Monitoring Infrastructure\n---\nrsyslog/syslog aggregating service, security and network events\nfrom multiple hosts. Grafana dashboards for CPU/RAM/disk/network.\nBasic observability stack for homelab service health.',
-        'university.md':     'B.Sc. in Management Information Systems\nIstanbul Gelisim University — GPA: 3.03 / 4.00 (2022–2026)\nCourses: OS, Networking, DB, Cloud Computing, Data Mining,\nInformation Security, ERP Systems, Project Management.',
+        'profile.md':        'Furkan SARICA — AI Solutions Engineer @ CloudSpark Cloud Data & AI Technologies\n---\nBuilding production-focused AI solutions across AI agents, RAG, and LLM applications.\nEx-Microsoft (Tracefold Local RAG), SAP Business One enterprise integrations, and DevOps.\nMIS Graduate @ Istanbul Gelisim University (3.10 / 4.00 Honor Degree) · Ankara, Türkiye.',
+        'tracefold.txt':     'Tracefold — Privacy-First Local Document RAG Assistant\n---\nBuilt during Microsoft AI Innovators Internship using Microsoft Foundry Local.\nOffline document ingestion, local embeddings (Qwen3), Float32 vector store in SQLite,\ncosine similarity retrieval, and bilingual citation-grounded response generation.\nVerified evaluation pass rate: 24/24 successful bilingual test scenarios.',
+        'sap-b1-agent.txt':  'SAP Business One AI Agent Platform\n---\nEnterprise AI orchestrator synchronizing 58+ operational entities.\nDeterministic schema validation and direct integration with SAP B1 Service Layer REST APIs.',
+        'ai-container.txt':  'AI-Powered Container Infrastructure Automation\n---\nModular Docker/docker-compose stack on a low-resource Linux server.\nAI pipeline analyzes metrics and generates commands with a human-approval step.',
+        'vpn-lab.txt':       'Virtual Network Lab & VPN Infrastructure\n---\nMultiple Linux VMs simulating router, DNS server, DMZ, and secure Tailscale / WireGuard mesh.',
+        'logging.txt':       'Centralized Logging & Monitoring Infrastructure\n---\nGrafana dashboards and Prometheus metrics for full homelab and service health observability.',
+        'university.md':     'B.Sc. in Management Information Systems\nIstanbul Gelisim University — GPA: 3.10 / 4.00 Honor Degree (2022–2026)\nHigh School: Özel Aksaray Vizyon Akademi Anadolu Lisesi (90.07 / 100)\nCertifications: Stanford AI, Microsoft AI & ML, Vanderbilt GenAI, NVIDIA, AWS, IBM, Google, Meta, Akamai.',
+        'api.json':          '{\n  "name": "Furkan SARICA",\n  "title": "AI Solutions Engineer",\n  "company": "CloudSpark",\n  "location": "Çankaya, Ankara, Türkiye",\n  "focus": "AI Agents, Local RAG, Enterprise ERP Integrations, High-Performance APIs",\n  "curl": "curl -s https://furkan-sarica.github.io/api.json | jq ."\n}',
         'passwd':            'root:x:0:0:root:/root:/bin/bash\ndaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin\nwww-data:x:33:33:www-data:/var/www:/usr/sbin/nologin\nfurkan:x:1000:1000:Furkan Sarica,,,:/home/furkan:/bin/bash\ndocker:x:999:999:Docker daemon:/var/lib/docker:/usr/sbin/nologin\nnginx:x:101:101:nginx user:/var/cache/nginx:/usr/sbin/nologin\ngrafana:x:472:472::/home/grafana:/sbin/nologin',
         'hosts':             '127.0.0.1   localhost\n127.0.1.1   devops\n192.168.1.100   furkan-sarica-web\n192.168.1.101   ai-pipeline\n192.168.1.102   grafana\n::1     localhost ip6-localhost ip6-loopback',
         'hostname':          'devops',
@@ -2589,27 +2661,26 @@ runBootSequence();
                 addLine('Usage: chmod <mode> <file>', 'err');
             }
 
-        // ===== Hidden API Endpoint: curl hire-me =====
-        } else if (c === 'curl https://api.furkan-sarica.com/v1/hire-me' || c === 'curl api.furkan-sarica.com/v1/hire-me' || c === 'curl http://api.furkan-sarica.com/v1/hire-me') {
+        // ===== API Endpoint: curl api.json / hire-me =====
+        } else if (c.startsWith('curl') && (c.includes('api.json') || c.includes('hire-me') || c.includes('api.furkan-sarica.com'))) {
             addLine('  % Total    % Received  % Xferd  Average Speed   Time    Total');
             addLine('                                 Dload  Upload   Total   Spent    Left  Speed');
-            addLine('100   512  100   512    0     0   2048      0 --:--:-- --:--:-- --:--:-- 2050');
+            addLine('100   720  100   720    0     0   4096      0 --:--:-- --:--:-- --:--:-- 4114');
             addLine('');
             addBlock(
                 '<pre style="color:var(--terminal-green);font-family:JetBrains Mono,monospace;font-size:0.82rem;line-height:1.6">' +
                 '<span style="color:var(--accent-cyan)">HTTP/2 200 OK</span>\n' +
-                '<span style="color:var(--text-muted)">content-type: application/json\n' +
-                'x-powered-by: furkan-devops-v1\n' +
-                'x-clearance-level: root\n</span>\n' +
+                '<span style="color:var(--text-muted)">content-type: application/json; charset=utf-8\n' +
+                'server: CloudSpark-AI-Edge\n' +
+                'x-status: active-open-to-enterprise-ai\n</span>\n' +
                 '<span style="color:#ffb000">{</span>\n' +
-                '  <span style="color:var(--accent-cyan)">"candidate"</span>: <span style="color:#a8ff78">"Furkan Sar\u0131ca"</span>,\n' +
-                '  <span style="color:var(--accent-cyan)">"status"</span>: <span style="color:#a8ff78">"available_for_hire"</span>,\n' +
-                '  <span style="color:var(--accent-cyan)">"role"</span>: <span style="color:#a8ff78">"DevOps / Network Engineer / SysAdmin"</span>,\n' +
-                '  <span style="color:var(--accent-cyan)">"skills"</span>: [<span style="color:#a8ff78">"Linux"</span>, <span style="color:#a8ff78">"Docker"</span>, <span style="color:#a8ff78">"Networking"</span>, <span style="color:#a8ff78">"WireGuard"</span>, <span style="color:#a8ff78">"Grafana"</span>, <span style="color:#a8ff78">"Bash"</span>, <span style="color:#a8ff78">"Python"</span>, <span style="color:#a8ff78">"Git"</span>],\n' +
-                '  <span style="color:var(--accent-cyan)">"timezone"</span>: <span style="color:#a8ff78">"Europe/Istanbul (UTC+3)"</span>,\n' +
+                '  <span style="color:var(--accent-cyan)">"name"</span>: <span style="color:#a8ff78">"Furkan SARICA"</span>,\n' +
+                '  <span style="color:var(--accent-cyan)">"role"</span>: <span style="color:#a8ff78">"AI Solutions Engineer @ CloudSpark"</span>,\n' +
+                '  <span style="color:var(--accent-cyan)">"location"</span>: <span style="color:#a8ff78">"Çankaya, Ankara, Türkiye"</span>,\n' +
+                '  <span style="color:var(--accent-cyan)">"focus"</span>: [<span style="color:#a8ff78">"AI Agents"</span>, <span style="color:#a8ff78">"Local RAG"</span>, <span style="color:#a8ff78">"FastAPI"</span>, <span style="color:#a8ff78">"SAP Business One"</span>, <span style="color:#a8ff78">"Kubernetes"</span>],\n' +
                 '  <span style="color:var(--accent-cyan)">"contact"</span>: <span style="color:#a8ff78">"sarica.furkan@icloud.com"</span>,\n' +
-                '  <span style="color:var(--accent-cyan)">"expected_salary"</span>: <span style="color:#a8ff78">"Priceless"</span>,\n' +
-                '  <span style="color:var(--accent-cyan)">"action"</span>: <span style="color:#a8ff78">"curl -X POST /v1/hire --data candidate=furkan"</span>\n' +
+                '  <span style="color:var(--accent-cyan)">"portfolio"</span>: <span style="color:#a8ff78">"https://furkan-sarica.github.io"</span>,\n' +
+                '  <span style="color:var(--accent-cyan)">"api_endpoint"</span>: <span style="color:#a8ff78">"https://furkan-sarica.github.io/api.json"</span>\n' +
                 '<span style="color:#ffb000">}</span>' +
                 '</pre>'
             );
@@ -3484,13 +3555,20 @@ function stopMatrixRain() {
     var activeIdx = -1;
 
     var COMMANDS = [
+        { icon: '⚡', labelTr: 'Tracefold Mimarisi (Local RAG)', labelEn: 'Tracefold Local RAG Pipeline', action: function() { scrollToSection('#projects'); } },
+        { icon: '📡', labelTr: 'curl /api.json (Dijital Kartvizit)', labelEn: 'curl /api.json (Digital Business Card)', action: function() { 
+            var btn = document.querySelector('.curl-copy-btn');
+            if (btn && typeof copyCurlCmd === 'function') copyCurlCmd(btn);
+            scrollToSection('#contact');
+        } },
+        { icon: '💼', labelTr: 'Deneyimler (CloudSpark / Microsoft)', labelEn: 'Experience (CloudSpark / Microsoft)', action: function() { scrollToSection('#experience'); } },
         { icon: '👤', labelTr: 'Hakkımda Git',         labelEn: 'Go to About',       action: function() { scrollToSection('#about'); } },
         { icon: '📂', labelTr: 'Projelere Git',         labelEn: 'Go to Projects',    action: function() { scrollToSection('#projects'); } },
-        { icon: '🔧', labelTr: 'Araçlara Git',          labelEn: 'Go to Tools',       action: function() { scrollToSection('#tools'); } },
+        { icon: '🔧', labelTr: 'Yetenekler & Araçlar',  labelEn: 'Skills & Tech Stack', action: function() { scrollToSection('#tools'); } },
         { icon: '📜', labelTr: 'Sertifikalara Git',     labelEn: 'Go to Certs',       action: function() { scrollToSection('#certificates'); } },
         { icon: '📬', labelTr: 'İletişime Git',         labelEn: 'Go to Contact',     action: function() { scrollToSection('#contact'); } },
-        { icon: '💻', labelTr: 'Terminale Git',         labelEn: 'Go to Terminal',    action: function() { scrollToSection('#cli-terminal'); } },
-        { icon: '🌐', labelTr: 'Dil Değiştir',          labelEn: 'Toggle Language',   action: function() { if (typeof toggleLang === 'function') toggleLang(); } },
+        { icon: '💻', labelTr: 'Canlı Terminale Git',   labelEn: 'Go to Live Terminal', action: function() { scrollToSection('#cli-terminal'); } },
+        { icon: '🌐', labelTr: 'Dili Değiştir (TR/EN)', labelEn: 'Toggle Language',   action: function() { if (typeof toggleLang === 'function') toggleLang(); } },
         { icon: '📄', labelTr: 'CV İndir (TR)',          labelEn: 'Download CV (TR)',  action: function() { downloadCV('tr'); } },
         { icon: '📄', labelTr: 'CV İndir (EN)',          labelEn: 'Download CV (EN)',  action: function() { downloadCV('en'); } },
         { icon: '🔄', labelTr: 'Önyükleme Animasyonu',  labelEn: 'Reboot Animation',  action: function() { if (typeof runBootSequence === 'function') runBootSequence(); } },
@@ -3573,6 +3651,9 @@ function stopMatrixRain() {
         overlay.setAttribute('aria-hidden', 'true');
         input.value = '';
     }
+
+    window.openCmdPalette = openPalette;
+    window.closeCmdPalette = closePalette;
 
     // Ctrl+K / Cmd+K
     document.addEventListener('keydown', function(e) {
@@ -3960,22 +4041,54 @@ if ('serviceWorker' in navigator) {
     }
 }());
 
-// ===== Certificate Terminal Viewer Modal =====
-window.openCertModal = function(imageSrc, title) {
-    var modal = document.getElementById('cert-modal');
+// ===== Certificate Terminal Viewer Modal with Circular Nav & Keyboard Support =====
+var ALL_CERTS = [
+    { src: 'certs/stanford-ai.jpg', title: 'Stanford University - Artificial Intelligence Professional Certificate' },
+    { src: 'certs/microsoft-ai-ml.jpg', title: 'Microsoft - AI & ML Engineering Professional Certificate' },
+    { src: 'certs/vanderbilt-genai.jpg', title: 'Vanderbilt University - Generative AI Software Engineering Specialization' },
+    { src: 'certs/nvidia-developer.jpg', title: 'NVIDIA - Developer Program Member' },
+    { src: 'certs/ibm-isc2-cybersecurity.jpg', title: 'IBM & ISC2 - Cybersecurity Specialist Professional Certificate' },
+    { src: 'certs/aws-cloud-solutions-architect.jpg', title: 'AWS - Cloud Solutions Architect Professional Certificate' },
+    { src: 'certs/ibm-devops-software-engineering.jpg', title: 'IBM - DevOps and Software Engineering Professional Certificate' },
+    { src: 'certs/google-it-support.jpg', title: 'Google - IT Support Professional Certificate' },
+    { src: 'certs/meta-ios-developer.jpg', title: 'Meta - iOS Developer Professional Certificate' },
+    { src: 'certs/akamai-network-engineering.jpg', title: 'Akamai Technologies - Network Engineering Professional Certificate' }
+];
+var currentCertIdx = 0;
+
+function updateCertDisplay() {
+    var cert = ALL_CERTS[currentCertIdx];
+    if (!cert) return;
     var modalImg = document.getElementById('cert-modal-img');
     var modalTitle = document.getElementById('cert-modal-title');
     var modalDownload = document.getElementById('cert-modal-download');
-    if (!modal || !modalImg) return;
-    modalImg.src = imageSrc;
-    modalImg.alt = title || 'Certificate Preview';
-    modalImg.classList.remove('zoomed');
-    if (modalTitle) modalTitle.textContent = 'view ~/' + imageSrc;
-    if (modalDownload) modalDownload.href = imageSrc;
+    var counter = document.getElementById('cert-modal-counter');
+    if (modalImg) {
+        modalImg.src = cert.src;
+        modalImg.alt = cert.title;
+        modalImg.classList.remove('zoomed');
+    }
+    if (modalTitle) modalTitle.textContent = 'view ~/' + cert.src;
+    if (modalDownload) modalDownload.href = cert.src;
+    if (counter) counter.textContent = (currentCertIdx + 1) + ' / ' + ALL_CERTS.length;
+}
+
+window.openCertModal = function(imageSrc, title) {
+    var modal = document.getElementById('cert-modal');
+    if (!modal) return;
+    var foundIdx = ALL_CERTS.findIndex(function(c) { return c.src === imageSrc; });
+    currentCertIdx = foundIdx !== -1 ? foundIdx : 0;
+    updateCertDisplay();
     modal.classList.add('active');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 };
+
+window.navCert = function(direction) {
+    currentCertIdx = (currentCertIdx + direction + ALL_CERTS.length) % ALL_CERTS.length;
+    updateCertDisplay();
+};
+
 window.closeCertModal = function() {
     var modal = document.getElementById('cert-modal');
     var modalImg = document.getElementById('cert-modal-img');
@@ -3985,10 +4098,12 @@ window.closeCertModal = function() {
     if (modalImg) modalImg.classList.remove('zoomed');
     document.body.style.overflow = '';
 };
+
 window.toggleCertZoom = function() {
     var modalImg = document.getElementById('cert-modal-img');
     if (modalImg) modalImg.classList.toggle('zoomed');
 };
+
 window.toggleCertFullscreen = function() {
     var modalImg = document.getElementById('cert-modal-img');
     if (!modalImg) return;
@@ -3998,11 +4113,27 @@ window.toggleCertFullscreen = function() {
         document.exitFullscreen().catch(function() {});
     }
 };
+
+window.copyCurlCmd = function(btn) {
+    var cmd = 'curl -s https://furkan-sarica.github.io/api.json | jq .';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(cmd).then(function() {
+            var orig = btn.innerHTML;
+            btn.innerHTML = '<span>✓ Copied!</span>';
+            setTimeout(function() { btn.innerHTML = orig; }, 2000);
+        });
+    }
+};
+
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        var modal = document.getElementById('cert-modal');
-        if (modal && modal.classList.contains('active')) {
+    var modal = document.getElementById('cert-modal');
+    if (modal && modal.classList.contains('active')) {
+        if (e.key === 'Escape') {
             closeCertModal();
+        } else if (e.key === 'ArrowRight') {
+            navCert(1);
+        } else if (e.key === 'ArrowLeft') {
+            navCert(-1);
         }
     }
 });

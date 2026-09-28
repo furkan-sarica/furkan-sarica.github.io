@@ -1,0 +1,87 @@
+{
+  "name": "Furkan SARICA",
+  "title": "AI Solutions Engineer",
+  "company": "CloudSpark Cloud Data & AI Technologies",
+  "location": {
+    "city": "Ankara",
+    "district": "Çankaya",
+    "country": "Türkiye"
+  },
+  "summary": "I build production-focused AI solutions across AI agents, RAG, LLM applications, enterprise integrations, and backend systems. Experienced with Microsoft Foundry Local, SAP Business One, FastAPI, Docker, and Kubernetes.",
+  "status": "Active & Open to High-Impact Enterprise AI Opportunities",
+  "skills": {
+    "ai_ml": ["AI Agents", "Local RAG", "LLM Inference", "Embeddings", "Cosine Similarity Retrieval", "Prompt Engineering", "Ollama", "NVIDIA NIM", "Microsoft Foundry"],
+    "backend": ["Python", "FastAPI", "Flask", "Node.js", "Express.js", "REST APIs", "Prisma"],
+    "databases": ["SQLite (Vector Search)", "PostgreSQL", "MariaDB"],
+    "devops_infra": ["Docker", "Kubernetes", "K3s", "GitOps", "Linux", "CI/CD", "Prometheus", "Grafana"],
+    "enterprise": ["SAP Business One", "ERPNext", "CRM Systems", "B1 Service Layer API"],
+    "networking": ["Tailscale", "WireGuard", "DNS", "TCP/IP Tuning (BBR/FQ)", "Network Troubleshooting"]
+  },
+  "featured_projects": [
+    {
+      "name": "Tracefold",
+      "company": "Microsoft",
+      "description": "Privacy-first, fully local Retrieval-Augmented Generation (RAG) assistant powered by Microsoft Foundry Local with 24/24 pass on verified bilingual evaluation suite.",
+      "stack": ["Microsoft Foundry Local", "Python", "FastAPI", "SQLite Vectors", "Cosine Similarity", "Deterministic Guardrails"]
+    },
+    {
+      "name": "SAP Business One AI Agent Platform",
+      "company": "Logosoft / Binsal",
+      "description": "Enterprise AI agent orchestrator synchronizing 58+ operational entities with deterministic schema validation and SAP B1 Service Layer transactional write flows.",
+      "stack": ["SAP Business One", "Python", "Flask", "AI Agents", "REST API", "JSON Schema"]
+    },
+    {
+      "name": "Roadmind",
+      "type": "Personal / Open Source",
+      "description": "AI Project Prompt Studio for Coding Agents, streamlining structured prompt workflows.",
+      "stack": ["React", "TypeScript", "Vite", "Express.js", "Prisma", "NVIDIA NIM", "Ollama"]
+    },
+    {
+      "name": "Homelab Infrastructure",
+      "type": "Production Homelab",
+      "description": "Automated server & container infra with UmbrelOS, Tailscale mesh, WireGuard, and 10/10 OLED media streaming stack.",
+      "stack": ["Linux", "Docker", "Tailscale", "BBR/FQ", "Infuse SMB"]
+    }
+  ],
+  "certifications": [
+    "Stanford University — Artificial Intelligence Professional Certificate",
+    "Microsoft — AI & ML Engineering Professional Certificate",
+    "Vanderbilt University — Generative AI Software Engineering Specialization",
+    "NVIDIA — Developer Program Member",
+    "IBM & ISC2 — Cybersecurity Specialist Professional Certificate",
+    "AWS — Cloud Solutions Architect Professional Certificate",
+    "IBM — DevOps and Software Engineering Professional Certificate",
+    "Google — IT Support Professional Certificate",
+    "Meta — iOS Developer Professional Certificate",
+    "Akamai Technologies — Network Engineering Professional Certificate"
+  ],
+  "education": [
+    {
+      "institution": "Istanbul Gelisim University",
+      "degree": "B.Sc. in Management Information Systems",
+      "years": "2022 – 2026",
+      "gpa": "3.10 / 4.00 (Honor Degree)"
+    },
+    {
+      "institution": "Özel Aksaray Vizyon Akademi Anadolu Lisesi",
+      "degree": "High School Diploma",
+      "years": "2016 – 2020",
+      "score": "90.07 / 100"
+    }
+  ],
+  "contact": {
+    "email": "sarica.furkan@icloud.com",
+    "github": "https://github.com/furkan-sarica",
+    "linkedin": "https://www.linkedin.com/in/furkan-sarica/",
+    "portfolio": "https://furkan-sarica.github.io"
+  },
+  "resume": {
+    "en": "https://furkan-sarica.github.io/Furkan%20SARICA%20CV%20EN.pdf",
+    "tr": "https://furkan-sarica.github.io/Furkan%20SARICA%20CV%20TR.pdf"
+  },
+  "endpoints": {
+    "curl_cmd": "curl -s https://furkan-sarica.github.io/api.json | jq .",
+    "version": "1.0.0",
+    "generated_at": "2026-09-28"
+  }
+}

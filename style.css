@@ -2662,3 +2662,174 @@ body.crt-active::before {
     cursor: zoom-out;
 }
 
+
+
+/* ===== 10/10 UPGRADES: Command Palette Trigger, Cert Nav, Tracefold Arch Flow & Curl Box ===== */
+.cmd-k-trigger {
+    position: fixed;
+    top: 1.2rem;
+    right: 11.5rem;
+    z-index: 10000;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 0.4rem 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent-cyan);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+.cmd-k-trigger:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+    color: #ffffff;
+}
+@media (max-width: 768px) {
+    .cmd-k-trigger {
+        top: 0.8rem;
+        right: 9.5rem;
+        padding: 0.35rem 0.5rem;
+        font-size: 0.7rem;
+    }
+}
+
+.tracefold-arch-flow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    background: rgba(10, 14, 22, 0.7);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.85rem;
+    margin: 1.2rem 0;
+    overflow-x: auto;
+}
+.arch-step {
+    flex: 1;
+    min-width: 130px;
+    background: #0f141c;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+    padding: 0.6rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+.arch-step.highlight-step {
+    border-color: rgba(0, 255, 136, 0.3);
+    background: rgba(0, 255, 136, 0.04);
+}
+.step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--terminal-green);
+    letter-spacing: 1px;
+}
+.step-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #e6edf3;
+}
+.step-desc {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    line-height: 1.3;
+}
+.arch-arrow {
+    color: var(--accent-cyan);
+    font-weight: bold;
+    font-size: 1rem;
+    opacity: 0.7;
+    user-select: none;
+}
+@media (max-width: 768px) {
+    .tracefold-arch-flow {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .arch-arrow {
+        text-align: center;
+        transform: rotate(90deg);
+        margin: -0.2rem 0;
+    }
+}
+
+.cert-modal-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #0b0e14;
+    border-bottom: 1px solid var(--border-color);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+}
+.cert-modal-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.cert-nav-btn {
+    background: #161b22;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.cert-nav-btn:hover {
+    border-color: var(--terminal-green);
+    color: var(--terminal-green);
+}
+.cert-counter {
+    color: var(--accent-cyan);
+    font-weight: 600;
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.curl-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #080b11;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    margin: 1.5rem 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    gap: 1rem;
+}
+.curl-cmd {
+    color: var(--accent-cyan);
+    word-break: break-all;
+}
+.curl-copy-btn {
+    background: #161b22;
+    border: 1px solid var(--border-color);
+    color: var(--terminal-green);
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.curl-copy-btn:hover {
+    background: rgba(0, 255, 136, 0.1);
+    border-color: var(--terminal-green);
+}
