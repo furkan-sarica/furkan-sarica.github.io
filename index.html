@@ -1566,7 +1566,7 @@ runBootSequence();
 
     var sections = { projects: '#projects', about: '#about', contact: '#contact', tools: '#tools', education: '#education', certificates: '#certificates' };
 
-    var cliCommands = ['help', 'projects', 'about', 'education', 'certificates', 'tools', 'contact', 'clear', 'whoami', 'sudo', 'ip a', 'ifconfig', 'theme ls', 'theme set default', 'theme set dracula', 'theme set monokai', 'theme set cyberpunk', 'theme set ubuntu', 'theme set amber', 'theme set light', 'theme light', 'theme dark', 'ls', 'ls -la', 'pwd', 'cd ~', 'cd /', 'cd /etc', 'cd /var/log', 'cd /home/furkan', 'cd about', 'cd projects', 'cd education', 'cat profile.md', 'cat ai-container.txt', 'cat vpn-lab.txt', 'cat logging.txt', 'cat university.md', 'cat top_secret.txt', 'cat /etc/passwd', 'cat /etc/hosts', 'cat /var/log/auth.log', 'cat /var/log/syslog', 'uname -a', 'exit', 'neofetch', 'fastfetch', 'gh repo list', 'ls ~/repos', 'curl wttr.in', 'curl wttr.in/Istanbul', 'curl https://api.furkan-sarica.com/v1/hire-me', 'reboot', 'cat cv.pdf', 'cat cv', 'ping', 'ping furkan-sarica.com', 'ping 8.8.8.8', 'ping google.com', 'docker ps', 'docker stats', 'docker logs furkan-sarica-web', 'docker logs ai-pipeline', 'docker logs grafana', 'docker stop furkan-sarica-web', 'docker start furkan-sarica-web', 'kubectl get pods', 'nmap', 'nmap furkan-sarica.com', 'nmap localhost', 'traceroute furkan-sarica.com', 'traceroute', 'vim', 'vi', 'coffee', 'make coffee', 'brew coffee', 'chmod 777 top_secret.txt', 'htop', 'top', 'cmatrix', 'sudo apt update', 'sudo apt upgrade', 'sudo apt upgrade -y', 'dig furkan-sarica.com', 'nslookup furkan-sarica.com', 'history', 'man furkan'];
+    var cliCommands = ['help', 'projects', 'about', 'education', 'certificates', 'tools', 'contact', 'clear', 'whoami', 'vitonom', 'tracefold', 'homelab', 'umbrel', 'physicalism', 'sudo', 'ip a', 'ifconfig', 'theme ls', 'theme set default', 'theme set dracula', 'theme set monokai', 'theme set cyberpunk', 'theme set ubuntu', 'theme set amber', 'theme set light', 'theme light', 'theme dark', 'ls', 'ls -la', 'pwd', 'cd ~', 'cd /', 'cd /etc', 'cd /var/log', 'cd /home/furkan', 'cd about', 'cd projects', 'cd education', 'cat profile.md', 'cat tracefold.txt', 'cat sap-b1-agent.txt', 'cat ai-container.txt', 'cat vpn-lab.txt', 'cat logging.txt', 'cat university.md', 'cat api.json', 'cat top_secret.txt', 'cat /etc/passwd', 'cat /etc/hosts', 'cat /var/log/auth.log', 'cat /var/log/syslog', 'uname -a', 'exit', 'neofetch', 'fastfetch', 'gh repo list', 'ls ~/repos', 'curl wttr.in', 'curl wttr.in/Istanbul', 'curl https://furkan-sarica.github.io/api.json', 'curl api.json', 'reboot', 'cat cv.pdf', 'cat cv', 'ping', 'ping furkan-sarica.com', 'ping 8.8.8.8', 'ping google.com', 'docker ps', 'docker stats', 'docker logs furkan-sarica-web', 'docker logs ai-pipeline', 'docker logs grafana', 'docker stop furkan-sarica-web', 'docker start furkan-sarica-web', 'kubectl get pods', 'nmap', 'nmap furkan-sarica.com', 'nmap localhost', 'traceroute furkan-sarica.com', 'traceroute', 'vim', 'vi', 'coffee', 'make coffee', 'brew coffee', 'chmod 777 top_secret.txt', 'htop', 'top', 'cmatrix', 'sudo apt update', 'sudo apt upgrade', 'sudo apt upgrade -y', 'dig furkan-sarica.com', 'nslookup furkan-sarica.com', 'history', 'man furkan'];
 
     // ===== Virtual File System =====
     var vfsTree = {
@@ -2044,14 +2044,37 @@ runBootSequence();
             }
         } else if (c === 'whoami') {
             addLine('furkan', 'ok');
-            addLine('  Role: DevOps & Network Engineer');
-            addLine('  Company: Logosoft Bilişim Teknolojileri A.Ş. (Stajyer)');
-            addLine('  Location: Ümraniye, İstanbul, Türkiye');
-            addLine('  Uptime: 22 years, 365 days, 14 hours');
+            addLine('  Role: AI Solutions Engineer');
+            addLine('  Company: CloudSpark Cloud Data & AI Technologies');
+            addLine('  Location: Çankaya, Ankara, Türkiye');
+            addLine('  Education: Istanbul Gelisim University (MIS B.Sc., 3.10 / 4.00 Honor Degree)');
+            addLine('  High School: Özel Aksaray Vizyon Akademi Anadolu Lisesi (90.07 / 100)');
             addLine('  Shell: /bin/zsh (oh-my-zsh + powerlevel10k)');
             addLine('');
-            addLine('  Skills: Docker, Kubernetes, Linux, Networking, CI/CD, Python, Bash, Nginx,');
-            addLine('           Grafana, Prometheus, SAP Business One, ERP, CRM, AI/ML');
+            addLine('  Focus: AI Agents, Enterprise RAG, FastAPI, SAP Business One, Docker, Kubernetes');
+        } else if (c === 'vitonom' || c === 'vitonom --status' || c === 'ask vitonom') {
+            addLine('[Vitonom v2.4]:', 'ok');
+            addLine('  Status: Online & In Sync');
+            addLine('  Identity: Autonomous Intelligence Partner');
+            addLine('  Directive: Physics-grounded, zero-hallucination execution.');
+            addLine('  "Sistemler nominal efendim. CloudSpark modelleri devrede, UmbrelOS ayakta, OLED BBR hattı açık. Emrinizdeyim."');
+        } else if (c === 'tracefold' || c === 'rag') {
+            addLine('[Tracefold Local RAG Assistant]:', 'ok');
+            addLine('  Backend: Microsoft Foundry Local (Qwen3 Embed + Qwen2.5 Inference)');
+            addLine('  Storage: SQLite Float32 Vector Table');
+            addLine('  Pipeline: Citation Validation · OPUS-MT Translation · Deterministic Safe Refusal');
+            addLine('  Eval Result: 24/24 pass on verified bilingual benchmark suite.');
+        } else if (c === 'homelab' || c === 'umbrel') {
+            addLine('[Homelab Server Node]:', 'ok');
+            addLine('  Host: furkans-server (ASUS UX310UQK · i7-7500U · 16GB DDR4)');
+            addLine('  OS: umbrelOS 2.0 Beta (Kernel 6.6+ with TCP BBR + FQ)');
+            addLine('  Tailscale Mesh: 100.92.228.39 (Mullvad Exit Node Active)');
+            addLine('  Media Stack: Infuse 4K Remux OLED (TRaSH Guides Profile · Dolby Atmos / DV IQ)');
+            addLine('  Status: 10/10 Homelab Tuning Applied.');
+        } else if (c === 'physicalism' || c === 'fizikalizm' || c === 'philosophy') {
+            addLine('[Physicalism]:', 'ok');
+            addLine('  "There is only physical matter, energy, and spacetime.');
+            addLine('   Everything else is emergent complexity. No magic, just physics and compute."');
         } else if (c === 'ip a' || c === 'ifconfig') {
             fetchIpAndPrint();
         } else if (c === 'pwd') {
@@ -3321,35 +3344,7 @@ function stopMatrixRain() {
     });
 }());
 
-// ===== Easter Egg: Konami Code → Hacker Mode =====
-(function () {
-    var konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-    var konamiIndex = 0;
-    document.addEventListener('keydown', function (e) {
-        var active = document.activeElement;
-        if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable)) return;
-        if (e.key === konamiCode[konamiIndex]) {
-            konamiIndex++;
-            if (konamiIndex === konamiCode.length) {
-                konamiIndex = 0;
-                var wasHacker = document.body.classList.contains('hacker-mode');
-                document.body.classList.toggle('hacker-mode');
-                var promptEl = document.getElementById('cli-prompt');
-                if (!wasHacker) {
-                    startMatrixRain();
-                    if (promptEl) promptEl.textContent = 'root@devops:~#';
-                    if (window.cliAddLine) window.cliAddLine('[ ROOT ACCESS GRANTED ]', 'ok');
-                } else {
-                    stopMatrixRain();
-                    if (promptEl) promptEl.textContent = 'furkan@devops:~$';
-                    if (window.cliAddLine) window.cliAddLine('[ Hacker mode deactivated ]', 'ok');
-                }
-            }
-        } else {
-            konamiIndex = (e.key === konamiCode[0]) ? 1 : 0;
-        }
-    });
-}());
+
 
 // ===== Easter Egg: 5-Click on ASCII Header → Root Access =====
 (function () {
@@ -4170,11 +4165,16 @@ document.addEventListener('keydown', function(e) {
                 setTimeout(function() { notif.remove(); }, 500);
             }, 2500);
             
-            // Intensify matrix rain if active
-            var canvas = document.getElementById('matrix-rain');
-            if (canvas && window.matrixConfig) {
-                window.matrixConfig.speed = isHacker ? 2.5 : 1;
-                window.matrixConfig.density = isHacker ? 0.8 : 0.5;
+            // Toggle matrix rain & terminal prompt
+            var promptEl = document.getElementById('cli-prompt');
+            if (isHacker) {
+                if (typeof startMatrixRain === 'function') startMatrixRain();
+                if (promptEl) promptEl.textContent = 'root@devops:~#';
+                if (window.cliAddLine) window.cliAddLine('[ ROOT / HACKER ACCESS GRANTED ]', 'ok');
+            } else {
+                if (typeof stopMatrixRain === 'function') stopMatrixRain();
+                if (promptEl) promptEl.textContent = 'furkan@devops:~$';
+                if (window.cliAddLine) window.cliAddLine('[ Normal mode restored ]', 'ok');
             }
         }
     });
