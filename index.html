@@ -29,7 +29,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Furkan SARICA">
-<link rel="stylesheet" href="style.css?v=20260928-5">
+<link rel="stylesheet" href="style.css?v=20260928-6">
 <link rel="preload" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"></noscript>
 <!-- Structured Data: Person Schema -->
@@ -3997,10 +3997,69 @@ function stopMatrixRain() {
             if (textLower.indexOf(trMarkers[i]) !== -1) { isTr = true; break; }
         }
 
-        var vitonomResponse = queryVitonomAI(resolvedPrompt, isTr);
-        streamTerminalTypewriter(textContainer, vitonomResponse, function() {
+        if (!window._aiChatHistory) window._aiChatHistory = [];
+        window._aiChatHistory.push({ role: 'user', content: resolvedPrompt });
+        if (window._aiChatHistory.length > 8) {
+            window._aiChatHistory = window._aiChatHistory.slice(-8);
+        }
+
+        var workerEndpoint = "https://vitonom-ai.sarica-furkan.workers.dev";
+        var controller = new AbortController();
+        var timeoutId = setTimeout(function() { controller.abort(); }, 30000);
+
+        fetch(workerEndpoint, {
+            method: "POST",
+            signal: controller.signal,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ messages: window._aiChatHistory })
+        })
+        .then(async function(res) {
+            clearTimeout(timeoutId);
+            if (!res.ok) throw new Error("Worker HTTP " + res.status);
+
+            var reader = res.body.getReader();
+            var decoder = new TextDecoder();
+            var fullAiText = "";
+
+            while (true) {
+                var chunk = await reader.read();
+                if (chunk.done) break;
+                var textChunk = decoder.decode(chunk.value, { stream: true });
+                var lines = textChunk.split("\n");
+                for (var j = 0; j < lines.length; j++) {
+                    var line = lines[j].trim();
+                    if (line.indexOf("data: ") === 0) {
+                        var dataStr = line.slice(6).trim();
+                        if (dataStr === "[DONE]") break;
+                        try {
+                            var parsed = JSON.parse(dataStr);
+                            var token = parsed.choices[0].delta && parsed.choices[0].delta.content;
+                            if (token) {
+                                fullAiText += token;
+                                textContainer.innerHTML = parseMarkdown(fullAiText) + '<span class="ai-term-cursor">█</span>';
+                                scrollTerminalToBottom();
+                            }
+                        } catch (e) {}
+                    }
+                }
+            }
+
+            if (!fullAiText) throw new Error("Empty model response");
+            textContainer.innerHTML = parseMarkdown(fullAiText);
+            window._aiChatHistory.push({ role: 'assistant', content: fullAiText });
+            scrollTerminalToBottom();
             isExecuting = false;
             if (input) input.focus();
+        })
+        .catch(function(err) {
+            clearTimeout(timeoutId);
+            // Instant graceful fallback to local knowledge engine
+            var vitonomResponse = queryVitonomAI(resolvedPrompt, isTr);
+            streamTerminalTypewriter(textContainer, vitonomResponse, function() {
+                window._aiChatHistory.push({ role: 'assistant', content: vitonomResponse });
+                isExecuting = false;
+                if (input) input.focus();
+            });
         });
     }
 
