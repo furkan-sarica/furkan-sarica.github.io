@@ -29,7 +29,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Furkan SARICA">
-<link rel="stylesheet" href="style.css?v=20260928-1">
+<link rel="stylesheet" href="style.css?v=20260928-2">
 <link rel="preload" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"></noscript>
 <!-- Structured Data: Person Schema -->
@@ -95,7 +95,11 @@
 
 <!-- Top Controls Bar -->
 <div class="top-bar-controls" id="top-bar-controls">
-  <button class="cmd-k-trigger" id="cmd-k-btn" title="Komut Paleti (Cmd+K / Ctrl+K)" onclick="openCmdPalette()">⌘K CLI</button>
+  <button class="ai-chat-trigger" id="ai-chat-btn" title="Vitonom AI Asistanı" onclick="openAIChat()">
+    <span class="ai-sparkle">✦</span>
+    <span data-lang-tr>AI Asistan</span>
+    <span data-lang-en>AI Assistant</span>
+  </button>
   <button class="mute-toggle" id="mute-btn" title="Sesi Aç" aria-label="Toggle sound">🔇</button>
   <button class="lang-toggle" onclick="toggleLang()" id="lang-toggle-btn" title="Dil Değiştir" aria-label="Toggle language">
     <span class="lang-option active" id="lang-tr-btn">TR</span>
@@ -1119,6 +1123,90 @@ traceroute to github.com/furkan-sarica (140.82.121.4), 30 hops max
     <div class="cert-modal-body">
       <img id="cert-modal-img" src="" alt="Certificate Preview" class="cert-modal-image" onclick="toggleCertZoom()">
     </div>
+  </div>
+</div>
+
+<!-- Vitonom AI Assistant Modal -->
+<div id="ai-chat-overlay" role="dialog" aria-modal="true" aria-label="Vitonom AI Asistanı" aria-hidden="true">
+  <div class="ai-chat-container">
+    <div class="ai-chat-header">
+      <div class="ai-header-left">
+        <span class="ai-status-led"></span>
+        <div class="ai-header-title">
+          <span class="ai-title-main">VITONOM AI</span>
+          <span class="ai-title-sub">v2.4 // RAG & NIM KNOWLEDGE AGENT</span>
+        </div>
+      </div>
+      <div class="ai-header-actions">
+        <button class="ai-config-btn" id="ai-config-toggle-btn" title="NVIDIA NIM Ayarları" onclick="toggleAIConfig()">⚙️</button>
+        <button class="ai-close-btn" id="ai-close-btn" title="Kapat (ESC)" onclick="closeAIChat()">✕</button>
+      </div>
+    </div>
+
+    <!-- Optional Config Panel (for NVIDIA NIM Key / Proxy) -->
+    <div class="ai-config-panel" id="ai-config-panel" style="display:none;">
+      <div class="ai-config-desc">
+        <span data-lang-tr><strong>NVIDIA NIM Canlı LLM:</strong> API anahtarları istemci güvenliği için yalnızca tarayıcınızın yerel hafızasında (localStorage) saklanır, GitHub'a gönderilmez. Anahtar girilmezse yerleşik yüksek hızlı RAG motoru aktiftir.</span>
+        <span data-lang-en><strong>NVIDIA NIM Live LLM:</strong> API keys are safely retained solely within local browser storage (localStorage) and never committed. If unset, the instant built-in RAG engine answers queries.</span>
+      </div>
+      <div class="ai-config-input-group">
+        <input type="password" id="ai-api-key-input" placeholder="nvapi-..." autocomplete="off" spellcheck="false">
+        <button type="button" class="ai-config-save-btn" onclick="saveAIConfig()">
+          <span data-lang-tr>Kaydet</span><span data-lang-en>Save</span>
+        </button>
+      </div>
+      <div class="ai-config-status" id="ai-config-status"></div>
+    </div>
+
+    <!-- Chat Messages -->
+    <div class="ai-chat-body" id="ai-chat-messages">
+      <div class="ai-msg ai-msg-bot">
+        <div class="ai-msg-avatar">✦</div>
+        <div class="ai-msg-content">
+          <p class="ai-bot-greeting">
+            <span data-lang-tr>Selam! Ben <strong>Vitonom</strong> — Furkan SARICA'nın kurumsal portfolyosu için geliştirilmiş yapay zeka asistanıyım.</span>
+            <span data-lang-en>Greetings! I am <strong>Vitonom</strong> — the AI assistant engineered for Furkan SARICA's enterprise portfolio.</span>
+          </p>
+          <p class="ai-bot-desc">
+            <span data-lang-tr>Tracefold (Microsoft Local RAG), CloudSpark, SAP Business One, Docker/K8s mimarileri, sertifikalar veya iş deneyimi hakkında her şeyi bana sorabilirsin.</span>
+            <span data-lang-en>Ask me anything regarding Tracefold (Microsoft Local RAG), CloudSpark, SAP Business One, Docker/K8s infra, certifications, or professional experience.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Prompts Chips -->
+    <div class="ai-quick-chips" id="ai-quick-chips">
+      <button type="button" class="ai-chip" onclick="askQuickPrompt(currentLang === 'tr' ? 'Tracefold nedir ve mimarisi nasıl çalışır?' : 'What is Tracefold and how does its RAG pipeline work?')">
+        <span data-lang-tr>⚡ Tracefold RAG</span><span data-lang-en>⚡ Tracefold RAG</span>
+      </button>
+      <button type="button" class="ai-chip" onclick="askQuickPrompt(currentLang === 'tr' ? 'CloudSpark\'taki rolü ve sorumlulukları neler?' : 'What are Furkan\'s responsibilities at CloudSpark?')">
+        <span data-lang-tr>💼 CloudSpark</span><span data-lang-en>💼 CloudSpark</span>
+      </button>
+      <button type="button" class="ai-chip" onclick="askQuickPrompt(currentLang === 'tr' ? 'Furkan\'ın teknik yetenekleri ve stack\'i nedir?' : 'What is Furkan\'s tech stack and skill set?')">
+        <span data-lang-tr>🛠️ Tech Stack</span><span data-lang-en>🛠️ Tech Stack</span>
+      </button>
+      <button type="button" class="ai-chip" onclick="askQuickPrompt(currentLang === 'tr' ? 'Hangi sertifikalara sahip?' : 'What certifications does Furkan hold?')">
+        <span data-lang-tr>📜 Sertifikalar</span><span data-lang-en>📜 Certifications</span>
+      </button>
+      <button type="button" class="ai-chip" onclick="askQuickPrompt(currentLang === 'tr' ? 'Furkan\'ın CV\'sini nereden indirebilirim?' : 'Where can I download Furkan\'s CV or resume?')">
+        <span data-lang-tr>📄 CV İndir</span><span data-lang-en>📄 Download CV</span>
+      </button>
+      <button type="button" class="ai-chip" onclick="askQuickPrompt(currentLang === 'tr' ? 'Furkan ile nasıl iletişime geçebilirim?' : 'How can I contact Furkan?')">
+        <span data-lang-tr>📬 İletişim</span><span data-lang-en>📬 Contact</span>
+      </button>
+    </div>
+
+    <!-- Chat Input Area -->
+    <form class="ai-chat-input-form" id="ai-chat-form" onsubmit="handleAISubmit(event)">
+      <span class="ai-input-prompt">❯</span>
+      <input type="text" id="ai-chat-input" placeholder="Furkan'ın projeleri veya deneyimi hakkında bir şey sor..." autocomplete="off" spellcheck="false" required>
+      <button type="submit" class="ai-send-btn" id="ai-send-btn" title="Gönder">
+        <span class="ai-send-text" data-lang-tr>GÖNDER</span>
+        <span class="ai-send-text" data-lang-en>SEND</span>
+        <span class="ai-send-arrow">↵</span>
+      </button>
+    </form>
   </div>
 </div>
 
@@ -3579,156 +3667,361 @@ function stopMatrixRain() {
     });
 }());
 
-// ===== Feature 7: Command Palette (Ctrl+K / Cmd+K) =====
+// ===== Feature 7: Vitonom AI Assistant (RAG & NVIDIA NIM) =====
 (function () {
-    var overlay = document.getElementById('cmd-palette-overlay');
-    var input = document.getElementById('cmd-palette-input');
-    var list = document.getElementById('cmd-palette-list');
-    if (!overlay || !input || !list) return;
+    var overlay = document.getElementById('ai-chat-overlay');
+    var input = document.getElementById('ai-chat-input');
+    var messages = document.getElementById('ai-chat-messages');
+    var configPanel = document.getElementById('ai-config-panel');
+    var apiKeyInput = document.getElementById('ai-api-key-input');
+    var configStatus = document.getElementById('ai-config-status');
+    var sendBtn = document.getElementById('ai-send-btn');
+    var isGenerating = false;
 
-    var activeIdx = -1;
-
-    var COMMANDS = [
-        { icon: '⚡', labelTr: 'Tracefold Mimarisi (Local RAG)', labelEn: 'Tracefold Local RAG Pipeline', action: function() { scrollToSection('#projects'); } },
-        { icon: '📡', labelTr: 'curl /api.json (Dijital Kartvizit)', labelEn: 'curl /api.json (Digital Business Card)', action: function() { 
-            var btn = document.querySelector('.curl-copy-btn');
-            if (btn && typeof copyCurlCmd === 'function') copyCurlCmd(btn);
-            scrollToSection('#contact');
-        } },
-        { icon: '💼', labelTr: 'Deneyimler (CloudSpark / Microsoft)', labelEn: 'Experience (CloudSpark / Microsoft)', action: function() { scrollToSection('#experience'); } },
-        { icon: '👤', labelTr: 'Hakkımda Git',         labelEn: 'Go to About',       action: function() { scrollToSection('#about'); } },
-        { icon: '📂', labelTr: 'Projelere Git',         labelEn: 'Go to Projects',    action: function() { scrollToSection('#projects'); } },
-        { icon: '🔧', labelTr: 'Yetenekler & Araçlar',  labelEn: 'Skills & Tech Stack', action: function() { scrollToSection('#tools'); } },
-        { icon: '📜', labelTr: 'Sertifikalara Git',     labelEn: 'Go to Certs',       action: function() { scrollToSection('#certificates'); } },
-        { icon: '📬', labelTr: 'İletişime Git',         labelEn: 'Go to Contact',     action: function() { scrollToSection('#contact'); } },
-        { icon: '💻', labelTr: 'Canlı Terminale Git',   labelEn: 'Go to Live Terminal', action: function() { scrollToSection('#cli-terminal'); } },
-        { icon: '🌐', labelTr: 'Dili Değiştir (TR/EN)', labelEn: 'Toggle Language',   action: function() { if (typeof toggleLang === 'function') toggleLang(); } },
-        { icon: '📄', labelTr: 'CV İndir (TR)',          labelEn: 'Download CV (TR)',  action: function() { downloadCV('tr'); } },
-        { icon: '📄', labelTr: 'CV İndir (EN)',          labelEn: 'Download CV (EN)',  action: function() { downloadCV('en'); } },
-        { icon: '🔄', labelTr: 'Önyükleme Animasyonu',  labelEn: 'Reboot Animation',  action: function() { if (typeof runBootSequence === 'function') runBootSequence(); } },
-        { icon: '🔊', labelTr: 'Sesi Aç/Kapat',         labelEn: 'Toggle Sounds',     action: function() { var btn = document.getElementById('mute-btn'); if (btn) btn.click(); } },
-    ];
-
-    function scrollToSection(sel) {
-        var el = document.querySelector(sel);
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Pre-populate input from local storage
+    var storedKey = localStorage.getItem('vitonom_nvidia_api_key') || '';
+    if (apiKeyInput && storedKey) {
+        apiKeyInput.value = storedKey;
     }
 
-    function downloadCV(lang) {
-        var url = lang === 'tr' ? 'Furkan%20SARICA%20CV%20TR.pdf' : 'Furkan%20SARICA%20CV%20EN.pdf';
-        var name = lang === 'tr' ? 'Furkan SARICA CV TR.pdf' : 'Furkan SARICA CV EN.pdf';
-        var a = document.createElement('a');
-        a.href = url; a.download = name;
-        document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    }
-
-    function getLabel(cmd) {
-        return currentLang === 'tr' ? cmd.labelTr : cmd.labelEn;
-    }
-
-    function render(filter) {
-        filter = (filter || '').toLowerCase();
-        var filtered = COMMANDS.filter(function(c) {
-            return !filter || getLabel(c).toLowerCase().indexOf(filter) !== -1;
-        });
-        list.innerHTML = '';
-        activeIdx = filtered.length > 0 ? 0 : -1;
-
-        if (filtered.length === 0) {
-            var empty = document.createElement('li');
-            empty.className = 'cmd-palette-empty';
-            empty.textContent = currentLang === 'tr' ? 'Sonuç bulunamadı.' : 'No results.';
-            list.appendChild(empty);
-            return;
-        }
-
-        filtered.forEach(function(cmd, i) {
-            var li = document.createElement('li');
-            li.className = 'cmd-palette-item' + (i === 0 ? ' active' : '');
-            li.setAttribute('role', 'option');
-            li.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
-            li.innerHTML = '<span class="cmd-palette-icon">' + cmd.icon + '</span>'
-                + '<span>' + getLabel(cmd) + '</span>';
-            li.addEventListener('click', function() { runCmd(cmd); });
-            list.appendChild(li);
-        });
-
-        // Store filtered list for keyboard nav
-        list._filtered = filtered;
-    }
-
-    function setActive(idx) {
-        var items = list.querySelectorAll('.cmd-palette-item');
-        items.forEach(function(el, i) {
-            el.classList.toggle('active', i === idx);
-            el.setAttribute('aria-selected', i === idx ? 'true' : 'false');
-        });
-        activeIdx = idx;
-        if (items[idx]) items[idx].scrollIntoView({ block: 'nearest' });
-    }
-
-    function runCmd(cmd) {
-        closePalette();
-        setTimeout(function() { cmd.action(); }, 80);
-    }
-
-    function openPalette() {
+    function openAIChat() {
+        if (!overlay) return;
         overlay.classList.add('active');
         overlay.setAttribute('aria-hidden', 'false');
-        input.value = '';
-        render('');
-        input.focus();
+        if (input) {
+            setTimeout(function() { input.focus(); }, 120);
+        }
+        scrollChatToBottom();
     }
 
-    function closePalette() {
+    function closeAIChat() {
+        if (!overlay) return;
         overlay.classList.remove('active');
         overlay.setAttribute('aria-hidden', 'true');
-        input.value = '';
     }
 
-    window.openCmdPalette = openPalette;
-    window.closeCmdPalette = closePalette;
+    function toggleAIConfig() {
+        if (!configPanel) return;
+        var isHidden = configPanel.style.display === 'none';
+        configPanel.style.display = isHidden ? 'block' : 'none';
+        if (isHidden && configStatus) {
+            var activeKey = localStorage.getItem('vitonom_nvidia_api_key');
+            if (activeKey) {
+                configStatus.textContent = currentLang === 'tr' 
+                    ? '● NVIDIA NIM Canlı LLM devrede (meta/llama-3.2-11b-vision-instruct)' 
+                    : '● NVIDIA NIM Live LLM active (meta/llama-3.2-11b-vision-instruct)';
+                configStatus.style.color = 'var(--terminal-green)';
+            } else {
+                configStatus.textContent = currentLang === 'tr' 
+                    ? '○ Yerleşik RAG Motoru devrede (Anahtar girilmedi)' 
+                    : '○ Built-in RAG Engine active (No key set)';
+                configStatus.style.color = 'var(--accent-cyan)';
+            }
+        }
+    }
 
-    // Ctrl+K / Cmd+K
+    function saveAIConfig() {
+        if (!apiKeyInput || !configStatus) return;
+        var val = apiKeyInput.value.trim();
+        if (val) {
+            localStorage.setItem('vitonom_nvidia_api_key', val);
+            configStatus.textContent = currentLang === 'tr'
+                ? '✓ Anahtar yerel olarak kaydedildi! NVIDIA NIM aktif.'
+                : '✓ Key saved locally! NVIDIA NIM active.';
+            configStatus.style.color = 'var(--terminal-green)';
+        } else {
+            localStorage.removeItem('vitonom_nvidia_api_key');
+            configStatus.textContent = currentLang === 'tr'
+                ? '○ Anahtar silindi. Yerleşik RAG motoruna dönüldü.'
+                : '○ Key removed. Switched to built-in RAG.';
+            configStatus.style.color = 'var(--accent-cyan)';
+        }
+        setTimeout(function() {
+            if (configPanel) configPanel.style.display = 'none';
+        }, 1200);
+    }
+
+    function scrollChatToBottom() {
+        if (messages) {
+            messages.scrollTop = messages.scrollHeight;
+        }
+    }
+
+    function parseMarkdown(text) {
+        var raw = text || '';
+        var div = document.createElement('div');
+        div.textContent = raw;
+        var s = div.innerHTML;
+
+        s = s.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+        s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+
+        var lines = s.split('\n');
+        var inList = false;
+        var out = [];
+        lines.forEach(function(l) {
+            var trimmed = l.trim();
+            if (trimmed.indexOf('• ') === 0 || trimmed.indexOf('- ') === 0) {
+                if (!inList) { out.push('<ul>'); inList = true; }
+                out.push('<li>' + trimmed.substring(2) + '</li>');
+            } else if (/^\d+\.\s/.test(trimmed)) {
+                if (!inList) { out.push('<ul>'); inList = true; }
+                out.push('<li>' + trimmed.replace(/^\d+\.\s/, '') + '</li>');
+            } else {
+                if (inList) { out.push('</ul>'); inList = false; }
+                if (trimmed.length > 0) {
+                    out.push('<p>' + trimmed + '</p>');
+                }
+            }
+        });
+        if (inList) out.push('</ul>');
+        return out.join('');
+    }
+
+    function streamTypewriter(container, text, onDone) {
+        container.innerHTML = '';
+        var cursor = document.createElement('span');
+        cursor.className = 'ai-cursor';
+        cursor.textContent = '▋';
+        container.appendChild(cursor);
+
+        var idx = 0;
+        var step = Math.max(1, Math.floor(text.length / 110));
+        var interval = setInterval(function() {
+            idx += step;
+            if (idx >= text.length) {
+                clearInterval(interval);
+                container.innerHTML = parseMarkdown(text);
+                scrollChatToBottom();
+                if (onDone) onDone();
+                return;
+            }
+            container.innerHTML = parseMarkdown(text.slice(0, idx)) + '<span class="ai-cursor">▋</span>';
+            scrollChatToBottom();
+        }, 16);
+    }
+
+    function queryLocalRAG(query, isTr) {
+        var q = query.toLowerCase();
+
+        if (q.indexOf('tracefold') !== -1 || q.indexOf('rag') !== -1 || q.indexOf('foundry') !== -1) {
+            return isTr 
+                ? "Tracefold, Furkan'ın **Microsoft AI Innovators** stajında geliştirdiği, gizlilik odaklı (privacy-first) ve tamamen yerel çalışan bir **Retrieval-Augmented Generation (RAG)** asistanıdır.\n\n• **Çekirdek Mimari:** Microsoft Foundry Local, yerel embedding modelleri, LLM çıkarımı ve SQLite tabanlı vektör saklama ile kosinüs benzerliği (cosine similarity) araması.\n• **Değerlendirme:** İki dilli (TR/EN) doğrulama test paketinde 24/24 başarı elde etmiştir.\n• **Güvenlik Mekanizmaları:** Çevrimdışı çeviri, kaynak atıf doğrulaması ve korumalı-gerçekler için deterministik güvenli-ret mekanizmalarına sahiptir."
+                : "Tracefold is a privacy-first, fully local **Retrieval-Augmented Generation (RAG)** assistant designed and built by Furkan during his **Microsoft AI Innovators** internship.\n\n• **Core Pipeline:** Powered by Microsoft Foundry Local, local embedding models, LLM inference, SQLite vector storage, and cosine-similarity retrieval.\n• **Validation:** Achieved a perfect 24/24 score on the bilingual evaluation suite.\n• **Guardrails:** Offline translation, inspectable citation validation, and deterministic safe-refusal mechanisms.";
+        }
+
+        if (q.indexOf('cloudspark') !== -1 || q.indexOf('iş') !== -1 || q.indexOf('rol') !== -1 || q.indexOf('deneyim') !== -1 || q.indexOf('experience') !== -1 || q.indexOf('job') !== -1) {
+            return isTr
+                ? "Furkan SARICA, Ağustos 2026'dan bu yana **CloudSpark Cloud Data & AI Technologies** bünyesinde **AI Solutions Engineer** olarak görev yapmaktadır.\n\n• **Odak Alanı:** Kurumsal AI ajanları (AI Agents), RAG sistemleri ve kurumsal LLM uygulamaları geliştirme.\n• **Backend & Altyapı:** Python ve FastAPI ile kurumsal backend servisleri ve API entegrasyonları inşa etmekte; Docker ve Kubernetes ortamlarında mikroservisleri devreye alıp yönetmektedir.\n• **İş Sistemleri:** SAP Business One gibi ERP ortamlarını AI yetenekleriyle operasyonel süreçlere bağlamaktadır."
+                : "Furkan SARICA has been serving as an **AI Solutions Engineer** at **CloudSpark Cloud Data & AI Technologies** since August 2026.\n\n• **Key Responsibilities:** Designs and engineers enterprise AI agents, RAG systems, and LLM-powered applications.\n• **Backend & Infra:** Builds high-performance backend microservices and APIs with Python & FastAPI, containerized across Docker and Kubernetes clusters.\n• **Enterprise Systems:** Integrates enterprise ERP systems (including SAP Business One) with generative workflows.";
+        }
+
+        if (q.indexOf('sap') !== -1 || q.indexOf('logosoft') !== -1 || q.indexOf('binsal') !== -1 || q.indexOf('erp') !== -1) {
+            return isTr
+                ? "Furkan, **Logosoft** ve **Binsal Bilişim** stajlarında SAP Business One ERP ekosistemi için yapay zeka destekli kurumsal ajan platformu geliştirmiştir.\n\n• **Kapsam:** 58'den fazla operasyonel ERP varlığını JSON Schema doğrulaması ve B1 Service Layer API işlem akışlarıyla senkronize eden mikroservisler kurmuştur.\n• **Teknoloji:** Python, Flask, REST API ve yapay zeka ajan mimarisi."
+                : "During his internships at **Logosoft** and **Binsal Bilişim**, Furkan engineered an AI-assisted enterprise platform for SAP Business One.\n\n• **Scope:** Synchronized 58+ operational ERP entities using JSON Schema validation and SAP B1 Service Layer transactional APIs.\n• **Tech:** Python, Flask, REST APIs, and structured AI agent orchestrators.";
+        }
+
+        if (q.indexOf('roadmind') !== -1 || q.indexOf('prompt') !== -1) {
+            return isTr
+                ? "Roadmind, kodlama ajanları (coding agents) için geliştirilmiş bir **AI Proje Prompt Stüdyosudur**.\n\n• **Özellikler:** Kodlama modelleri için yapılandırılmış, optimize edilmiş ve yüksek doğruluklu sistem promptları üretir.\n• **Tech Stack:** React, TypeScript, Vite, Express.js, Prisma, NVIDIA NIM ve Ollama entegrasyonu."
+                : "Roadmind is an **AI Project Prompt Studio** engineered for coding agents, streamlining structured prompt workflows.\n\n• **Features:** Generates structured, deterministic, and optimized system prompts for code generation agents.\n• **Stack:** React, TypeScript, Vite, Express.js, Prisma, NVIDIA NIM, and Ollama.";
+        }
+
+        if (q.indexOf('homelab') !== -1 || q.indexOf('sunucu') !== -1 || q.indexOf('server') !== -1 || q.indexOf('umbrel') !== -1 || q.indexOf('oled') !== -1) {
+            return isTr
+                ? "Furkan'ın üretim seviyesi **Homelab Altyapısı**, umbrelOS 2.0 üzerinde çalışan ve ASUS UX310UQK sunucusunda barındırılan konteyner otomasyonudur.\n\n• **Ağ:** Tailscale mesh ve WireGuard VPN ile güvenli uzaktan erişim.\n• **Çekirdek Optimizasyonu:** Linux çekirdeğinde TCP BBR + FQ aktif edilerek yüksek bit-rate akışı sağlanmıştır.\n• **Medya Stack:** Infuse & SMB üzerinden OLED TV için 4K Remux / Dolby Vision IQ / Dolby Atmos medya akışı sunar."
+                : "Furkan's production **Homelab Infrastructure** runs on umbrelOS 2.0 hosted on an ASUS UX310UQK machine.\n\n• **Networking:** Tailscale mesh and WireGuard VPN for low-latency encrypted access.\n• **Kernel Tuning:** Linux TCP BBR + FQ congestion control enabled for smooth high-bandwidth streaming.\n• **Media Stack:** Direct SMB streaming to OLED TV supporting 4K Remux, Dolby Vision IQ, and Dolby Atmos via Infuse.";
+        }
+
+        if (q.indexOf('sertifika') !== -1 || q.indexOf('certificate') !== -1 || q.indexOf('stanford') !== -1 || q.indexOf('aws') !== -1) {
+            return isTr
+                ? "Furkan'ın sahip olduğu 10 profesyonel küresel sertifika:\n\n1. 🎓 **Stanford University** — Artificial Intelligence Professional Certificate\n2. 🛡️ **Microsoft** — AI & ML Engineering Professional Certificate\n3. ⚡ **Vanderbilt University** — Generative AI Software Engineering Specialization\n4. 💚 **NVIDIA** — Developer Program Member\n5. 🔒 **IBM & ISC2** — Cybersecurity Specialist Professional Certificate\n6. ☁️ **AWS** — Cloud Solutions Architect Professional Certificate\n7. 🚀 **IBM** — DevOps and Software Engineering Professional Certificate\n8. 💻 **Google** — IT Support Professional Certificate\n9. 📱 **Meta** — iOS Developer Professional Certificate\n10. 🌐 **Akamai Technologies** — Network Engineering Professional Certificate"
+                : "Furkan holds 10 professional global certificates:\n\n1. 🎓 **Stanford University** — Artificial Intelligence Professional Certificate\n2. 🛡️ **Microsoft** — AI & ML Engineering Professional Certificate\n3. ⚡ **Vanderbilt University** — Generative AI Software Engineering Specialization\n4. 💚 **NVIDIA** — Developer Program Member\n5. 🔒 **IBM & ISC2** — Cybersecurity Specialist Professional Certificate\n6. ☁️ **AWS** — Cloud Solutions Architect Professional Certificate\n7. 🚀 **IBM** — DevOps and Software Engineering Professional Certificate\n8. 💻 **Google** — IT Support Professional Certificate\n9. 📱 **Meta** — iOS Developer Professional Certificate\n10. 🌐 **Akamai Technologies** — Network Engineering Professional Certificate";
+        }
+
+        if (q.indexOf('yetenek') !== -1 || q.indexOf('skill') !== -1 || q.indexOf('stack') !== -1 || q.indexOf('dil') !== -1 || q.indexOf('python') !== -1 || q.indexOf('fastapi') !== -1 || q.indexOf('docker') !== -1) {
+            return isTr
+                ? "Furkan'ın teknik stack'i ve uzmanlıkları:\n\n• **AI & ML:** AI Agents, Local RAG, LLM Inference, Embeddings, Cosine Similarity, Prompt Engineering, NVIDIA NIM, Ollama, Microsoft Foundry Local.\n• **Backend:** Python, FastAPI, Flask, Node.js, Express.js, REST APIs, Prisma.\n• **DevOps & Bulut:** Docker, Kubernetes, K3s, GitOps, Linux, CI/CD, Prometheus, Grafana.\n• **Veritabanları:** SQLite (Vector Search), PostgreSQL, MariaDB.\n• **Ağ Mühendisliği:** Tailscale, WireGuard, DNS, TCP/IP Tuning (BBR/FQ)."
+                : "Furkan's core technical stack:\n\n• **AI & ML:** AI Agents, Local RAG, LLM Inference, Embeddings, Cosine Similarity, Prompt Engineering, NVIDIA NIM, Ollama, Microsoft Foundry Local.\n• **Backend:** Python, FastAPI, Flask, Node.js, Express.js, REST APIs, Prisma.\n• **DevOps & Cloud:** Docker, Kubernetes, K3s, GitOps, Linux, CI/CD, Prometheus, Grafana.\n• **Databases:** SQLite (Vector Search), PostgreSQL, MariaDB.\n• **Networking:** Tailscale, WireGuard, DNS, TCP/IP Tuning (BBR/FQ).";
+        }
+
+        if (q.indexOf('eğitim') !== -1 || q.indexOf('okul') !== -1 || q.indexOf('üniversite') !== -1 || q.indexOf('education') !== -1 || q.indexOf('gpa') !== -1 || q.indexOf('gelisim') !== -1) {
+            return isTr
+                ? "Furkan SARICA, **İstanbul Gelişim Üniversitesi** Yönetim Bilişim Sistemleri (MIS) bölümünden **3.10 / 4.00 Onur Derecesi** (Honor Degree) ile mezun olmuştur (2022–2026).\n\n• **Öne Çıkan Dersler:** AI & Makine Öğrenimi, Sistem Analizi, Veritabanı Yönetimi, ERP, CRM, Karar Destek Sistemleri, Bulut Bilişim ve Bilgi Güvenliği."
+                : "Furkan graduated from **Istanbul Gelisim University** with a **B.Sc. in Management Information Systems (MIS)**, achieving a **3.10 / 4.00 Honor Degree** (2022–2026).\n\n• **Relevant Coursework:** AI & Machine Learning, Systems Analysis, Database Management, ERP/CRM, Decision Support Systems, Cloud Computing, and Information Security.";
+        }
+
+        if (q.indexOf('iletişim') !== -1 || q.indexOf('contact') !== -1 || q.indexOf('cv') !== -1 || q.indexOf('resume') !== -1 || q.indexOf('mail') !== -1 || q.indexOf('eposta') !== -1 || q.indexOf('linkedin') !== -1) {
+            return isTr
+                ? "Furkan ile doğrudan iletişime geçebilir veya güncel CV'sini indirebilirsin:\n\n• 📧 **E-posta:** [sarica.furkan@icloud.com](mailto:sarica.furkan@icloud.com)\n• 💼 **LinkedIn:** [linkedin.com/in/furkan-sarica](https://www.linkedin.com/in/furkan-sarica/)\n• 🐙 **GitHub:** [github.com/furkan-sarica](https://github.com/furkan-sarica)\n• 📄 **Türkçe CV İndir:** [Furkan SARICA CV TR.pdf](Furkan%20SARICA%20CV%20TR.pdf)\n• 📄 **English Resume Download:** [Furkan SARICA CV EN.pdf](Furkan%20SARICA%20CV%20EN.pdf)"
+                : "You can reach Furkan directly or download his latest CV:\n\n• 📧 **Email:** [sarica.furkan@icloud.com](mailto:sarica.furkan@icloud.com)\n• 💼 **LinkedIn:** [linkedin.com/in/furkan-sarica](https://www.linkedin.com/in/furkan-sarica/)\n• 🐙 **GitHub:** [github.com/furkan-sarica](https://github.com/furkan-sarica)\n• 📄 **Download Turkish CV:** [Furkan SARICA CV TR.pdf](Furkan%20SARICA%20CV%20TR.pdf)\n• 📄 **Download English Resume:** [Furkan SARICA CV EN.pdf](Furkan%20SARICA%20CV%20EN.pdf)";
+        }
+
+        if (q.indexOf('kimdir') !== -1 || q.indexOf('who is') !== -1 || q.indexOf('özet') !== -1 || q.indexOf('hakkında') !== -1 || q.indexOf('about') !== -1) {
+            return isTr
+                ? "Furkan SARICA, CloudSpark'ta **AI Solutions Engineer** olarak görev yapan; kurumsal yapay zeka ajanları, yerel RAG sistemleri, LLM entegrasyonları ve üretim altyapıları inşa eden bir mühendistir.\n\n• **Kariyer Özeti:** Microsoft AI Innovators stajında Foundry Local ile Tracefold yerel RAG asistanını geliştirmiş, Logosoft ve Binsal'da SAP Business One için AI ajan platformu kurmuştur.\n• **Mühendislik Vizyonu:** *'Yalnızca gösterişli demolar değil, gerçek iş problemlerini çözen güvenilir sistemler kurmak.'*"
+                : "Furkan SARICA is an **AI Solutions Engineer** at CloudSpark specializing in enterprise AI agents, local RAG architectures, LLM integrations, and containerized backend systems.\n\n• **Highlights:** Built Tracefold (local RAG on Microsoft Foundry Local) at Microsoft, and an AI Agent platform for SAP Business One at Logosoft & Binsal.\n• **Engineering Ethos:** *'Building reliable AI systems that solve real business problems, not just impressive demos.'*";
+        }
+
+        return isTr
+            ? "Furkan SARICA'nın portfolyosu hakkında şu konularda detaylı bilgi verebilirim:\n\n• ⚡ **Tracefold:** Microsoft Foundry Local ile yerel RAG mimarisi\n• 💼 **CloudSpark:** AI Solutions Engineer rolü ve kurumsal ajanlar\n• 🏢 **SAP Business One:** ERP yapay zeka entegrasyonu\n• 🛠️ **Tech Stack:** Python, FastAPI, Docker, Kubernetes, Tailscale\n• 📜 **Sertifikalar:** Stanford, Microsoft, AWS, IBM, NVIDIA\n• 📄 **İletişim & CV:** E-posta, LinkedIn ve PDF CV indirme"
+            : "I can provide comprehensive technical insights on Furkan SARICA's portfolio:\n\n• ⚡ **Tracefold:** Privacy-first local RAG on Microsoft Foundry Local\n• 💼 **CloudSpark:** AI Solutions Engineer role and enterprise agents\n• 🏢 **SAP Business One:** ERP AI integration and backend APIs\n• 🛠️ **Tech Stack:** Python, FastAPI, Docker, Kubernetes, Tailscale\n• 📜 **Certifications:** Stanford, Microsoft, AWS, IBM, NVIDIA\n• 📄 **Contact & CV:** Direct email, LinkedIn, and PDF downloads";
+    }
+
+    function callNvidiaNIM(query, apiKey, isTr, onChunk, onDone, onError) {
+        var systemPrompt = "You are Vitonom, the intelligent AI assistant for Furkan SARICA's portfolio. " +
+            "Furkan is an AI Solutions Engineer at CloudSpark in Ankara, Turkey. " +
+            "He built Tracefold (local RAG on Microsoft Foundry Local with 24/24 eval pass) during his Microsoft internship. " +
+            "He built an AI Agent platform for SAP Business One at Logosoft/Binsal. " +
+            "He also created Roadmind (Prompt Studio for Coding Agents) and maintains a 10/10 OLED UmbrelOS homelab with Tailscale and BBR/FQ TCP tuning. " +
+            "Top certifications: Stanford AI, Microsoft AI & ML, Vanderbilt GenAI, NVIDIA Developer, IBM/ISC2 Cybersecurity, AWS Solutions Architect. " +
+            "Stack: Python, FastAPI, Docker, Kubernetes, SQLite Vectors. " +
+            "Answer concisely and technically in " + (isTr ? "Turkish." : "English.");
+
+        fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + apiKey,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                model: "meta/llama-3.2-11b-vision-instruct",
+                messages: [
+                    { role: "system", content: systemPrompt },
+                    { role: "user", content: query }
+                ],
+                temperature: 0.25,
+                max_tokens: 350
+            })
+        })
+        .then(function(res) {
+            if (!res.ok) throw new Error("HTTP " + res.status);
+            return res.json();
+        })
+        .then(function(data) {
+            var answer = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+            if (!answer) throw new Error("Empty NIM response");
+            onDone(answer);
+        })
+        .catch(function(err) {
+            onError(err);
+        });
+    }
+
+    function handleAISubmit(e) {
+        if (e && e.preventDefault) e.preventDefault();
+        if (isGenerating || !input) return;
+        var text = input.value.trim();
+        if (!text) return;
+        input.value = '';
+
+        var userMsg = document.createElement('div');
+        userMsg.className = 'ai-msg ai-msg-user';
+        userMsg.innerHTML = '<div class="ai-msg-avatar">👤</div><div class="ai-msg-content"><p>' + escapeHtml(text) + '</p></div>';
+        messages.appendChild(userMsg);
+        scrollChatToBottom();
+
+        var botMsg = document.createElement('div');
+        botMsg.className = 'ai-msg ai-msg-bot';
+        var botAvatar = document.createElement('div');
+        botAvatar.className = 'ai-msg-avatar';
+        botAvatar.textContent = '✦';
+        var botContent = document.createElement('div');
+        botContent.className = 'ai-msg-content';
+        botContent.innerHTML = '<span class="ai-cursor">▋</span>';
+        botMsg.appendChild(botAvatar);
+        botMsg.appendChild(botContent);
+        messages.appendChild(botMsg);
+        scrollChatToBottom();
+
+        isGenerating = true;
+        if (sendBtn) sendBtn.disabled = true;
+
+        var isTr = currentLang === 'tr';
+        var trMarkers = ['nedir', 'neler', 'kimdir', 'nasıl', 'nerede', 'hakkında', 'misin', 'müsait', 'hangi'];
+        var textLower = text.toLowerCase();
+        for (var i = 0; i < trMarkers.length; i++) {
+            if (textLower.indexOf(trMarkers[i]) !== -1) { isTr = true; break; }
+        }
+
+        var apiKey = localStorage.getItem('vitonom_nvidia_api_key');
+        if (apiKey) {
+            callNvidiaNIM(text, apiKey, isTr, null, function(nimAnswer) {
+                streamTypewriter(botContent, nimAnswer, function() {
+                    isGenerating = false;
+                    if (sendBtn) sendBtn.disabled = false;
+                    if (input) input.focus();
+                });
+            }, function(err) {
+                var ragAnswer = queryLocalRAG(text, isTr);
+                streamTypewriter(botContent, ragAnswer, function() {
+                    isGenerating = false;
+                    if (sendBtn) sendBtn.disabled = false;
+                    if (input) input.focus();
+                });
+            });
+        } else {
+            setTimeout(function() {
+                var ragAnswer = queryLocalRAG(text, isTr);
+                streamTypewriter(botContent, ragAnswer, function() {
+                    isGenerating = false;
+                    if (sendBtn) sendBtn.disabled = false;
+                    if (input) input.focus();
+                });
+            }, 100);
+        }
+    }
+
+    function askQuickPrompt(promptText) {
+        if (!input) return;
+        input.value = promptText;
+        handleAISubmit({ preventDefault: function(){} });
+    }
+
+    function escapeHtml(str) {
+        var d = document.createElement('div');
+        d.textContent = str;
+        return d.innerHTML;
+    }
+
+    window.openAIChat = openAIChat;
+    window.closeAIChat = closeAIChat;
+    window.toggleAIConfig = toggleAIConfig;
+    window.saveAIConfig = saveAIConfig;
+    window.askQuickPrompt = askQuickPrompt;
+    window.handleAISubmit = handleAISubmit;
+    window.openCmdPalette = openAIChat; // legacy alias redirects to AI chat
+    window.closeCmdPalette = closeAIChat;
+
+    // Ctrl+K / Cmd+K opens Vitonom AI Assistant!
     document.addEventListener('keydown', function(e) {
         if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
             e.preventDefault();
-            if (overlay.classList.contains('active')) closePalette();
-            else openPalette();
+            if (overlay && overlay.classList.contains('active')) closeAIChat();
+            else openAIChat();
         }
     });
 
-    // Escape
+    // Escape closes AI chat
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && overlay.classList.contains('active')) {
-            closePalette();
+        if (e.key === 'Escape' && overlay && overlay.classList.contains('active')) {
+            closeAIChat();
         }
     });
 
-    // Click outside palette
-    overlay.addEventListener('click', function(e) {
-        if (e.target === overlay) closePalette();
-    });
+    // Click outside
+    if (overlay) {
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay) closeAIChat();
+        });
+    }
 
-    // Input: filter + arrow nav
-    input.addEventListener('input', function() {
-        render(input.value);
-    });
-
-    input.addEventListener('keydown', function(e) {
-        var items = list.querySelectorAll('.cmd-palette-item');
-        var filtered = list._filtered || [];
-        if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            if (items.length > 0) setActive((activeIdx + 1) % items.length);
-        } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            if (items.length > 0) setActive((activeIdx - 1 + items.length) % items.length);
-        } else if (e.key === 'Enter') {
-            e.preventDefault();
-            if (activeIdx >= 0 && filtered[activeIdx]) runCmd(filtered[activeIdx]);
-        }
-    });
+    // Auto-open if URL has #chat or #ai or ?chat=open
+    if (window.location.hash === '#chat' || window.location.hash === '#ai' || window.location.search.indexOf('chat=open') !== -1) {
+        setTimeout(openAIChat, 350);
+    }
 }());
 
 // ===== Feature 10: Keyboard-first Navigation =====
@@ -3748,7 +4041,8 @@ function stopMatrixRain() {
 
     function isPaletteOpen() {
         var ov = document.getElementById('cmd-palette-overlay');
-        return ov && ov.classList.contains('active');
+        var ai = document.getElementById('ai-chat-overlay');
+        return (ov && ov.classList.contains('active')) || (ai && ai.classList.contains('active'));
     }
 
     function getCurrentSectionIdx() {
