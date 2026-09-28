@@ -142,24 +142,6 @@
 
 </header>
 
-<!-- Floating Cyber Dock / Pill Navigation (Reveals on scroll) -->
-<nav class="floating-nav" id="floating-nav" aria-label="Hızlı Bölüm Navigasyonu">
-  <div class="floating-nav-pill">
-    <a href="#about" class="fnav-link" data-section="about">./about</a>
-    <a href="#experience" class="fnav-link" data-section="experience">./exp</a>
-    <a href="#certificates" class="fnav-link" data-section="certificates">./certs</a>
-    <a href="#projects" class="fnav-link" data-section="projects">./projects</a>
-    <a href="#contact" class="fnav-link" data-section="contact">./contact</a>
-    <span class="fnav-divider" aria-hidden="true"></span>
-    <button type="button" class="fnav-cmd-btn" onclick="openCmdPalette()" title="Komut Paleti (⌘K / Ctrl+K)" aria-label="Open Command Palette">
-      <span class="fnav-kbd">⌘K</span>
-    </button>
-    <button type="button" class="fnav-top-btn" onclick="window.scrollToTop()" title="Yukarı Çık" aria-label="Scroll to top">
-      <span class="fnav-top-arrow">↑</span>
-    </button>
-  </div>
-</nav>
-
 <main>
 <!-- About Section -->
 <section id="about">
@@ -4221,61 +4203,6 @@ document.addEventListener('keydown', function(e) {
             }
         }
     });
-}());
-
-// ===== 10/10 Polish: Floating Cyber Pill Navigation Controller =====
-(function () {
-    var nav = document.getElementById('floating-nav');
-    if (!nav) return;
-    
-    var links = nav.querySelectorAll('.fnav-link');
-    var sections = ['about', 'experience', 'certificates', 'projects', 'contact'];
-    
-    function onScroll() {
-        var scrollY = window.scrollY;
-        if (scrollY > 380) {
-            nav.classList.add('visible');
-        } else {
-            nav.classList.remove('visible');
-        }
-        
-        var scrollMiddle = scrollY + window.innerHeight * 0.35;
-        var current = '';
-        for (var i = 0; i < sections.length; i++) {
-            var el = document.getElementById(sections[i]);
-            if (el) {
-                var top = el.offsetTop;
-                var height = el.offsetHeight;
-                if (scrollMiddle >= top && scrollMiddle < top + height) {
-                    current = sections[i];
-                    break;
-                }
-            }
-        }
-        
-        links.forEach(function (l) {
-            if (l.getAttribute('data-section') === current) {
-                l.classList.add('active');
-            } else {
-                l.classList.remove('active');
-            }
-        });
-    }
-    
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    
-    links.forEach(function (l) {
-        l.addEventListener('click', function () {
-            if (typeof playClick === 'function') playClick();
-        });
-    });
-}());
-
-window.scrollToTop = function () {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (typeof playClick === 'function') playClick();
-};
 </script>
 
 </body>
