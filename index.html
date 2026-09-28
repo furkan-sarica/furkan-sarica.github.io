@@ -4011,12 +4011,14 @@ function stopMatrixRain() {
             var reader = res.body.getReader();
             var decoder = new TextDecoder();
             var fullAiText = "";
+            var sseBuffer = "";
 
             while (true) {
                 var chunk = await reader.read();
                 if (chunk.done) break;
-                var textChunk = decoder.decode(chunk.value, { stream: true });
-                var lines = textChunk.split("\n");
+                sseBuffer += decoder.decode(chunk.value, { stream: true });
+                var lines = sseBuffer.split("\n");
+                sseBuffer = lines.pop(); // Retain incomplete line for next chunk
                 for (var j = 0; j < lines.length; j++) {
                     var line = lines[j].trim();
                     if (line.indexOf("data: ") === 0) {
@@ -4024,7 +4026,7 @@ function stopMatrixRain() {
                         if (dataStr === "[DONE]") break;
                         try {
                             var parsed = JSON.parse(dataStr);
-                            var token = parsed.choices[0].delta && parsed.choices[0].delta.content;
+                            var token = parsed.choices && parsed.choices[0] && parsed.choices[0].delta && parsed.choices[0].delta.content;
                             if (token) {
                                 fullAiText += token;
                                 textContainer.innerHTML = parseMarkdown(fullAiText) + '<span class="ai-term-cursor">█</span>';
