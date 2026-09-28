@@ -1132,34 +1132,43 @@ traceroute to github.com/furkan-sarica (140.82.121.4), 30 hops max
       <span class="t-btn t-btn-red" onclick="closeAIChat()" title="Kapat (ESC)"></span>
       <span class="t-btn t-btn-yellow" onclick="closeAIChat()" title="Simge Durumuna"></span>
       <span class="t-btn t-btn-green" onclick="closeAIChat()" title="Kapat"></span>
-      <span class="terminal-title">vitonom@sarica:~/ai-chat.sh (Vitonom AI Shell)</span>
+      <span class="terminal-title">guest@furkan-sarica:~$ vitonom-cli --interactive</span>
       <span class="ai-term-esc" onclick="closeAIChat()" title="Kapat">[ESC / :q]</span>
     </div>
 
     <!-- Terminal Screen Body -->
     <div class="ai-terminal-body" id="ai-term-body">
       <div class="ai-term-banner">
-        <pre>
-╔═════════════════════════════════════════════════════════════════════════════════════════╗
-║  VITONOM AI SHELL v2.4 // KİŞİSEL PORTFOLYO &amp; RAG AJANI                                 ║
-║  RAG GROUNDING: api.json (Tracefold, CloudSpark, SAP B1, Homelab, Certs, MIS)           ║
-║  STATUS: 100% OPERATIONAL. TYPE A QUESTION OR EXECUTE A QUICK SCRIPT BELOW:             ║
-╚═════════════════════════════════════════════════════════════════════════════════════════╝</pre>
+        <div class="ai-motd-card">
+          <div class="ai-motd-top">
+            <span class="ai-motd-tag">VITONOM AGENT v2.5</span>
+            <span class="ai-motd-env">production // edge-inference (26B)</span>
+            <span class="ai-motd-status"><span class="status-pulse-dot"></span>LIVE</span>
+          </div>
+          <div class="ai-motd-meta">
+            <div class="ai-motd-row"><span class="ai-motd-k">Host:</span> <span class="ai-motd-v">furkan-sarica.github.io</span> <span class="ai-motd-sep">|</span> <span class="ai-motd-k">Engineer:</span> <span class="ai-motd-v">Furkan SARICA (CloudSpark)</span></div>
+            <div class="ai-motd-row"><span class="ai-motd-k">Capabilities:</span> <span class="ai-motd-v">Enterprise AI • Local RAG (Tracefold) • Altyapı &amp; DevOps • Serbest Sohbet</span></div>
+          </div>
+          <div class="ai-motd-prompt-hint">
+            <span class="ai-motd-arrow">›</span> 
+            <span data-lang-tr>Teknik veya kariyer odaklı bir soru sorabilir, serbestçe sohbet edebilir veya betikleri çalıştırabilirsin:</span>
+            <span data-lang-en>Ask any technical or career question, chat freely, or execute a script below:</span>
+          </div>
+        </div>
       </div>
       <div id="ai-term-history"></div>
     </div>
 
     <!-- Quick Run Chips (Terminal Style) -->
     <div class="cli-quick-chips ai-term-chips">
-      <span class="cli-chip-label" data-lang-tr>Komutlar:</span>
-      <span class="cli-chip-label" data-lang-en>Scripts:</span>
-      <button type="button" class="cli-chip" onclick="runAiQuick('./tracefold.sh')">./tracefold.sh</button>
-      <button type="button" class="cli-chip" onclick="runAiQuick('./cloudspark.sh')">./cloudspark.sh</button>
-      <button type="button" class="cli-chip" onclick="runAiQuick('./tech-stack.sh')">./tech-stack.sh</button>
-      <button type="button" class="cli-chip" onclick="runAiQuick('./certs.sh')">./certs.sh</button>
-      <button type="button" class="cli-chip" onclick="runAiQuick('./download-cv.sh')">./download-cv.sh</button>
-      <button type="button" class="cli-chip" onclick="runAiQuick('./contact.sh')">./contact.sh</button>
-      <button type="button" class="cli-chip" onclick="runAiQuick('clear')">clear</button>
+      <span class="cli-chip-label"><span class="chip-prompt">$</span> suggestions:</span>
+      <button type="button" class="cli-chip" onclick="runAiQuick('./tracefold.sh')"><span class="chip-cmd">./tracefold.sh</span><span class="chip-desc">RAG</span></button>
+      <button type="button" class="cli-chip" onclick="runAiQuick('./cloudspark.sh')"><span class="chip-cmd">./cloudspark.sh</span><span class="chip-desc">Role</span></button>
+      <button type="button" class="cli-chip" onclick="runAiQuick('./tech-stack.sh')"><span class="chip-cmd">./tech-stack.sh</span><span class="chip-desc">Stack</span></button>
+      <button type="button" class="cli-chip" onclick="runAiQuick('./certs.sh')"><span class="chip-cmd">./certs.sh</span><span class="chip-desc">Certs</span></button>
+      <button type="button" class="cli-chip" onclick="runAiQuick('./download-cv.sh')"><span class="chip-cmd">./download-cv.sh</span><span class="chip-desc">CV</span></button>
+      <button type="button" class="cli-chip" onclick="runAiQuick('./contact.sh')"><span class="chip-cmd">./contact.sh</span><span class="chip-desc">Contact</span></button>
+      <button type="button" class="cli-chip" onclick="runAiQuick('clear')"><span class="chip-cmd">clear</span></button>
     </div>
 
     <!-- Terminal Input Line -->

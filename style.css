@@ -2089,18 +2089,115 @@ body.glitch-mode {
     scroll-behavior: smooth;
 }
 
-.ai-term-banner pre {
-    margin: 0;
-    color: var(--terminal-green);
+.ai-term-banner {
+    margin-bottom: 0.5rem;
+}
+
+.ai-motd-card {
+    background: rgba(13, 17, 23, 0.75);
+    border: 1px solid rgba(48, 54, 61, 0.8);
+    border-left: 3px solid var(--terminal-green);
+    border-radius: 6px;
+    padding: 0.85rem 1.1rem;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    line-height: 1.45;
-    background: rgba(0, 255, 136, 0.04);
-    border: 1px dashed rgba(0, 255, 136, 0.3);
-    border-radius: 4px;
-    padding: 0.75rem 1rem;
-    white-space: pre-wrap;
-    word-break: break-word;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    backdrop-filter: blur(8px);
+}
+
+.ai-motd-top {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.ai-motd-tag {
+    font-weight: 700;
+    font-size: 0.76rem;
+    letter-spacing: 0.05em;
+    background: rgba(0, 255, 136, 0.12);
+    border: 1px solid rgba(0, 255, 136, 0.35);
+    color: var(--terminal-green);
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+}
+
+.ai-motd-env {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 500;
+}
+
+.ai-motd-status {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--terminal-green);
+    letter-spacing: 0.06em;
+}
+
+.status-pulse-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--terminal-green);
+    box-shadow: 0 0 8px var(--terminal-green);
+    animation: status-pulse 2s infinite;
+}
+
+@keyframes status-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.35; transform: scale(0.85); }
+}
+
+.ai-motd-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.22rem;
+    font-size: 0.74rem;
+    line-height: 1.5;
+}
+
+.ai-motd-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+}
+
+.ai-motd-k {
+    color: var(--accent-cyan);
+    font-weight: 600;
+}
+
+.ai-motd-v {
+    color: #cbd5e1;
+}
+
+.ai-motd-sep {
+    color: #475569;
+    margin: 0 0.15rem;
+}
+
+.ai-motd-prompt-hint {
+    border-top: 1px dashed rgba(255, 255, 255, 0.08);
+    padding-top: 0.45rem;
+    margin-top: 0.2rem;
+    font-size: 0.72rem;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.ai-motd-arrow {
+    color: var(--terminal-green);
+    font-weight: 700;
 }
 
 .ai-term-log-entry {
@@ -3172,32 +3269,67 @@ body.crt-active::before {
 .cli-chip-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.72rem;
-    color: var(--text-muted);
+    color: #64748b;
     white-space: nowrap;
-    margin-right: 0.2rem;
+    margin-right: 0.25rem;
     user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-weight: 600;
+}
+
+.chip-prompt {
+    color: var(--terminal-green);
+    font-weight: 700;
 }
 
 .cli-chip {
-    background: #111620;
-    border: 1px solid var(--border-color);
-    color: var(--accent-cyan);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(17, 24, 39, 0.7);
+    border: 1px solid rgba(56, 189, 248, 0.22);
+    color: #cbd5e1;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.72rem;
-    padding: 0.25rem 0.6rem;
+    padding: 0.24rem 0.55rem;
     border-radius: 4px;
     cursor: pointer;
     white-space: nowrap;
-    transition: all 0.2s ease;
+    transition: all 0.18s ease;
     user-select: none;
+}
+
+.chip-cmd {
+    color: var(--accent-cyan);
+    font-weight: 500;
+}
+
+.chip-desc {
+    font-size: 0.65rem;
+    color: #64748b;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 0.05rem 0.3rem;
+    border-radius: 2px;
+    letter-spacing: 0.02em;
 }
 
 .cli-chip:hover {
     background: rgba(0, 212, 255, 0.12);
     border-color: var(--accent-cyan);
     color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 212, 255, 0.25);
+    box-shadow: 0 0 12px rgba(0, 212, 255, 0.25);
     transform: translateY(-1px);
+}
+
+.cli-chip:hover .chip-cmd {
+    color: #ffffff;
+}
+
+.cli-chip:hover .chip-desc {
+    color: var(--accent-cyan);
+    background: rgba(0, 212, 255, 0.18);
 }
 
 .cli-chip:active {
