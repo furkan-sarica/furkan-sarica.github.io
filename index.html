@@ -29,7 +29,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Furkan SARICA">
-<link rel="stylesheet" href="style.css?v=20260928-3">
+<link rel="stylesheet" href="style.css?v=20260928-4">
 <link rel="preload" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"></noscript>
 <!-- Structured Data: Person Schema -->
@@ -1132,7 +1132,7 @@ traceroute to github.com/furkan-sarica (140.82.121.4), 30 hops max
       <span class="t-btn t-btn-red" onclick="closeAIChat()" title="Kapat (ESC)"></span>
       <span class="t-btn t-btn-yellow" onclick="closeAIChat()" title="Simge Durumuna"></span>
       <span class="t-btn t-btn-green" onclick="closeAIChat()" title="Kapat"></span>
-      <span class="terminal-title">vitonom@sarica:~/ai-chat.sh (NVIDIA NIM 11B + RAG)</span>
+      <span class="terminal-title">vitonom@sarica:~/ai-chat.sh (Vitonom AI Shell)</span>
       <span class="ai-term-esc" onclick="closeAIChat()" title="Kapat">[ESC / :q]</span>
     </div>
 
@@ -1141,7 +1141,7 @@ traceroute to github.com/furkan-sarica (140.82.121.4), 30 hops max
       <div class="ai-term-banner">
         <pre>
 ╔═════════════════════════════════════════════════════════════════════════════════════════╗
-║  VITONOM AI SHELL v2.4 // POWERED BY NVIDIA NIM (meta/llama-3.2-11b-vision-instruct)    ║
+║  VITONOM AI SHELL v2.4 // KİŞİSEL PORTFOLYO &amp; RAG AJANI                                 ║
 ║  RAG GROUNDING: api.json (Tracefold, CloudSpark, SAP B1, Homelab, Certs, MIS)           ║
 ║  STATUS: 100% OPERATIONAL. TYPE A QUESTION OR EXECUTE A QUICK SCRIPT BELOW:             ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════╝</pre>
@@ -3710,7 +3710,7 @@ function stopMatrixRain() {
         container.appendChild(cursor);
 
         var idx = 0;
-        var step = Math.max(1, Math.floor(text.length / 90));
+        var step = Math.max(3, Math.floor(text.length / 35));
         var interval = setInterval(function() {
             idx += step;
             if (idx >= text.length) {
@@ -3722,123 +3722,155 @@ function stopMatrixRain() {
             }
             container.innerHTML = parseMarkdown(text.slice(0, idx)) + '<span class="ai-term-cursor">█</span>';
             scrollTerminalToBottom();
-        }, 15);
+        }, 10);
     }
 
-    // Grounded Fallback RAG Engine
-    function queryLocalRAG(query, isTr) {
-        var q = query.toLowerCase();
+    // Comprehensive Vitonom AI Conversational & RAG Engine
+    function queryVitonomAI(query, isTr) {
+        var raw = (query || '').trim();
+        var q = raw.toLowerCase();
 
-        if (q.indexOf('tracefold') !== -1 || q.indexOf('rag') !== -1 || q.indexOf('foundry') !== -1) {
+        // 1. Greetings & Pleasantries
+        if (/^(selam|merhaba|slm|mrb|naber|nasılsın|nasilsin|günaydın|gunaydin|iyi günler|iyi gunler|iyi akşamlar|iyi aksamlar|hey|hello|hi|howdy|yo|whats up|what's up)/i.test(q) || q === 'selamlar' || q === 'merhabalar') {
+            return isTr
+                ? "Selam! Ben **Vitonom** — Furkan SARICA'nın kurumsal portfolyosu için çalışan yapay zeka asistanıyım. Sistemler devrede, mimariler aktif.\n\nFurkan'ın projeleri (**Tracefold**, **Roadmind**), **CloudSpark**'taki AI Solutions Engineer rolü, SAP B1 kurumsal ajanları veya **Homelab** altyapısı hakkında konuşabiliriz. Ne öğrenmek istersin?"
+                : "Hey there! I am **Vitonom** — Furkan SARICA's autonomous portfolio AI assistant. Everything is running at peak performance.\n\nFeel free to ask about his projects (**Tracefold**, **Roadmind**), his AI Solutions Engineer role at **CloudSpark**, SAP B1 integrations, or his **Homelab** infrastructure. Where would you like to start?";
+        }
+
+        // 2. Identity & Who are you
+        if (q.indexOf('sen kimsin') !== -1 || q.indexOf('sen nesin') !== -1 || q.indexOf('kimsin') !== -1 || q.indexOf('adın ne') !== -1 || q.indexOf('adin ne') !== -1 || q.indexOf('who are you') !== -1 || q.indexOf('what are you') !== -1 || q.indexOf('vitonom kim') !== -1) {
+            return isTr
+                ? "Ben **Vitonom** — Furkan SARICA'nın kurumsal portfolyosu için özel geliştirilmiş yapay zeka asistanı ve dijital ikiziyim.\n\n• **Rol:** Furkan'ın yazılım mimarisi, yapay zeka ajanları, RAG boru hatları ve homelab altyapısı hakkında tam yetkiyle bilgi vermek.\n• **Yaklaşım:** Furkan gibi fizikalist, analitik ve doğrudan bir tavra sahibim; laf kalabalığı yapmadan ampirik, somut ve teknik gerçeklerle yanıt veririm.\n\nBana Furkan'ın projelerini, stajlarını, kurumsal rollerini veya teknik yeteneklerini sorabilirsin."
+                : "I am **Vitonom** — Furkan SARICA's digital persona and autonomous portfolio agent.\n\n• **Role:** Provide deep technical insights into Furkan's software architecture, enterprise AI systems, RAG pipelines, and infrastructure.\n• **Philosophy:** Grounded in physicalism, I deliver concise, empirical, and technically robust answers without superficial fluff.\n\nAsk me anything regarding Furkan's projects, experience, or technical stack.";
+        }
+
+        // 3. About Furkan
+        if (q.indexOf('furkan kimdir') !== -1 || q.indexOf('furkan kim') !== -1 || q.indexOf('kendinden bahset') !== -1 || (q.indexOf('hakkında') !== -1 && q.indexOf('furkan') !== -1) || q.indexOf('who is furkan') !== -1 || q.indexOf('about furkan') !== -1 || q.indexOf('biyografi') !== -1 || q === 'kim' || q === 'hakkında') {
+            return isTr
+                ? "Furkan SARICA, CloudSpark Cloud Data & AI Technologies bünyesinde **AI Solutions Engineer** olarak görev yapmaktadır.\n\n• **Uzmanlık:** Kurumsal AI ajanları (AI Agents), yerel RAG sistemleri, LLM çıkarımı, kurumsal ERP entegrasyonları (SAP Business One) ve yüksek performanslı backend servisleri.\n• **Öne Çıkan Başarılar:** Microsoft AI Innovators stajında Foundry Local ile gizlilik odaklı yerel RAG asistanı **Tracefold**'u geliştirdi (24/24 doğrulama testi). Logosoft ve Binsal'da SAP B1 AI otomasyon platformları inşa etti.\n• **Eğitim:** İstanbul Gelişim Üniversitesi MIS mezunudur (3.10 Onur Derecesi).\n• **Altyapı:** ASUS UX310UQK sunucusunda 10/10 Linux/UmbrelOS homelab işletmektedir."
+                : "Furkan SARICA is an **AI Solutions Engineer** at CloudSpark Cloud Data & AI Technologies.\n\n• **Core Specialization:** Enterprise AI agents, local RAG architectures, LLM inference, mission-critical ERP integrations (SAP Business One), and production backend services.\n• **Key Milestones:** Engineered **Tracefold** (local, privacy-first RAG assistant) during his Microsoft AI Innovators internship with 24/24 benchmark score. Built SAP B1 AI platforms at Logosoft and Binsal Bilişim.\n• **Education:** B.Sc. in Management Information Systems from Istanbul Gelisim University (3.10 Honor Degree).\n• **Infrastructure:** Runs a fine-tuned Linux/UmbrelOS homelab on an ASUS UX310UQK server.";
+        }
+
+        // 4. Capabilities & Help
+        if (q.indexOf('ne yapabilirsin') !== -1 || q.indexOf('neler yapabilirsin') !== -1 || q.indexOf('yardım') !== -1 || q.indexOf('yardim') !== -1 || q === 'help' || q.indexOf('komutlar') !== -1 || q.indexOf('ne sorabilirim') !== -1 || q.indexOf('what can you do') !== -1) {
+            return isTr
+                ? "Vitonom AI Shell üzerinden şu işlemleri yapabilir veya sorular sorabilirsin:\n\n• `./tracefold.sh` — Microsoft yerel RAG mimarisi ve test sonuçları\n• `./cloudspark.sh` — CloudSpark AI Solutions Engineer rolü ve sorumlulukları\n• `./tech-stack.sh` — Python, FastAPI, Docker, Kubernetes, BBR/FQ yetenekleri\n• `./certs.sh` — 10 profesyonel küresel sertifika (Stanford, Microsoft, AWS vb.)\n• `./download-cv.sh` — Güncel TR/EN özgeçmiş indirme\n• `./contact.sh` — İletişim kanalları ve profiller\n• `clear` — Ekranı temizleme\n\nAyrıca aklına gelen herhangi bir teknik veya kariyer sorusunu serbestçe yazabilirsin."
+                : "Through the Vitonom AI Shell, you can execute scripts or ask freeform questions:\n\n• `./tracefold.sh` — Tracefold local RAG architecture & benchmarks\n• `./cloudspark.sh` — CloudSpark AI Solutions Engineer role & scope\n• `./tech-stack.sh` — Python, FastAPI, Docker, Kubernetes, networking\n• `./certs.sh` — 10 professional global certificates (Stanford, Microsoft, AWS)\n• `./download-cv.sh` — Direct resume download\n• `./contact.sh` — Contact channels and profiles\n• `clear` — Clear terminal screen\n\nYou can also enter any question directly in natural language.";
+        }
+
+        // 5. Philosophy & Physicalism
+        if (q.indexOf('fizikalizm') !== -1 || q.indexOf('fiziksel') !== -1 || q.indexOf('felsefe') !== -1 || q.indexOf('dünya görüşü') !== -1 || q.indexOf('dunya gorusu') !== -1 || q.indexOf('bakış açısı') !== -1 || q.indexOf('physicalism') !== -1) {
+            return isTr
+                ? "Furkan fizikalisttir (fizikalizm). Yaklaşımımızın temeli fiziksel gerçeklik, ampirik veriler ve somut nedensellik üzerine kuruludur.\n\nSoyut kavram karmaşaları veya gösterişli 'demo' projeler yerine, sahada gerçekten çalışan, test edilen, kaynak tüketimi optimize edilmiş ve matematiksel olarak doğrulanabilen mühendislik çözümleri üretmeyi esas alırız."
+                : "Furkan adheres to physicalism. Our engineering philosophy is anchored in physical reality, empirical data, and causal determinism.\n\nRather than abstract speculation or superficial demo toys, the focus is strictly on production-ready systems that solve measurable real-world problems and optimize hardware utilization.";
+        }
+
+        // 6. Projects Overview
+        if (q.indexOf('projeler') !== -1 || q.indexOf('proje') !== -1 || q.indexOf('neler yaptı') !== -1 || q.indexOf('neler yaptın') !== -1 || q.indexOf('ne yaptı') !== -1 || q.indexOf('projects') !== -1 || q.indexOf('portfolio') !== -1 || q.indexOf('çalışmalar') !== -1) {
+            return isTr
+                ? "Furkan'ın öne çıkan projeleri:\n\n1. **Tracefold:** Microsoft Foundry Local tabanlı, çevrimdışı çalışan ve kaynak atıflı yerel RAG asistanı (24/24 eval skoru).\n2. **Roadmind:** Kodlama ajanları için optimize edilmiş AI Proje Prompt Stüdyosu (React, Vite, Express, Prisma, NVIDIA NIM, Ollama).\n3. **AI Destekli SAP Business One Platform:** 58+ operasyonel ERP varlığını yapay zeka ile otomatik yöneten kurumsal ajan entegrasyonu.\n4. **Üretim Seviyesi Homelab:** ASUS UX310UQK üzerinde umbrelOS 2.0, Tailscale mesh ağı, WireGuard ve Linux TCP BBR/FQ çekirdek optimizasyonu.\n5. **AI Operasyonel CRM Platformu:** OCR destekli fatura/belge analizi ve karar destek paneli.\n\nAyrıntı öğrenmek istediğin projenin adını doğrudan yazabilirsin."
+                : "Furkan's featured engineering builds:\n\n1. **Tracefold:** Privacy-first, local RAG assistant powered by Microsoft Foundry Local (24/24 verified eval score).\n2. **Roadmind:** AI Project Prompt Studio tailored for coding agents (React, Vite, Express, Prisma, NVIDIA NIM, Ollama).\n3. **AI-Assisted SAP Business One Platform:** Enterprise AI agent platform synchronizing 58+ operational ERP entities.\n4. **Production Homelab:** umbrelOS 2.0 on ASUS UX310UQK with Tailscale mesh, WireGuard, and Linux TCP BBR/FQ kernel tuning.\n5. **AI Operational CRM Platform:** Full-stack OCR + AI insight decision support panel.\n\nType any project name for an architectural deep dive.";
+        }
+
+        // 7. Tracefold / Microsoft RAG
+        if (q.indexOf('tracefold') !== -1 || q.indexOf('rag') !== -1 || q.indexOf('foundry') !== -1 || (q.indexOf('microsoft') !== -1 && q.indexOf('staj') !== -1)) {
             return isTr 
-                ? "Tracefold, Furkan SARICA'nın Microsoft AI Innovators stajında geliştirdiği, gizlilik odaklı (privacy-first) ve tamamen yerel çalışan bir Retrieval-Augmented Generation (RAG) asistanıdır.\n\n• Mimari: Microsoft Foundry Local, yerel embedding modelleri, LLM çıkarımı ve SQLite tabanlı vektör saklama ile kosinüs benzerliği (cosine similarity) filtreleme.\n• Değerlendirme: İki dilli (TR/EN) doğrulama test paketinde 24/24 başarı elde etmiştir.\n• Güvenlik: Çevrimdışı çeviri, kaynak atıf doğrulaması ve deterministik safe-refusal mekanizmalarına sahiptir."
-                : "Tracefold is a privacy-first, fully local Retrieval-Augmented Generation (RAG) assistant engineered by Furkan SARICA during his Microsoft AI Innovators internship.\n\n• Architecture: Microsoft Foundry Local, local embedding models, LLM inference, SQLite-based vector storage, and cosine-similarity retrieval.\n• Evaluation: Scored 24/24 on the bilingual evaluation suite.\n• Guardrails: Offline translation, citation validation, and deterministic safe-refusal mechanisms.";
+                ? "Tracefold, Furkan SARICA'nın **Microsoft AI Innovators** stajında geliştirdiği, gizlilik odaklı (privacy-first) ve tamamen yerel çalışan bir Retrieval-Augmented Generation (RAG) asistanıdır.\n\n• **Mimari:** Microsoft Foundry Local, yerel embedding modelleri, LLM çıkarımı ve SQLite tabanlı vektör saklama ile kosinüs benzerliği (cosine similarity) filtreleme.\n• **Değerlendirme:** İki dilli (TR/EN) doğrulama test paketinde 24/24 başarı elde etmiştir.\n• **Güvenlik Mekanizmaları:** Çevrimdışı çeviri, kaynak atıf doğrulaması ve deterministik safe-refusal mekanizmalarına sahiptir."
+                : "Tracefold is a privacy-first, fully local Retrieval-Augmented Generation (RAG) assistant engineered by Furkan SARICA during his Microsoft AI Innovators internship.\n\n• **Architecture:** Microsoft Foundry Local, local embedding models, LLM inference, SQLite-based vector storage, and cosine-similarity retrieval.\n• **Evaluation:** Scored 24/24 on the verified bilingual evaluation suite.\n• **Guardrails:** Offline translation, citation validation, and deterministic safe-refusal mechanisms.";
         }
 
-        if (q.indexOf('cloudspark') !== -1 || q.indexOf('iş') !== -1 || q.indexOf('rol') !== -1 || q.indexOf('deneyim') !== -1 || q.indexOf('experience') !== -1 || q.indexOf('job') !== -1) {
+        // 8. CloudSpark & Career
+        if (q.indexOf('cloudspark') !== -1 || q.indexOf('iş') !== -1 || q.indexOf('rol') !== -1 || q.indexOf('deneyim') !== -1 || q.indexOf('experience') !== -1 || q.indexOf('job') !== -1 || q.indexOf('nerede çalışıyor') !== -1 || q.indexOf('ne iş yapıyor') !== -1 || q.indexOf('kariyer') !== -1) {
             return isTr
-                ? "Furkan SARICA, CloudSpark Cloud Data & AI Technologies bünyesinde AI Solutions Engineer olarak görev yapmaktadır (Ağustos 2026 – Günümüz).\n\n• Sorumluluklar: Kurumsal AI ajanları (AI Agents), RAG sistemleri ve LLM uygulamaları geliştirme.\n• Backend & Altyapı: Python ve FastAPI ile kurumsal servisler/API'lar kurmakta, SAP Business One gibi ERP ortamlarını yapay zeka ile operasyonel süreçlere entegre etmekte ve Docker/Kubernetes konteyner altyapılarını yönetmektedir."
-                : "Furkan SARICA serves as an AI Solutions Engineer at CloudSpark Cloud Data & AI Technologies (Aug 2026 – Present).\n\n• Responsibilities: Designs enterprise AI agents, RAG systems, and LLM applications.\n• Backend & Infra: Builds high-performance services with Python & FastAPI, integrates enterprise ERPs (SAP Business One), and operates Docker/Kubernetes environments.";
+                ? "Furkan SARICA, **CloudSpark Cloud Data & AI Technologies** bünyesinde **AI Solutions Engineer** olarak görev yapmaktadır (Ağustos 2026 – Günümüz).\n\n• **Sorumluluklar:** Kurumsal AI ajanları (AI Agents), RAG sistemleri ve LLM uygulamaları geliştirme.\n• **Backend & Altyapı:** Python ve FastAPI ile kurumsal servisler/API'lar kurmakta, SAP Business One gibi ERP ortamlarını yapay zeka ile operasyonel süreçlere entegre etmekte ve Docker/Kubernetes konteyner altyapılarını yönetmektedir."
+                : "Furkan SARICA serves as an **AI Solutions Engineer** at CloudSpark Cloud Data & AI Technologies (Aug 2026 – Present).\n\n• **Responsibilities:** Designs enterprise AI agents, RAG systems, and LLM applications.\n• **Backend & Infra:** Builds high-performance services with Python & FastAPI, integrates enterprise ERPs (SAP Business One), and operates Docker/Kubernetes environments.";
         }
 
-        if (q.indexOf('sap') !== -1 || q.indexOf('logosoft') !== -1 || q.indexOf('binsal') !== -1 || q.indexOf('erp') !== -1) {
+        // 9. SAP Business One & ERP
+        if (q.indexOf('sap') !== -1 || q.indexOf('logosoft') !== -1 || q.indexOf('binsal') !== -1 || q.indexOf('erp') !== -1 || q.indexOf('business one') !== -1) {
             return isTr
-                ? "Furkan, Logosoft ve Binsal Bilişim stajlarında SAP Business One ERP sistemi için yapay zeka destekli kurumsal ajan platformu geliştirmiştir.\n\n• Kapsam: 58'den fazla operasyonel ERP varlığını JSON Schema doğrulaması ve SAP B1 Service Layer API işlem akışlarıyla senkronize eden, Python/Flask tabanlı akıllı otomasyon mimarileri inşa etmiştir."
-                : "Furkan engineered an AI-assisted enterprise platform for SAP Business One at Logosoft and Binsal Bilişim.\n\n• Scope: Synchronized 58+ operational ERP entities using JSON Schema validation and SAP B1 Service Layer transactional APIs with Python and Flask.";
+                ? "Furkan, **Logosoft** ve **Binsal Bilişim** stajlarında SAP Business One ERP sistemi için yapay zeka destekli kurumsal ajan platformu geliştirmiştir.\n\n• **Kapsam:** 58'den fazla operasyonel ERP varlığını JSON Schema doğrulaması ve SAP B1 Service Layer API işlem akışlarıyla senkronize eden, Python/Flask tabanlı akıllı otomasyon mimarileri inşa etmiştir."
+                : "Furkan engineered an AI-assisted enterprise platform for **SAP Business One** at Logosoft and Binsal Bilişim.\n\n• **Scope:** Synchronized 58+ operational ERP entities using JSON Schema validation and SAP B1 Service Layer transactional APIs with Python and Flask.";
         }
 
+        // 10. Roadmind
         if (q.indexOf('roadmind') !== -1 || q.indexOf('prompt') !== -1) {
             return isTr
-                ? "Roadmind, kodlama ajanları (coding agents) için geliştirilmiş bir AI Proje Prompt Stüdyosudur. Yapılandırılmış ve optimize edilmiş sistem promptları üretmeye odaklanır.\n\n• Stack: React, TypeScript, Vite, Express.js, Prisma, NVIDIA NIM ve Ollama."
-                : "Roadmind is an AI Project Prompt Studio engineered for coding agents, streamlining structured prompt workflows.\n\n• Stack: React, TypeScript, Vite, Express.js, Prisma, NVIDIA NIM, and Ollama.";
+                ? "Roadmind, kodlama ajanları (coding agents) için geliştirilmiş bir **AI Proje Prompt Stüdyosudur**. Yapılandırılmış ve optimize edilmiş sistem promptları üretmeye odaklanır.\n\n• **Stack:** React, TypeScript, Vite, Express.js, Prisma, NVIDIA NIM ve Ollama."
+                : "Roadmind is an **AI Project Prompt Studio** engineered for coding agents, streamlining structured prompt workflows.\n\n• **Stack:** React, TypeScript, Vite, Express.js, Prisma, NVIDIA NIM, and Ollama.";
         }
 
-        if (q.indexOf('homelab') !== -1 || q.indexOf('sunucu') !== -1 || q.indexOf('server') !== -1 || q.indexOf('umbrel') !== -1 || q.indexOf('oled') !== -1) {
+        // 11. Homelab & Hardware
+        if (q.indexOf('homelab') !== -1 || q.indexOf('sunucu') !== -1 || q.indexOf('server') !== -1 || q.indexOf('umbrel') !== -1 || q.indexOf('oled') !== -1 || q.indexOf('donanım') !== -1 || q.indexOf('asus') !== -1) {
             return isTr
-                ? "Furkan'ın üretim seviyesi Homelab Altyapısı, umbrelOS 2.0 üzerinde çalışan ve ASUS UX310UQK sunucusunda barındırılan konteyner otomasyonudur.\n\n• Ağ: Tailscale mesh ağı ve WireGuard VPN ile güvenli uzaktan erişim.\n• Çekirdek: Linux çekirdeğinde TCP BBR + FQ optimizasyonları ile yüksek bit-rate akışı.\n• Medya: Infuse ve SMB üzerinden OLED TV için 4K Remux / Dolby Vision IQ / Dolby Atmos medya akışı."
-                : "Furkan's production Homelab runs on umbrelOS 2.0 hosted on an ASUS UX310UQK server.\n\n• Networking: Tailscale mesh and WireGuard VPN.\n• Kernel: Linux TCP BBR + FQ congestion control enabled.\n• Media: Direct SMB streaming to OLED TV supporting 4K Remux, Dolby Vision IQ, and Dolby Atmos via Infuse.";
+                ? "Furkan'ın üretim seviyesi **Homelab Altyapısı**, umbrelOS 2.0 üzerinde çalışan ve ASUS UX310UQK sunucusunda barındırılan konteyner otomasyonudur.\n\n• **Ağ:** Tailscale mesh ağı ve WireGuard VPN ile güvenli uzaktan erişim.\n• **Çekirdek:** Linux çekirdeğinde TCP BBR + FQ optimizasyonları ile yüksek bit-rate akışı.\n• **Medya:** Infuse ve SMB üzerinden OLED TV için 4K Remux / Dolby Vision IQ / Dolby Atmos medya akışı."
+                : "Furkan's production **Homelab** runs on umbrelOS 2.0 hosted on an ASUS UX310UQK server.\n\n• **Networking:** Tailscale mesh and WireGuard VPN.\n• **Kernel:** Linux TCP BBR + FQ congestion control enabled.\n• **Media:** Direct SMB streaming to OLED TV supporting 4K Remux, Dolby Vision IQ, and Dolby Atmos via Infuse.";
         }
 
-        if (q.indexOf('sertifika') !== -1 || q.indexOf('certificate') !== -1 || q.indexOf('stanford') !== -1 || q.indexOf('aws') !== -1) {
+        // 12. Certifications
+        if (q.indexOf('sertifika') !== -1 || q.indexOf('certificate') !== -1 || q.indexOf('stanford') !== -1 || q.indexOf('aws') !== -1 || q.indexOf('certs') !== -1 || q.indexOf('belge') !== -1) {
             return isTr
                 ? "Furkan SARICA'nın sahip olduğu 10 profesyonel küresel sertifika:\n\n1. Stanford University — Artificial Intelligence Professional Certificate\n2. Microsoft — AI & ML Engineering Professional Certificate\n3. Vanderbilt University — Generative AI Software Engineering Specialization\n4. NVIDIA — Developer Program Member\n5. IBM & ISC2 — Cybersecurity Specialist Professional Certificate\n6. AWS — Cloud Solutions Architect Professional Certificate\n7. IBM — DevOps and Software Engineering Professional Certificate\n8. Google — IT Support Professional Certificate\n9. Meta — iOS Developer Professional Certificate\n10. Akamai Technologies — Network Engineering Professional Certificate"
                 : "Furkan SARICA holds 10 professional global certificates:\n\n1. Stanford University — Artificial Intelligence Professional Certificate\n2. Microsoft — AI & ML Engineering Professional Certificate\n3. Vanderbilt University — Generative AI Software Engineering Specialization\n4. NVIDIA — Developer Program Member\n5. IBM & ISC2 — Cybersecurity Specialist Professional Certificate\n6. AWS — Cloud Solutions Architect Professional Certificate\n7. IBM — DevOps and Software Engineering Professional Certificate\n8. Google — IT Support Professional Certificate\n9. Meta — iOS Developer Professional Certificate\n10. Akamai Technologies — Network Engineering Professional Certificate";
         }
 
-        if (q.indexOf('yetenek') !== -1 || q.indexOf('skill') !== -1 || q.indexOf('stack') !== -1 || q.indexOf('dil') !== -1 || q.indexOf('python') !== -1 || q.indexOf('fastapi') !== -1) {
+        // 13. Tech Stack & Skills
+        if (q.indexOf('yetenek') !== -1 || q.indexOf('skill') !== -1 || q.indexOf('stack') !== -1 || q.indexOf('dil') !== -1 || q.indexOf('python') !== -1 || q.indexOf('fastapi') !== -1 || q.indexOf('docker') !== -1 || q.indexOf('kubernetes') !== -1) {
             return isTr
-                ? "Furkan'ın teknik stack'i ve uzmanlıkları:\n\n• AI & ML: AI Agents, Local RAG, LLM Inference, Embeddings, Cosine Similarity, Prompt Engineering, NVIDIA NIM, Ollama, Microsoft Foundry Local.\n• Backend: Python, FastAPI, Flask, Node.js, Express.js, REST APIs, Prisma.\n• DevOps & Bulut: Docker, Kubernetes, K3s, GitOps, Linux, CI/CD, Prometheus, Grafana.\n• Veritabanları: SQLite (Vector Search), PostgreSQL, MariaDB.\n• Ağ: Tailscale, WireGuard, DNS, TCP/IP Tuning (BBR/FQ)."
-                : "Furkan's core technical stack:\n\n• AI & ML: AI Agents, Local RAG, LLM Inference, Embeddings, Cosine Similarity, Prompt Engineering, NVIDIA NIM, Ollama, Microsoft Foundry Local.\n• Backend: Python, FastAPI, Flask, Node.js, Express.js, REST APIs, Prisma.\n• DevOps & Cloud: Docker, Kubernetes, K3s, GitOps, Linux, CI/CD, Prometheus, Grafana.\n• Databases: SQLite (Vector Search), PostgreSQL, MariaDB.\n• Networking: Tailscale, WireGuard, DNS, TCP/IP Tuning (BBR/FQ).";
+                ? "Furkan'ın teknik stack'i ve uzmanlıkları:\n\n• **AI & ML:** AI Agents, Local RAG, LLM Inference, Embeddings, Cosine Similarity, Prompt Engineering, NVIDIA NIM, Ollama, Microsoft Foundry Local.\n• **Backend:** Python, FastAPI, Flask, Node.js, Express.js, REST APIs, Prisma.\n• **DevOps & Bulut:** Docker, Kubernetes, K3s, GitOps, Linux, CI/CD, Prometheus, Grafana.\n• **Veritabanları:** SQLite (Vector Search), PostgreSQL, MariaDB.\n• **Ağ:** Tailscale, WireGuard, DNS, TCP/IP Tuning (BBR/FQ)."
+                : "Furkan's core technical stack:\n\n• **AI & ML:** AI Agents, Local RAG, LLM Inference, Embeddings, Cosine Similarity, Prompt Engineering, NVIDIA NIM, Ollama, Microsoft Foundry Local.\n• **Backend:** Python, FastAPI, Flask, Node.js, Express.js, REST APIs, Prisma.\n• **DevOps & Cloud:** Docker, Kubernetes, K3s, GitOps, Linux, CI/CD, Prometheus, Grafana.\n• **Databases:** SQLite (Vector Search), PostgreSQL, MariaDB.\n• **Networking:** Tailscale, WireGuard, DNS, TCP/IP Tuning (BBR/FQ).";
         }
 
-        if (q.indexOf('eğitim') !== -1 || q.indexOf('okul') !== -1 || q.indexOf('üniversite') !== -1 || q.indexOf('education') !== -1 || q.indexOf('gpa') !== -1) {
+        // 14. Education
+        if (q.indexOf('eğitim') !== -1 || q.indexOf('egitim') !== -1 || q.indexOf('okul') !== -1 || q.indexOf('üniversite') !== -1 || q.indexOf('universite') !== -1 || q.indexOf('education') !== -1 || q.indexOf('gpa') !== -1 || q.indexOf('ybs') !== -1 || q.indexOf('mis') !== -1) {
             return isTr
-                ? "Furkan SARICA, İstanbul Gelişim Üniversitesi Yönetim Bilişim Sistemleri (MIS) bölümünden 3.10 / 4.00 Onur Derecesi (Honor Degree) ile mezun olmuştur (2022–2026)."
-                : "Furkan SARICA graduated from Istanbul Gelisim University with a B.Sc. in Management Information Systems (MIS), achieving a 3.10 / 4.00 Honor Degree (2022–2026).";
+                ? "Furkan SARICA, **İstanbul Gelişim Üniversitesi** Yönetim Bilişim Sistemleri (MIS) bölümünden **3.10 / 4.00 Onur Derecesi (Honor Degree)** ile mezun olmuştur (2022–2026)."
+                : "Furkan SARICA graduated from **Istanbul Gelisim University** with a B.Sc. in Management Information Systems (MIS), achieving a **3.10 / 4.00 Honor Degree** (2022–2026).";
         }
 
-        if (q.indexOf('iletişim') !== -1 || q.indexOf('contact') !== -1 || q.indexOf('cv') !== -1 || q.indexOf('resume') !== -1 || q.indexOf('mail') !== -1 || q.indexOf('eposta') !== -1) {
+        // 15. Contact & CV
+        if (q.indexOf('iletişim') !== -1 || q.indexOf('iletisim') !== -1 || q.indexOf('contact') !== -1 || q.indexOf('cv') !== -1 || q.indexOf('resume') !== -1 || q.indexOf('mail') !== -1 || q.indexOf('eposta') !== -1 || q.indexOf('ulaş') !== -1 || q.indexOf('ulas') !== -1 || q.indexOf('iş teklifi') !== -1 || q.indexOf('hire') !== -1) {
             return isTr
-                ? "Furkan SARICA ile iletişim bilgileri:\n\n• E-posta: [sarica.furkan@icloud.com](mailto:sarica.furkan@icloud.com)\n• LinkedIn: [linkedin.com/in/furkan-sarica](https://www.linkedin.com/in/furkan-sarica/)\n• GitHub: [github.com/furkan-sarica](https://github.com/furkan-sarica)\n• Türkçe CV: [Furkan SARICA CV TR.pdf](Furkan%20SARICA%20CV%20TR.pdf)\n• English Resume: [Furkan SARICA CV EN.pdf](Furkan%20SARICA%20CV%20EN.pdf)"
-                : "Furkan SARICA contact information:\n\n• Email: [sarica.furkan@icloud.com](mailto:sarica.furkan@icloud.com)\n• LinkedIn: [linkedin.com/in/furkan-sarica](https://www.linkedin.com/in/furkan-sarica/)\n• GitHub: [github.com/furkan-sarica](https://github.com/furkan-sarica)\n• Turkish CV: [Furkan SARICA CV TR.pdf](Furkan%20SARICA%20CV%20TR.pdf)\n• English Resume: [Furkan SARICA CV EN.pdf](Furkan%20SARICA%20CV%20EN.pdf)";
+                ? "Furkan SARICA ile doğrudan iletişim kanalları:\n\n• **E-posta:** [sarica.furkan@icloud.com](mailto:sarica.furkan@icloud.com)\n• **LinkedIn:** [linkedin.com/in/furkan-sarica](https://www.linkedin.com/in/furkan-sarica/)\n• **GitHub:** [github.com/furkan-sarica](https://github.com/furkan-sarica)\n• **Türkçe CV:** [Furkan SARICA CV TR.pdf](Furkan%20SARICA%20CV%20TR.pdf)\n• **English Resume:** [Furkan SARICA CV EN.pdf](Furkan%20SARICA%20CV%20EN.pdf)"
+                : "Furkan SARICA direct contact information:\n\n• **Email:** [sarica.furkan@icloud.com](mailto:sarica.furkan@icloud.com)\n• **LinkedIn:** [linkedin.com/in/furkan-sarica](https://www.linkedin.com/in/furkan-sarica/)\n• **GitHub:** [github.com/furkan-sarica](https://github.com/furkan-sarica)\n• **Turkish CV:** [Furkan SARICA CV TR.pdf](Furkan%20SARICA%20CV%20TR.pdf)\n• **English Resume:** [Furkan SARICA CV EN.pdf](Furkan%20SARICA%20CV%20EN.pdf)";
         }
 
+        // 16. Casual Thanks & Compliments
+        if (/^(teşekkür|tesekkur|sağol|sagol|eyvallah|harika|süper|super|bravo|adamsın|adamsin|thanks|thank you|great|awesome|cool)/i.test(q)) {
+            return isTr
+                ? "Rica ederim efendim, her zaman. Merak ettiğin başka bir teknik detay veya incelemek istediğin bir proje varsa yazman yeterli."
+                : "You're welcome. Always here to break down architecture or project details. Let me know what else you'd like to explore.";
+        }
+
+        // 17. Intelligent Semantic & Keyword Scoring Fallback
+        var topics = [
+            { id: 'projects', words: ['kod', 'yazılım', 'program', 'mimari', 'build', 'repo', 'ürün', 'sistem'], fn: function() { return queryVitonomAI('projeler', isTr); } },
+            { id: 'experience', words: ['şirket', 'firma', 'çalıştı', 'nerede', 'stajyer', 'tecrübe', 'pozisyon', 'unvan'], fn: function() { return queryVitonomAI('deneyim', isTr); } },
+            { id: 'stack', words: ['backend', 'frontend', 'veritabanı', 'database', 'api', 'servis', 'altyapı', 'linux', 'devops'], fn: function() { return queryVitonomAI('stack', isTr); } },
+            { id: 'ai', words: ['yapay zeka', 'llm', 'model', 'zeka', 'agent', 'ajan', 'vektör', 'vector', 'embedding'], fn: function() { return queryVitonomAI('tracefold', isTr); } }
+        ];
+
+        var bestScore = 0;
+        var bestFn = null;
+        for (var i = 0; i < topics.length; i++) {
+            var score = 0;
+            for (var j = 0; j < topics[i].words.length; j++) {
+                if (q.indexOf(topics[i].words[j]) !== -1) score++;
+            }
+            if (score > bestScore) {
+                bestScore = score;
+                bestFn = topics[i].fn;
+            }
+        }
+
+        if (bestScore > 0 && bestFn) {
+            return bestFn();
+        }
+
+        // 18. Natural Conversational Fallback (Never a dead-end error)
         return isTr
-            ? "Komut veya soru anlaşılamadı. Şu komutları veya soruları deneyebilirsin:\n\n• ./tracefold.sh (Tracefold RAG Mimarisi)\n• ./cloudspark.sh (CloudSpark Rolü ve Görevler)\n• ./tech-stack.sh (Teknoloji Stack'i)\n• ./certs.sh (Sertifikalar)\n• ./download-cv.sh (CV İndirme)\n• ./contact.sh (İletişim)\n• clear (Ekranı Temizle)"
-            : "Unknown command or query. Try running one of these scripts:\n\n• ./tracefold.sh (Tracefold RAG Pipeline)\n• ./cloudspark.sh (CloudSpark Role & Tasks)\n• ./tech-stack.sh (Tech Stack)\n• ./certs.sh (Certifications)\n• ./download-cv.sh (Download CV)\n• ./contact.sh (Contact Info)\n• clear (Clear Screen)";
-    }
-
-    function callNvidiaNIM(query, isTr, onDone, onError) {
-        var key = _getNvidiaKey();
-        if (!key) {
-            onError(new Error("No key"));
-            return;
-        }
-
-        var systemPrompt = "Sen Vitonom'sun — Furkan SARICA'nın kurumsal portfolyosu için geliştirilmiş zeki, net, teknik ve doğrudan yanıt veren yapay zeka asistanısın. " +
-            "Furkan SARICA, CloudSpark Cloud Data & AI Technologies'te AI Solutions Engineer olarak çalışmaktadır. " +
-            "Microsoft AI Innovators stajında Foundry Local ile 'Tracefold' yerel RAG asistanını geliştirmiştir (24/24 doğrulama testi). " +
-            "Logosoft ve Binsal'da SAP Business One için AI Ajan platformu kurmuştur. " +
-            "Ayrıca Roadmind projesini geliştirmiş ve ASUS UX310UQK üzerinde 10/10 UmbrelOS homelab işletmektedir. " +
-            "İstanbul Gelişim Üniversitesi MIS mezunudur (3.10 Onur derecesi). " +
-            "Sertifikaları: Stanford AI, Microsoft AI & ML, Vanderbilt GenAI, NVIDIA Developer, IBM/ISC2 Cybersecurity, AWS Solutions Architect, IBM DevOps, Akamai Network. " +
-            "Yetenekleri: Python, FastAPI, Docker, Kubernetes, SQLite Vectors, React, TypeScript, Tailscale, BBR/FQ. " +
-            "Cevapları " + (isTr ? "Türkçe" : "İngilizce") + " olarak, doğrudan ve teknik bir yazılım mimarı üslubuyla ver. Gereksiz övgülerden kaçın.";
-
-        var controller = new AbortController();
-        var timeoutId = setTimeout(function() { controller.abort(); }, 6000);
-
-        fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
-            method: "POST",
-            signal: controller.signal,
-            headers: {
-                "Authorization": "Bearer " + key,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                model: "meta/llama-3.2-11b-vision-instruct",
-                messages: [
-                    { role: "system", content: systemPrompt },
-                    { role: "user", content: query }
-                ],
-                temperature: 0.25,
-                max_tokens: 300
-            })
-        })
-        .then(function(res) {
-            clearTimeout(timeoutId);
-            if (!res.ok) throw new Error("HTTP " + res.status);
-            return res.json();
-        })
-        .then(function(data) {
-            var answer = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
-            if (!answer) throw new Error("Empty response");
-            onDone(answer);
-        })
-        .catch(function(err) {
-            clearTimeout(timeoutId);
-            onError(err);
-        });
+            ? "Bu soruyu Furkan'ın mevcut portfolyo ve sistem verileriyle doğrudan eşleştiremedim efendim, ancak şu ana başlıklarda derinlemesine bilgi verebilirim:\n\n• **Projeler:** Tracefold (Microsoft RAG), Roadmind (AI Prompt Studio), AI SAP B1 Platformu\n• **Deneyim:** CloudSpark (AI Solutions Engineer), Microsoft AI Innovators, Logosoft, Binsal\n• **Teknoloji Stack'i:** Python, FastAPI, Docker, Kubernetes, Yerel RAG Mimarileri\n• **Sertifikalar & Eğitim:** Stanford AI, Microsoft AI & ML, YBS Onur Derecesi\n\nHangi konuyu incelemek istersin?"
+            : "I couldn't find a direct match for that in Furkan's portfolio data, but I can break down details on:\n\n• **Projects:** Tracefold (Microsoft RAG), Roadmind (AI Prompt Studio), SAP B1 Platform\n• **Experience:** CloudSpark (AI Solutions Engineer), Microsoft AI Innovators, Logosoft, Binsal\n• **Tech Stack:** Python, FastAPI, Docker, Kubernetes, Local RAG Pipelines\n• **Certifications & Education:** Stanford AI, Microsoft AI & ML, MIS Honor Degree\n\nWhich area would you like to explore?";
     }
 
     function handleAiTerminalSubmit(e) {
@@ -3893,7 +3925,7 @@ function stopMatrixRain() {
         entry.className = 'ai-term-log-entry';
         entry.innerHTML = '<div class="ai-term-user-line"><span class="ai-term-prompt">guest@portfolio:~$</span> <span class="ai-term-user-cmd">' + escapeHtml(text) + '</span></div>' +
             '<div class="ai-term-bot-output">' +
-            '<div class="ai-term-sys-tag"><span style="color:var(--terminal-green);">●</span> [vitonom@nvidia-nim]:</div>' +
+            '<div class="ai-term-sys-tag"><span style="color:var(--terminal-green);">●</span> [vitonom]:</div>' +
             '<div class="ai-term-text"><span class="ai-term-cursor">█</span></div>' +
             '</div>';
         history.appendChild(entry);
@@ -3903,24 +3935,16 @@ function stopMatrixRain() {
         isExecuting = true;
 
         var isTr = currentLang === 'tr';
-        var trMarkers = ['nedir', 'neler', 'kimdir', 'nasıl', 'nerede', 'hakkında', 'misin', 'müsait', 'hangi'];
+        var trMarkers = ['nedir', 'neler', 'kimdir', 'nasıl', 'nerede', 'hakkında', 'misin', 'müsait', 'hangi', 'selam', 'merhaba', 'naber', 'günaydın'];
         var textLower = resolvedPrompt.toLowerCase();
         for (var i = 0; i < trMarkers.length; i++) {
             if (textLower.indexOf(trMarkers[i]) !== -1) { isTr = true; break; }
         }
 
-        callNvidiaNIM(resolvedPrompt, isTr, function(nimAnswer) {
-            streamTerminalTypewriter(textContainer, nimAnswer, function() {
-                isExecuting = false;
-                if (input) input.focus();
-            });
-        }, function(err) {
-            // Instant fallback to grounded RAG
-            var ragAnswer = queryLocalRAG(resolvedPrompt, isTr);
-            streamTerminalTypewriter(textContainer, ragAnswer, function() {
-                isExecuting = false;
-                if (input) input.focus();
-            });
+        var vitonomResponse = queryVitonomAI(resolvedPrompt, isTr);
+        streamTerminalTypewriter(textContainer, vitonomResponse, function() {
+            isExecuting = false;
+            if (input) input.focus();
         });
     }
 
