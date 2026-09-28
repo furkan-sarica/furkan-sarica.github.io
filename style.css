@@ -2723,23 +2723,28 @@ body.light-theme ::-webkit-scrollbar-thumb { background: #b0b8c1; }
     box-shadow: 0 0 40px rgba(0, 255, 136, 0.08);
 }
 
-/* Hero Title Decode Glitch Effect */
+/* Hero Title Clean Terminal Styling (Zero Shaking / No Skew) */
 .hero h1 .typing {
     position: relative;
     display: inline-block;
+    color: var(--terminal-green);
+    text-shadow: 0 0 14px rgba(0, 255, 136, 0.35);
+    font-weight: 700;
 }
 
-@keyframes glitch-decode {
-    0%   { opacity: 0; clip-path: inset(0 100% 0 0); }
-    20%  { opacity: 1; clip-path: inset(0 80% 0 0); transform: skewX(-5deg); }
-    40%  { clip-path: inset(0 50% 0 0); transform: skewX(3deg); }
-    60%  { clip-path: inset(0 25% 0 0); transform: skewX(-2deg); }
-    80%  { clip-path: inset(0 5% 0 0); transform: skewX(1deg); }
-    100% { clip-path: inset(0 0 0 0); transform: skewX(0); }
+.hero .hero-cursor {
+    display: inline-block;
+    color: var(--terminal-green);
+    font-weight: 700;
+    margin-left: 4px;
+    animation: hero-cursor-blink 1s step-end infinite;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    user-select: none;
 }
 
-.hero h1 .typing.decode-active {
-    animation: glitch-decode 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+@keyframes hero-cursor-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
 }
 
 /* Section divider animated line */

@@ -29,7 +29,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Furkan SARICA">
-<link rel="stylesheet" href="style.css?v=20260928-8">
+<link rel="stylesheet" href="style.css?v=20260928-9">
 <link rel="preload" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"></noscript>
 <!-- Structured Data: Person Schema -->
@@ -112,7 +112,7 @@
 <div class="hero-prompt">whoami</div>
 
 <h1>
-<span class="typing">Furkan SARICA</span>
+<span class="typing">Furkan SARICA</span><span class="hero-cursor">█</span>
 </h1>
 
 <p class="hero-subtitle">
@@ -1329,18 +1329,39 @@ document.querySelectorAll('[data-lang-tr], [data-lang-tr-block], [data-lang-tr-g
 
 const text = "Furkan SARICA";
 const typingElement = document.querySelector('.typing');
-typingElement.textContent = '';
-let i = 0;
+if (typingElement) {
+    typingElement.textContent = '';
+    let i = 0;
+    let started = false;
 
-function typeWriter() {
-if (i < text.length) {
-typingElement.textContent += text.charAt(i);
-i++;
-setTimeout(typeWriter, 100);
-}
-}
+    function runTerminalTypewriter() {
+        if (started) return;
+        started = true;
+        typingElement.textContent = '';
+        function typeStep() {
+            if (i < text.length) {
+                typingElement.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeStep, 55);
+            }
+        }
+        typeStep();
+    }
 
-setTimeout(typeWriter, 500);
+    var bootScreen = document.getElementById('boot-screen');
+    if (bootScreen) {
+        var bootObserver = new MutationObserver(function() {
+            if (bootScreen.classList.contains('fade-out') || bootScreen.style.display === 'none') {
+                setTimeout(runTerminalTypewriter, 150);
+                bootObserver.disconnect();
+            }
+        });
+        bootObserver.observe(bootScreen, { attributes: true, attributeFilter: ['class', 'style'] });
+        setTimeout(runTerminalTypewriter, 1600);
+    } else {
+        setTimeout(runTerminalTypewriter, 250);
+    }
+}
 });
 
 // Smooth scroll
@@ -4375,30 +4396,6 @@ function stopMatrixRain() {
     document.querySelectorAll('.reveal, .stagger-children').forEach(function(el) {
         revealObserver.observe(el);
     });
-    
-    // Hero decode effect after boot
-    function activateHeroDecode() {
-        var typing = document.querySelector('.hero h1 .typing');
-        if (typing) {
-            typing.classList.add('decode-active');
-        }
-    }
-    
-    // Trigger hero decode after boot screen fades
-    var bootScreen = document.getElementById('boot-screen');
-    if (bootScreen) {
-        var bootObserver = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (bootScreen.classList.contains('fade-out')) {
-                    setTimeout(activateHeroDecode, 300);
-                    bootObserver.disconnect();
-                }
-            });
-        });
-        bootObserver.observe(bootScreen, { attributes: true, attributeFilter: ['class'] });
-    } else {
-        setTimeout(activateHeroDecode, 1500);
-    }
 }());
 
 
