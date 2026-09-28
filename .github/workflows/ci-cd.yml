@@ -1,0 +1,74 @@
+name: CI/CD Pipeline & Production Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  quality-and-security:
+    name: Code Quality & DevSecOps Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run PWA & Asset Integrity Verification
+        run: |
+          python3 scripts/verify-integrity.py
+
+      - name: DevSecOps Secret Scanner (Gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: false
+
+      - name: Validate XML Sitemap & Robots
+        run: |
+          python3 -c "
+          import xml.etree.ElementTree as ET
+          ET.parse('sitemap.xml')
+          print('Sitemap XML parsed successfully.')
+          "
+
+  deploy:
+    name: Zero-Downtime GitHub Pages Deployment
+    needs: quality-and-security
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup GitHub Pages Engine
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages Edge
+        id: deployment
+        uses: actions/deploy-pages@v4
