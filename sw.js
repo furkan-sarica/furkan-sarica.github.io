@@ -1,4 +1,4 @@
-const CACHE_NAME = 'furkan-portfolio-v18';
+const CACHE_NAME = 'furkan-portfolio-v19';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',

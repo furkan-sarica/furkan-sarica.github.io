@@ -29,7 +29,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Furkan SARICA">
-<link rel="stylesheet" href="style.css?v=20260928-9">
+<link rel="stylesheet" href="style.css?v=20260928-10">
 <link rel="preload" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"></noscript>
 <!-- Structured Data: Person Schema -->
@@ -1166,6 +1166,7 @@ traceroute to github.com/furkan-sarica (140.82.121.4), 30 hops max
       <button type="button" class="cli-chip" onclick="runAiQuick('./tech-stack.sh')"><span class="chip-cmd">./tech-stack.sh</span><span class="chip-desc">Stack</span></button>
       <button type="button" class="cli-chip" onclick="runAiQuick('./certs.sh')"><span class="chip-cmd">./certs.sh</span><span class="chip-desc">Certs</span></button>
       <button type="button" class="cli-chip" onclick="runAiQuick('./download-cv.sh')"><span class="chip-cmd">./download-cv.sh</span><span class="chip-desc">CV</span></button>
+      <button type="button" class="cli-chip" onclick="runAiQuick('./install-pwa.sh')"><span class="chip-cmd">./install-pwa.sh</span><span class="chip-desc">PWA</span></button>
       <button type="button" class="cli-chip" onclick="runAiQuick('./contact.sh')"><span class="chip-cmd">./contact.sh</span><span class="chip-desc">Contact</span></button>
       <button type="button" class="cli-chip" onclick="runAiQuick('clear')"><span class="chip-cmd">clear</span></button>
     </div>
@@ -4010,8 +4011,8 @@ function stopMatrixRain() {
         }
         if (cmdLower === 'help') {
             renderCommandOutput(text, currentLang === 'tr'
-                ? "Mevcut terminal komutları:\n\n• ./tracefold.sh — Tracefold yerel RAG mimarisi\n• ./cloudspark.sh — CloudSpark AI Solutions Engineer deneyimi\n• ./tech-stack.sh — Yetenekler, diller ve altyapı\n• ./certs.sh — 10 profesyonel küresel sertifika\n• ./download-cv.sh — Furkan SARICA CV indirme bağlantıları\n• ./contact.sh — E-posta ve sosyal profiller\n• clear — Terminal ekranını temizle\n• exit — Terminalden çık\n\nAyrıca istediğin herhangi bir soruyu doğrudan yazabilirsin."
-                : "Available terminal scripts:\n\n• ./tracefold.sh — Tracefold local RAG architecture\n• ./cloudspark.sh — CloudSpark AI Solutions Engineer role\n• ./tech-stack.sh — Skills, languages, and infrastructure\n• ./certs.sh — 10 professional global certifications\n• ./download-cv.sh — Direct CV download links\n• ./contact.sh — Email and professional profiles\n• clear — Clear terminal screen\n• exit — Exit terminal\n\nYou can also enter any freeform question directly.");
+                ? "Mevcut terminal komutları:\n\n• ./tracefold.sh — Tracefold yerel RAG mimarisi\n• ./cloudspark.sh — CloudSpark AI Solutions Engineer deneyimi\n• ./tech-stack.sh — Yetenekler, diller ve altyapı\n• ./certs.sh — 10 profesyonel küresel sertifika\n• ./download-cv.sh — Furkan SARICA CV indirme bağlantıları\n• ./install-pwa.sh — Portfolyoyu cihazına bağımsız uygulama (PWA) olarak yükle\n• ./contact.sh — E-posta ve sosyal profiller\n• clear — Terminal ekranını temizle\n• exit — Terminalden çık\n\nAyrıca istediğin herhangi bir soruyu doğrudan yazabilirsin."
+                : "Available terminal scripts:\n\n• ./tracefold.sh — Tracefold local RAG architecture\n• ./cloudspark.sh — CloudSpark AI Solutions Engineer role\n• ./tech-stack.sh — Skills, languages, and infrastructure\n• ./certs.sh — 10 professional global certifications\n• ./download-cv.sh — Direct CV download links\n• ./install-pwa.sh — Install portfolio as standalone desktop/mobile PWA app\n• ./contact.sh — Email and professional profiles\n• clear — Clear terminal screen\n• exit — Exit terminal\n\nYou can also enter any freeform question directly.");
             return;
         }
         if (cmdLower === './download-cv.sh' || cmdLower === './cv.sh' || cmdLower === 'cv') {
@@ -4027,6 +4028,35 @@ function stopMatrixRain() {
             renderCommandOutput(text, currentLang === 'tr'
                 ? "✓ Özgeçmiş dosyası indiriliyor: [Furkan SARICA CV TR.pdf](" + cvUrl + ")"
                 : "✓ Downloading resume file: [Furkan SARICA CV EN.pdf](" + cvUrl + ")");
+            return;
+        }
+        if (cmdLower === './install-pwa.sh' || cmdLower === './install.sh' || cmdLower === 'install' || cmdLower === 'pwa') {
+            if (window._deferredPWAInstallPrompt) {
+                renderCommandOutput(text, currentLang === 'tr'
+                    ? "✓ PWA yükleyici başlatılıyor..."
+                    : "✓ Launching PWA native installer...");
+                window._deferredPWAInstallPrompt.prompt();
+                window._deferredPWAInstallPrompt.userChoice.then(function(choiceResult) {
+                    if (choiceResult.outcome === 'accepted') {
+                        renderCommandOutput(text, currentLang === 'tr'
+                            ? "✓ Portfolyo web uygulaması başarıyla cihazınıza yüklendi."
+                            : "✓ Portfolio PWA successfully installed to your device.");
+                    } else {
+                        renderCommandOutput(text, currentLang === 'tr'
+                            ? "ℹ Yükleme isteği kullanıcı tarafından reddedildi."
+                            : "ℹ Installation dismissed by user.");
+                    }
+                    window._deferredPWAInstallPrompt = null;
+                });
+            } else if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+                renderCommandOutput(text, currentLang === 'tr'
+                    ? "✓ Portfolyo zaten bağımsız bir PWA (standalone) uygulaması olarak çalışıyor."
+                    : "✓ Portfolio is already running in standalone PWA mode.");
+            } else {
+                renderCommandOutput(text, currentLang === 'tr'
+                    ? "ℹ PWA Kurulum Rehberi:\n\n• **Chrome / Edge (Masaüstü & Android):** Adres çubuğundaki yükle simgesine (⊕) tıklayın veya menüden 'Uygulamayı Yükle'yi seçin.\n• **iOS (Safari):** Paylaş butonuna (⎙/⎋) dokunun ve 'Ana Ekrana Ekle' seçeneğini seçin.\n• **macOS:** Safari'de 'Dosya > Dock'a Ekle' seçeneğiyle yerel Mac uygulaması olarak kullanabilirsiniz."
+                    : "ℹ PWA Installation Guide:\n\n• **Chrome / Edge (Desktop & Android):** Click the install icon (⊕) in address bar or choose 'Install App' from menu.\n• **iOS (Safari):** Tap Share button and select 'Add to Home Screen'.\n• **macOS:** In Safari, choose 'File > Add to Dock' to run as a native desktop application.");
+            }
             return;
         }
 
@@ -4117,8 +4147,15 @@ function stopMatrixRain() {
         })
         .catch(function(err) {
             clearTimeout(timeoutId);
-            // Instant graceful fallback to local knowledge engine
-            var vitonomResponse = queryVitonomAI(resolvedPrompt, isTr);
+            var isOffline = !navigator.onLine;
+            var sysTag = entry.querySelector('.ai-term-sys-tag');
+            if (isOffline && sysTag) {
+                sysTag.innerHTML = '<span style="color:var(--accent-cyan);">⚡</span> [vitonom@offline-local]:';
+            }
+            var offlineNotice = isOffline
+                ? (isTr ? "*[OFFLINE ENGINE ACTIVE: Ağ bağlantısı yok, yerel hafıza devrede]*\n\n" : "*[OFFLINE ENGINE ACTIVE: Network unreachable, local memory engaged]*\n\n")
+                : "";
+            var vitonomResponse = offlineNotice + queryVitonomAI(resolvedPrompt, isTr);
             streamTerminalTypewriter(textContainer, vitonomResponse, function() {
                 window._aiChatHistory.push({ role: 'assistant', content: vitonomResponse });
                 isExecuting = false;
@@ -4400,7 +4437,19 @@ function stopMatrixRain() {
 
 
 
-// ===== PWA Service Worker Registration =====
+// ===== PWA Service Worker Registration & Install Management =====
+window._deferredPWAInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    window._deferredPWAInstallPrompt = e;
+    console.log('[PWA] beforeinstallprompt captured and ready');
+});
+
+window.addEventListener('appinstalled', function() {
+    window._deferredPWAInstallPrompt = null;
+    console.log('[PWA] Application successfully installed');
+});
+
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
         navigator.serviceWorker.register('/sw.js').then(function(reg) {

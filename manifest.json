@@ -1,26 +1,105 @@
 {
+  "$schema": "https://json.schemastore.org/web-manifest.json",
+  "id": "/",
   "name": "Furkan SARICA | Portfolio",
   "short_name": "Furkan SARICA",
   "description": "AI Solutions Engineer @ CloudSpark | Enterprise AI, RAG & LLM Applications, DevOps",
-  "display": "standalone",
   "start_url": "/",
   "scope": "/",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
   "background_color": "#0a0c10",
   "theme_color": "#0a0c10",
-  "orientation": "portrait-primary",
+  "orientation": "any",
   "lang": "tr",
+  "categories": [
+    "technology",
+    "business",
+    "developer",
+    "productivity"
+  ],
   "icons": [
     {
       "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Vitonom AI Shell",
+      "short_name": "AI Shell",
+      "description": "Open Vitonom Interactive AI Terminal",
+      "url": "/?chat=open",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Tracefold (Local RAG)",
+      "short_name": "Tracefold",
+      "description": "Microsoft Foundry Local RAG Assistant Architecture",
+      "url": "/#projects",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Özgeçmiş / Resume (PDF)",
+      "short_name": "CV İndir",
+      "description": "Furkan SARICA Güncel CV İndir",
+      "url": "/Furkan%20SARICA%20CV%20TR.pdf",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "CloudSpark Deneyimi",
+      "short_name": "Deneyim",
+      "description": "AI Solutions Engineer @ CloudSpark",
+      "url": "/#experience",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }
