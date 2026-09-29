@@ -20,6 +20,6 @@
     "fastapi",
     "kubernetes"
   ],
-  "author": "Furkan SARICA <sarica.furkan@icloud.com>",
+  "author": "Furkan SARICA (https://github.com/furkan-sarica)",
   "license": "MIT"
 }
