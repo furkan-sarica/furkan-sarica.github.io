@@ -1,11 +1,10 @@
-const CACHE_NAME = 'furkan-portfolio-v19';
+const CACHE_NAME = 'furkan-portfolio-v20';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
   '/style.css',
   '/manifest.json',
   '/Fufuizm.webp',
-  '/Fufuizm.PNG',
   '/icon-192.png',
   '/icon-512.png',
   '/apple-touch-icon.png',

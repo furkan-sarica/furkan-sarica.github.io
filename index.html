@@ -37,12 +37,12 @@
 {
   "@context": "https://schema.org",
   "@type": "Person",
-  "name": "Furkan SARICA",
-  "url": "https://furkan-sarica.github.io",
-  "image": "https://furkan-sarica.github.io/Fufuizm.PNG",
+  "image": "https://furkan-sarica.github.io/Fufuizm.webp",
   "jobTitle": "AI Solutions Engineer",
-  "email": "mailto:sarica.furkan@icloud.com",
-  "telephone": "+90-541-168-2714",
+  "sameAs": [
+    "https://linkedin.com/in/furkan-sarica",
+    "https://github.com/furkan-sarica"
+  ],
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Çankaya, Ankara",
@@ -80,7 +80,7 @@
 <div style="position:fixed;inset:0;background:#0a0c10;color:#e6edf3;font-family:monospace;padding:2rem;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:99999">
 <h1 style="color:#00ff88;font-size:1.5rem;margin-bottom:1rem">Furkan SARICA | AI-Supported Enterprise Software, ERP & Infrastructure Automation Developer</h1>
 <p style="color:#8b949e;max-width:600px;line-height:1.8">Bu site JavaScript gerektirir. Lütfen JavaScript'i etkinleştirin.<br>This site requires JavaScript. Please enable it.</p>
-<p style="margin-top:2rem"><a href="mailto:sarica.furkan@icloud.com" style="color:#00d4ff">sarica.furkan@icloud.com</a> · <a href="https://github.com/furkan-sarica" style="color:#00d4ff">github.com/furkan-sarica</a> · <a href="https://linkedin.com/in/furkan-sarica" style="color:#00d4ff">linkedin</a></p>
+<p style="margin-top:2rem"><span style="color:#00d4ff">sarica.furkan [at] icloud.com</span> · <a href="https://github.com/furkan-sarica" style="color:#00d4ff">github.com/furkan-sarica</a> · <a href="https://linkedin.com/in/furkan-sarica" style="color:#00d4ff">linkedin</a></p>
 <p style="margin-top:2rem"><a href="Furkan%20SARICA%20CV%20TR.pdf" style="color:#00ff88">📄 CV İndir (TR)</a> · <a href="Furkan%20SARICA%20CV%20EN.pdf" style="color:#00ff88">📄 Download CV (EN)</a></p>
 </div>
 </noscript>
@@ -155,7 +155,7 @@
 <div class="about-image">
 <picture>
   <source srcset="Fufuizm.webp" type="image/webp">
-  <img src="Fufuizm.PNG" alt="Furkan SARICA - AI Solutions Engineer" class="about-avatar" width="140" height="140" loading="lazy" decoding="async">
+  <img src="Fufuizm.webp" alt="Furkan SARICA - AI Solutions Engineer" class="about-avatar" width="140" height="140" loading="lazy" decoding="async">
 </picture>
 </div>
 <div class="about-text">
@@ -1001,14 +1001,14 @@ traceroute to github.com/furkan-sarica (140.82.121.4), 30 hops max
 </div>
 
 <div class="contact-grid stagger-children">
-<a href="mailto:sarica.furkan@icloud.com?subject=Portfolio%20%C4%B0leti%C5%9Fim" class="contact-item" data-copy="sarica.furkan@icloud.com">
+<a href="#contact" class="contact-item secure-contact-mail" data-u="sarica.furkan" data-d="icloud.com" data-sub="Portfolio İletişim">
 <div class="contact-label"><span data-lang-tr>E-POSTA</span><span data-lang-en>EMAIL</span></div>
-<div class="contact-value">sarica.furkan@icloud.com<span class="contact-copy-badge"><span data-lang-tr>[ Kopyala ]</span><span data-lang-en>[ Copy ]</span></span></div>
+<div class="contact-value"><span class="protected-mail-display">sarica.furkan<span style="display:none">_anti-scrape_</span>@icloud.com</span><span class="contact-copy-badge"><span data-lang-tr>[ Kopyala ]</span><span data-lang-en>[ Copy ]</span></span></div>
 </a>
 
-<a href="tel:+905411682714" class="contact-item" data-copy="+90 541 168 27 14">
+<a href="#contact" class="contact-item secure-contact-phone" data-p1="+90" data-p2="541" data-p3="168" data-p4="2714">
 <div class="contact-label"><span data-lang-tr>TELEFON</span><span data-lang-en>PHONE</span></div>
-<div class="contact-value">+90 541 168 27 14<span class="contact-copy-badge"><span data-lang-tr>[ Kopyala ]</span><span data-lang-en>[ Copy ]</span></span></div>
+<div class="contact-value"><span class="protected-phone-display">+90 541 168 27 14</span><span class="contact-copy-badge"><span data-lang-tr>[ Kopyala ]</span><span data-lang-en>[ Copy ]</span></span></div>
 </a>
 
 <a href="https://linkedin.com/in/furkan-sarica" target="_blank" rel="noopener noreferrer" class="contact-item">
@@ -1394,10 +1394,27 @@ backToTopBtn.classList.add('visible');
 } else {
 backToTopBtn.classList.remove('visible');
 }
-});
-console.log("%c[!] Merhaba geliştirici! / Hello developer! 🚀\nKodlarımı incelediğini görüyorum. İletişime geçmek istersen: sarica.furkan@icloud.com", "color: #00d4ff; font-size: 14px;");
+console.log("%c[!] Merhaba geliştirici! / Hello developer! 🚀\nKodlarımı incelediğini görüyorum. LinkedIn üzerinden veya terminalden 'contact' yazarak iletişime geçebilirsin!", "color: #00d4ff; font-size: 14px;");
 
-// Feature 1: Live System Status
+// Anti-Scraping Hydration for Contact Links
+(function initAntiScrapingContacts() {
+    var mailItem = document.querySelector('.secure-contact-mail');
+    if (mailItem) {
+        var u = mailItem.getAttribute('data-u') || 'sarica.furkan';
+        var d = mailItem.getAttribute('data-d') || 'icloud.com';
+        var sub = mailItem.getAttribute('data-sub') || 'Portfolio Contact';
+        var fullMail = u + '@' + d;
+        mailItem.setAttribute('href', 'mailto:' + fullMail + '?subject=' + encodeURIComponent(sub));
+        mailItem.setAttribute('data-copy', fullMail);
+    }
+    var phoneItem = document.querySelector('.secure-contact-phone');
+    if (phoneItem) {
+        var p = [phoneItem.getAttribute('data-p1'), phoneItem.getAttribute('data-p2'), phoneItem.getAttribute('data-p3'), phoneItem.getAttribute('data-p4')].join('');
+        var displayP = [phoneItem.getAttribute('data-p1'), phoneItem.getAttribute('data-p2'), phoneItem.getAttribute('data-p3'), phoneItem.getAttribute('data-p4').slice(0,2), phoneItem.getAttribute('data-p4').slice(2)].join(' ');
+        phoneItem.setAttribute('href', 'tel:' + p);
+        phoneItem.setAttribute('data-copy', displayP);
+    }
+})();
 (function () {
     var statusEl = document.getElementById('system-status');
     if (!statusEl) return;
@@ -2796,7 +2813,7 @@ runBootSequence();
                 '  <span style="color:var(--accent-cyan)">"role"</span>: <span style="color:#a8ff78">"AI Solutions Engineer @ CloudSpark"</span>,\n' +
                 '  <span style="color:var(--accent-cyan)">"location"</span>: <span style="color:#a8ff78">"Çankaya, Ankara, Türkiye"</span>,\n' +
                 '  <span style="color:var(--accent-cyan)">"focus"</span>: [<span style="color:#a8ff78">"AI Agents"</span>, <span style="color:#a8ff78">"Local RAG"</span>, <span style="color:#a8ff78">"FastAPI"</span>, <span style="color:#a8ff78">"SAP Business One"</span>, <span style="color:#a8ff78">"Kubernetes"</span>],\n' +
-                '  <span style="color:var(--accent-cyan)">"contact"</span>: <span style="color:#a8ff78">"sarica.furkan@icloud.com"</span>,\n' +
+                '  <span style="color:var(--accent-cyan)">"contact"</span>: <span style="color:#a8ff78">"' + (['sarica','furkan'].join('.') + '@' + 'icloud.com') + '"</span>,\n' +
                 '  <span style="color:var(--accent-cyan)">"portfolio"</span>: <span style="color:#a8ff78">"https://furkan-sarica.github.io"</span>,\n' +
                 '  <span style="color:var(--accent-cyan)">"api_endpoint"</span>: <span style="color:#a8ff78">"https://furkan-sarica.github.io/api.json"</span>\n' +
                 '<span style="color:#ffb000">}</span>' +
@@ -3938,9 +3955,10 @@ function stopMatrixRain() {
 
         // 23. Contact & CV
         if (q.indexOf('iletişim') !== -1 || q.indexOf('iletisim') !== -1 || q.indexOf('contact') !== -1 || q.indexOf('cv') !== -1 || q.indexOf('resume') !== -1 || q.indexOf('mail') !== -1 || q.indexOf('eposta') !== -1 || q.indexOf('ulaş') !== -1 || q.indexOf('ulas') !== -1 || q.indexOf('iş teklifi') !== -1 || q.indexOf('hire') !== -1) {
+            var cMail = ['sarica', 'furkan'].join('.') + '@' + 'icloud.com';
             return isTr
-                ? "Furkan SARICA ile doğrudan iletişim kanalları:\n\n• **E-posta:** [sarica.furkan@icloud.com](mailto:sarica.furkan@icloud.com)\n• **LinkedIn:** [linkedin.com/in/furkan-sarica](https://www.linkedin.com/in/furkan-sarica/)\n• **GitHub:** [github.com/furkan-sarica](https://github.com/furkan-sarica)\n• **Türkçe CV:** [Furkan SARICA CV TR.pdf](Furkan%20SARICA%20CV%20TR.pdf)\n• **English Resume:** [Furkan SARICA CV EN.pdf](Furkan%20SARICA%20CV%20EN.pdf)"
-                : "Furkan SARICA direct contact information:\n\n• **Email:** [sarica.furkan@icloud.com](mailto:sarica.furkan@icloud.com)\n• **LinkedIn:** [linkedin.com/in/furkan-sarica](https://www.linkedin.com/in/furkan-sarica/)\n• **GitHub:** [github.com/furkan-sarica](https://github.com/furkan-sarica)\n• **Turkish CV:** [Furkan SARICA CV TR.pdf](Furkan%20SARICA%20CV%20TR.pdf)\n• **English Resume:** [Furkan SARICA CV EN.pdf](Furkan%20SARICA%20CV%20EN.pdf)";
+                ? "Furkan SARICA ile doğrudan iletişim kanalları:\n\n• **E-posta:** [" + cMail + "](mailto:" + cMail + ")\n• **LinkedIn:** [linkedin.com/in/furkan-sarica](https://www.linkedin.com/in/furkan-sarica/)\n• **GitHub:** [github.com/furkan-sarica](https://github.com/furkan-sarica)\n• **Türkçe CV:** [Furkan SARICA CV TR.pdf](Furkan%20SARICA%20CV%20TR.pdf)\n• **English Resume:** [Furkan SARICA CV EN.pdf](Furkan%20SARICA%20CV%20EN.pdf)"
+                : "Furkan SARICA direct contact information:\n\n• **Email:** [" + cMail + "](mailto:" + cMail + ")\n• **LinkedIn:** [linkedin.com/in/furkan-sarica](https://www.linkedin.com/in/furkan-sarica/)\n• **GitHub:** [github.com/furkan-sarica](https://github.com/furkan-sarica)\n• **Turkish CV:** [Furkan SARICA CV TR.pdf](Furkan%20SARICA%20CV%20TR.pdf)\n• **English Resume:** [Furkan SARICA CV EN.pdf](Furkan%20SARICA%20CV%20EN.pdf)";
         }
 
         // 24. Casual Thanks & Compliments

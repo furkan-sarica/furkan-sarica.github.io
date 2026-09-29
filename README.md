@@ -105,7 +105,7 @@ make test
 │   └── verify-integrity.py      # Automated PWA & DevSecOps test suite
 ├── index.html                   # Core semantic markup & Cyber Terminal
 ├── style.css                    # Responsive dark cyber aesthetic & CRT engine
-├── sw.js                        # PWA Service Worker (v19)
+├── sw.js                        # PWA Service Worker (v20)
 ├── manifest.json                # PWA Manifest with app shortcuts
 ├── api.json                     # Grounded structured data & bio
 ├── Makefile                     # Developer task runner
@@ -122,4 +122,4 @@ make test
 - **Background:** Microsoft AI Innovators (Tracefold Project), Logosoft (SAP Business One AI Platform), Istanbul Gelisim University (MIS Honor Degree).
 - **Certifications:** Stanford AI, Microsoft AI & ML, Vanderbilt GenAI, NVIDIA Developer, AWS Solutions Architect, IBM DevOps.
 
-📫 **Contact:** [sarica.furkan@icloud.com](mailto:sarica.furkan@icloud.com) • [LinkedIn](https://linkedin.com/in/furkan-sarica) • [GitHub](https://github.com/furkan-sarica)
+📫 **Contact:** [LinkedIn](https://linkedin.com/in/furkan-sarica) • [Interactive Terminal Shell](https://furkan-sarica.github.io/?chat=open) • [GitHub](https://github.com/furkan-sarica)
