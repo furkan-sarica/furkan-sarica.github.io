@@ -1,4 +1,4 @@
-const CACHE_NAME = 'furkan-portfolio-v20';
+const CACHE_NAME = 'furkan-portfolio-v21';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -8,7 +8,19 @@ const ASSETS_TO_CACHE = [
   '/icon-192.png',
   '/icon-512.png',
   '/apple-touch-icon.png',
-  '/api.json'
+  '/api.json',
+  '/js/language.js',
+  '/js/hero-navigation.js',
+  '/js/contact-effects.js',
+  '/js/boot.js',
+  '/js/terminal.js',
+  '/js/ai-shell.js',
+  '/js/keyboard-navigation.js',
+  '/js/content-effects.js',
+  '/js/pwa.js',
+  '/js/crt-effect.js',
+  '/js/certificates.js',
+  '/js/easter-eggs.js'
 ];
 
 self.addEventListener('install', (event) => {
