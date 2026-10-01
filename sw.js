@@ -60,6 +60,9 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
+  // Yalnız mevcut font/icon stylesheet'leri: warmed-cache offline görünümünü korur.
+  const sunumKaynaklari = ['fonts.googleapis.com', 'fonts.gstatic.com', 'cdn.jsdelivr.net'];
+  const sunumAsseti = sunumKaynaklari.includes(url.hostname) && ['style', 'font'].includes(event.request.destination);
 
   // Cache-first for local static assets (images, fonts, stylesheets, pdfs)
   const isStaticAsset = url.origin === self.location.origin && 
@@ -91,12 +94,12 @@ self.addEventListener('fetch', (event) => {
   // Network-first with fallback to cache for HTML navigation
   event.respondWith(
     fetch(event.request)
-      .then((networkResponse) => {
-        if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+      .then(async (networkResponse) => {
+        if (networkResponse && ((networkResponse.status === 200 && networkResponse.type === 'basic') ||
+            (sunumAsseti && (networkResponse.status === 200 || networkResponse.type === 'opaque')))) {
           const responseToCache = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
-          });
+          const cache = await caches.open(CACHE_NAME);
+          await cache.put(event.request, responseToCache);
         }
         return networkResponse;
       })

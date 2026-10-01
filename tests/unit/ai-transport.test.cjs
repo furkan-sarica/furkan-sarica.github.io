@@ -45,3 +45,9 @@ test('timeout headers sonrasında stream okunurken de etkindir; endpoint ve payl
     await assert.rejects(o.baglam.sorgula([{ role: 'user', content: 'örnek' }], () => {}), /AbortError/);
     assert.equal(kilit, 1); assert.deepEqual(o.temizlenen, [1]);
 });
+test('offline transport ağ ve timer başlatmadan yerel fallback için reject verir', async () => {
+    const baglam = {}, api = { kaydet: kur => kur(baglam) };
+    vm.runInNewContext(kaynak, { PortfolioAI: api, navigator: { onLine: false },
+        fetch: () => assert.fail('Offline ağ çağrısı'), setTimeout: () => assert.fail('Offline timer') });
+    await assert.rejects(baglam.sorgula([], () => {}), /Offline/);
+});

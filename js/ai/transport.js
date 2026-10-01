@@ -29,6 +29,7 @@
     PortfolioAI.sseOlustur = sseOlustur;
     PortfolioAI.kaydet(function (baglam) {
         baglam.sorgula = async function (mesajlar, tokenGeldi) {
+            if (typeof navigator !== 'undefined' && !navigator.onLine) throw new Error('Offline');
             var controller = new AbortController();
             var timeoutId = setTimeout(function () { controller.abort(); }, 30000);
             var reader;

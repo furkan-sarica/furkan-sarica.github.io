@@ -20,11 +20,13 @@ module.exports = defineConfig({
         trace: 'retain-on-failure',
     },
     projects: [
-        { name: 'masaustu', use: { viewport: { width: 1440, height: 900 } } },
-        { name: 'mobil', use: { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } },
+        { name: 'masaustu', testIgnore: '**/pwa.spec.cjs', use: { viewport: { width: 1440, height: 900 } } },
+        { name: 'mobil', testIgnore: '**/pwa.spec.cjs', use: { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } },
+        { name: 'webkit', testIgnore: '**/pwa.spec.cjs', use: { browserName: 'webkit', viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } },
+        { name: 'pwa', testMatch: '**/pwa.spec.cjs', use: { serviceWorkers: 'allow', viewport: { width: 390, height: 844 } } },
     ],
     webServer: canliAdres ? undefined : {
-        command: 'python3 -m http.server 8080 --bind 127.0.0.1',
+        command: 'python3 scripts/serve-tests.py',
         url: yerelAdres,
         reuseExistingServer: false,
         timeout: 10000,

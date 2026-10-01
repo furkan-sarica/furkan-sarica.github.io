@@ -17,7 +17,7 @@ concurrency:
 jobs:
   quality-and-security:
     name: Code Quality & DevSecOps Verification
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - name: Checkout Repository
@@ -63,9 +63,12 @@ jobs:
       - name: Playwright kurulumu
         run: |
           npm ci --ignore-scripts --no-audit --no-fund
-          npx --no-install playwright install --with-deps chromium
+          npx --no-install playwright install --with-deps chromium webkit
 
-      - name: Masaüstü ve mobil browser smoke gate
+      - name: Saf transport regression testleri
+        run: npm run test:unit
+
+      - name: Chromium, WebKit ve PWA regression gate
         run: npm run test:smoke
 
       - name: Başarısız smoke kanıtları
@@ -84,7 +87,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
       contents: read
@@ -111,7 +114,7 @@ jobs:
   post-deploy-smoke:
     name: Canlı yayın smoke doğrulaması
     needs: deploy
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - name: Test kaynakları
@@ -133,7 +136,7 @@ jobs:
       - name: Canlı HTTP, boot, hero ve runtime smoke
         env:
           SMOKE_ADRESI: https://furkan-sarica.github.io/
-        run: npm run test:smoke
+        run: npm run test:production
 
       - name: Başarısız canlı smoke kanıtları
         if: failure()
