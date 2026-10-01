@@ -1,4 +1,4 @@
-.PHONY: help serve dev test integrity security clean
+.PHONY: help serve dev test integrity syntax smoke security clean
 
 PORT ?= 8080
 
@@ -13,13 +13,20 @@ serve: ## Launch local development server
 
 dev: serve ## Alias for serve
 
-test: ## Run repository integrity and secret scanning suite
+test: ## Bütünlük, syntax ve browser smoke testlerini çalıştır
+	@npm test
+
+integrity: ## Mevcut bütünlük ve secret taramasını çalıştır
 	@python3 scripts/verify-integrity.py
 
-integrity: test ## Alias for test
+syntax: ## HTML ve JavaScript syntax kontrolünü çalıştır
+	@python3 scripts/verify-javascript.py
+
+smoke: ## Masaüstü ve mobil browser smoke testini çalıştır
+	@npm run test:smoke
 
 security: ## Run DevSecOps zero-credential secret scan
-	@python3 -c "import os, re; from scripts.verify_integrity import suspicious_patterns"
+	@npm run security:scan
 
 clean: ## Clean up any temporary or cache artifacts
 	@find . -name "*.pyc" -delete
