@@ -4,12 +4,12 @@
 
 [![CI/CD Pipeline](https://github.com/furkan-sarica/furkan-sarica.github.io/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/furkan-sarica/furkan-sarica.github.io/actions/workflows/ci-cd.yml)
 [![Pages Status](https://img.shields.io/badge/GitHub%20Pages-Production%20Live-00ff88?style=flat&logo=github)](https://furkan-sarica.github.io)
-[![PWA Standard](https://img.shields.io/badge/PWA-10%2F10%20Compliant-00d4ff?style=flat&logo=pwa)](https://furkan-sarica.github.io)
+[![PWA](https://img.shields.io/badge/PWA-Manifest%20%26%20Service%20Worker-00d4ff?style=flat&logo=pwa)](https://furkan-sarica.github.io)
 [![Edge AI](https://img.shields.io/badge/Cloudflare%20Edge-Worker%20Proxy-f38020?style=flat&logo=cloudflare)](https://vitonom-ai.sarica-furkan.workers.dev)
 [![AI Engine](https://img.shields.io/badge/NVIDIA%20NIM-DiffusionGemma%2026B-76b900?style=flat&logo=nvidia)](https://integrate.api.nvidia.com)
 [![DevSecOps](https://img.shields.io/badge/Security-Gitleaks%20Verified-blueviolet?style=flat&logo=githubactions)](https://github.com/furkan-sarica/furkan-sarica.github.io)
 
-**Production-grade, zero-dependency cyber portfolio and interactive AI terminal shell (`Vitonom v2.5`).**  
+**Vanilla HTML/CSS/JS portfolio ve interaktif AI terminali (`Vitonom v2.5`); Playwright yalnız geliştirme/test bağımlılığıdır.**
 *Built for real enterprise impact, deterministic systems, and physicalist engineering principles.*
 
 [🌐 Live Deployment](https://furkan-sarica.github.io) • [💬 Launch AI Terminal](https://furkan-sarica.github.io/?chat=open) • [📄 Download CV](https://furkan-sarica.github.io/Furkan%20SARICA%20CV%20TR.pdf)
@@ -24,7 +24,7 @@
 flowchart TD
     subgraph Client ["Client Layer (Browser & Native PWA)"]
         UI["Cyber Terminal UI / Web Portfolio<br/>(furkan-sarica.github.io)"]
-        SW["Service Worker v19<br/>(Cache-First Assets / Offline Engine)"]
+        SW["Service Worker v20<br/>(Cache-First Assets / Network-First HTML)"]
         CLI["Vitonom AI Terminal Shell<br/>(Keyboard-first, Traffic Lights, Suggestions)"]
     end
 
@@ -61,15 +61,17 @@ flowchart TD
 - **Zero-Credential Security Architecture:** Frontend never holds API tokens. Requests are proxied via a hardened Cloudflare Edge Worker with strict Origin validation (`furkan-sarica.github.io` only).
 - **macOS Window Management:** Interactive window controls — **Red** (close), **Yellow** (minimize to floating dock widget without losing conversation state), and **Green** (maximized 96vw fullscreen IDE mode).
 
-### 2. 10/10 Progressive Web Application (PWA)
-- **W3C Schema Compliant:** Full `manifest.json` featuring 4 native app shortcuts (*Vitonom AI Shell*, *Tracefold*, *CV Download*, *CloudSpark Experience*).
+### 2. Progressive Web Application (PWA)
+- **Manifest:** `manifest.json` dört uygulama kısayolu içerir. CI, JSON syntax ve referans verilen varlıkları doğrular; tam W3C uyumluluk sertifikasyonu yapmaz.
 - **Terminal Native Installer:** Run `./install-pwa.sh` or `install` directly in the shell to trigger the browser's native installation prompt.
-- **Resilient Offline Mode:** Service Worker (`sw.js` v19) caches all static assets, documents, and portraits. If offline, the terminal automatically falls back to the embedded local knowledge engine with an `[OFFLINE ENGINE ACTIVE]` indicator.
+- **Önbellek:** `sw.js` cache sürümü `furkan-portfolio-v20`'dir. Statik varlıklarda cache-first, HTML'de network-first kullanır; ağ erişilemezse mevcut cache'e döner. Smoke test offline/PWA uyumluluk testi değildir.
 
 ### 3. Production DevOps & DevSecOps
-- **Automated CI/CD:** Real zero-downtime deployments via GitHub Actions (`.github/workflows/ci-cd.yml`) using `actions/deploy-pages`.
-- **Automated Pre-Flight Integrity Test:** Custom test suite (`scripts/verify-integrity.py`) validates JSON schemas, manifest icons, and Service Worker cache list against physical files.
-- **Secret Leak Prevention:** Continuous Gitleaks scanning ensures zero plaintext API keys or tokens are ever committed.
+- **CI/CD:** Mevcut required check `Code Quality & DevSecOps Verification`; bütünlük, Gitleaks, XML, JavaScript syntax ve masaüstü/mobil Chromium smoke testlerini kapsar. Başarılı main gate'inden sonra özel workflow GitHub Pages'e deploy eder, ardından canlı smoke çalışır. Canlı smoke başarısızsa workflow fail olur; otomatik rollback yoktur.
+- **Syntax gate:** `scripts/verify-javascript.py`, HTMLParser ile inline scriptleri ayıklar; klasik scriptleri Node `vm.Script`, module scriptleri Node syntax check ile doğrular. JSON veri scriptleri çalıştırılabilir JavaScript sayılmaz.
+- **Browser smoke:** 1440×900 ve 390×844 viewport'larında HTTP, boot kapanışı, hero, pageerror/console error, TR/EN, ses, ai.sh aç/kapat ve back-to-top doğrulanır. Dış GitHub API/font çağrıları fixture ile karşılanır; AI inference isteği gönderilmez. Testte service worker engellenir; site kodundaki PWA davranışı değişmez.
+- **Bütünlük ve sır kontrolü:** `scripts/verify-integrity.py` JSON parse, manifest varlıkları ve service worker cache hedeflerini kontrol eder. Gitleaks bilinen secret kalıplarını tarar; hiçbir tarama sıfır risk garantisi vermez.
+- **Yayın ayarı:** İnceleme tarihinde Pages kaynak ayarı `legacy/main` olduğundan bağımsız Pages yayını da tetiklenir. Özel workflow gate'i bu ikinci hattı yönetmez. GitHub ayarları bu PR'da değiştirilmemiştir.
 
 ---
 
@@ -88,8 +90,15 @@ make help
 # Run local development server (http://localhost:8080)
 make serve
 
-# Run automated integrity and secret scanning suite
+# Test bağımlılıklarını ve Chromium'u kur
+npm ci --ignore-scripts
+npx --no-install playwright install chromium
+
+# Bütünlük, syntax ve masaüstü/mobil smoke testlerini çalıştır
 make test
+
+# Aynı browser smoke'u canlı site üzerinde çalıştır
+SMOKE_ADRESI=https://furkan-sarica.github.io/ npm run test:smoke
 ```
 
 ---
@@ -102,7 +111,12 @@ make test
 │   ├── dependabot.yml           # Automated GitHub Actions updates
 │   └── PULL_REQUEST_TEMPLATE.md # Engineering PR template
 ├── scripts/
-│   └── verify-integrity.py      # Automated PWA & DevSecOps test suite
+│   ├── verify-integrity.py      # PWA bütünlük ve secret kontrolü
+│   └── verify-javascript.py     # HTML/JavaScript syntax gate
+├── tests/smoke.spec.cjs         # Masaüstü ve mobil browser smoke
+├── playwright.config.cjs       # Yerel/canlı test yapılandırması
+├── LICENSE                     # MIT
+├── SECURITY.md                 # Güvenlik bildirimi politikası
 ├── index.html                   # Core semantic markup & Cyber Terminal
 ├── style.css                    # Responsive dark cyber aesthetic & CRT engine
 ├── sw.js                        # PWA Service Worker (v20)

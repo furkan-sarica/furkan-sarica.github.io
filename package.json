@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "python3 -m http.server 8080",
     "serve": "python3 -m http.server 8080",
-    "test": "python3 scripts/verify-integrity.py",
+    "test": "npm run test:integrity && npm run test:syntax && npm run test:smoke",
     "test:integrity": "python3 scripts/verify-integrity.py",
-    "security:scan": "python3 -c 'import scripts.verify_integrity'"
+    "test:syntax": "python3 scripts/verify-javascript.py",
+    "test:smoke": "playwright test",
+    "security:scan": "python3 scripts/verify-integrity.py"
   },
   "keywords": [
     "portfolio",
@@ -21,5 +23,8 @@
     "kubernetes"
   ],
   "author": "Furkan SARICA (https://github.com/furkan-sarica)",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "1.63.0"
+  }
 }

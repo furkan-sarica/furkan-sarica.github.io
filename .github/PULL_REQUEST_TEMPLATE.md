@@ -5,9 +5,10 @@ A clear, concise description of the motivation and context behind these changes.
 - [ ] 
 
 ## 🧪 Verification & Testing
-- [ ] `make test` executed locally (all 4 integrity and security suites pass)
-- [ ] Responsive layout checked (Desktop, Tablet, Mobile)
-- [ ] PWA manifest & Service Worker version bumped if assets changed
+- [ ] `make test`: bütünlük, JavaScript syntax ve masaüstü/mobil smoke başarılı
+- [ ] Gitleaks başarılı; gerçek AI inference isteği gönderilmedi
+- [ ] Değişen UI varsa gerçek tarayıcıda kontrol edildi
+- [ ] Runtime varlıkları değiştiyse mevcut PWA cache stratejisine göre sürüm ihtiyacı değerlendirildi
 - [ ] Zero API keys or secrets committed
 
 ## 🔒 Security Checklist
