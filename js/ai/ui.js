@@ -7,14 +7,37 @@
     };
 }());
 PortfolioAI.kaydet(function (baglam) {
-function openAIChat() {
+    var oncekiOdak = null;
+    function pencereyiOlc() {
+        if (!window.visualViewport) return;
+        baglam.overlay.style.setProperty('--ai-viewport-height', window.visualViewport.height + 'px');
+        baglam.overlay.style.setProperty('--ai-viewport-top', window.visualViewport.offsetTop + 'px');
+    }
+    function viewportDinle(acik) {
+        if (window.visualViewport) {
+            var islem = acik ? 'addEventListener' : 'removeEventListener';
+            window.visualViewport[islem]('resize', pencereyiOlc);
+            window.visualViewport[islem]('scroll', pencereyiOlc);
+        }
+        if (!acik) {
+            baglam.overlay.style.removeProperty('--ai-viewport-height');
+            baglam.overlay.style.removeProperty('--ai-viewport-top');
+        }
+    }
+function openAIChat(tetikleyen) {
         if (!baglam.overlay) return;
+        if (!baglam.overlay.classList.contains('active')) {
+            oncekiOdak = tetikleyen instanceof HTMLElement ? tetikleyen : document.activeElement;
+            if (oncekiOdak === document.body) oncekiOdak = document.getElementById('ai-chat-btn');
+        }
         baglam.overlay.classList.remove('is-minimized');
+        baglam.overlay.setAttribute('aria-modal', 'true');
         baglam.overlay.classList.add('active');
         baglam.overlay.setAttribute('aria-hidden', 'false');
-        if (baglam.input) {
-            setTimeout(function() { baglam.input.focus(); }, 120);
-        }
+        PortfolioUI.dialogAc(baglam.overlay, closeAIChat, baglam.input, oncekiOdak);
+        pencereyiOlc();
+        viewportDinle(true);
+        document.getElementById('ai-chat-btn').setAttribute('aria-expanded', 'true');
         baglam.scrollTerminalToBottom();
     }
     baglam.openAIChat = openAIChat;
@@ -26,20 +49,34 @@ function closeAIChat() {
         var win = baglam.overlay.querySelector('.ai-terminal-window');
         if (win) win.classList.remove('is-maximized');
         baglam.overlay.setAttribute('aria-hidden', 'true');
+        PortfolioUI.dialogKapat(baglam.overlay);
+        viewportDinle(false);
+        document.getElementById('ai-chat-btn').setAttribute('aria-expanded', 'false');
+        oncekiOdak = null;
     }
     baglam.closeAIChat = closeAIChat;
 
 function minimizeAIChat() {
         if (!baglam.overlay) return;
         var isMin = baglam.overlay.classList.toggle('is-minimized');
+        baglam.overlay.setAttribute('aria-modal', String(!isMin));
+        document.getElementById('ai-chat-btn').setAttribute('aria-expanded', String(!isMin));
+        if (isMin) {
+            PortfolioUI.dialogKapat(baglam.overlay);
+            viewportDinle(false);
+        } else {
+            PortfolioUI.dialogAc(baglam.overlay, closeAIChat, baglam.input, oncekiOdak);
+            pencereyiOlc();
+            viewportDinle(true);
+        }
         var yellowBtn = baglam.overlay.querySelector('.t-btn-yellow');
         if (yellowBtn) {
             yellowBtn.title = isMin
                 ? (currentLang === 'tr' ? 'Geri Yükle' : 'Restore')
                 : (currentLang === 'tr' ? 'Simge Durumuna Küçült' : 'Minimize');
+            yellowBtn.setAttribute('aria-label', yellowBtn.title);
         }
         if (!isMin) {
-            if (baglam.input) setTimeout(function() { baglam.input.focus(); }, 100);
             baglam.scrollTerminalToBottom();
         }
     }
@@ -48,7 +85,7 @@ function minimizeAIChat() {
 function toggleMaximizeAIChat() {
         if (!baglam.overlay) return;
         if (baglam.overlay.classList.contains('is-minimized')) {
-            baglam.overlay.classList.remove('is-minimized');
+            baglam.minimizeAIChat();
         }
         var win = baglam.overlay.querySelector('.ai-terminal-window');
         if (!win) return;
@@ -58,6 +95,8 @@ function toggleMaximizeAIChat() {
             greenBtn.title = isMax
                 ? (currentLang === 'tr' ? 'Önceki Boyut' : 'Restore')
                 : (currentLang === 'tr' ? 'Tam Ekran' : 'Fullscreen');
+            greenBtn.setAttribute('aria-label', greenBtn.title);
+            greenBtn.setAttribute('aria-pressed', String(isMax));
         }
         baglam.scrollTerminalToBottom();
     }
@@ -90,6 +129,7 @@ function scrollTerminalToBottom() {
     // Ctrl+K / Cmd+K opens AI Terminal
     document.addEventListener('keydown', function(e) {
         if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            if (document.getElementById('cert-modal').classList.contains('active')) return;
             e.preventDefault();
             if (baglam.overlay && baglam.overlay.classList.contains('active')) baglam.closeAIChat();
             else baglam.openAIChat();

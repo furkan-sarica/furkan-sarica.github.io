@@ -33,6 +33,12 @@ function parseMarkdown(text) {
     baglam.parseMarkdown = parseMarkdown;
 
 function streamTerminalTypewriter(container, text, onDone) {
+        if (PortfolioUI.hareketAz()) {
+            container.innerHTML = baglam.parseMarkdown(text);
+            baglam.scrollTerminalToBottom();
+            if (onDone) onDone();
+            return;
+        }
         container.innerHTML = '';
         var cursor = document.createElement('span');
         cursor.className = 'ai-term-cursor';

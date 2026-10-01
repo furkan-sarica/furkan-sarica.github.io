@@ -9,6 +9,7 @@ const ASSETS_TO_CACHE = [
   '/icon-512.png',
   '/apple-touch-icon.png',
   '/api.json',
+  '/js/ui.js',
   '/js/language.js',
   '/js/hero-navigation.js',
   '/js/contact-effects.js',

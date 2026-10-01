@@ -38,7 +38,10 @@ function applyLang(lang) {
 
     // Update toggle button tooltip
     var langToggle = document.getElementById('lang-toggle-btn');
-    if (langToggle) langToggle.title = currentLang === 'tr' ? 'Dili Değiştir (EN)' : 'Switch Language (TR)';
+    if (langToggle) {
+        langToggle.title = currentLang === 'tr' ? 'Dili Değiştir (EN)' : 'Switch Language (TR)';
+        langToggle.setAttribute('aria-label', langToggle.title);
+    }
 
     // Update back-to-top button title
     var btn = document.getElementById('backToTop');
@@ -53,6 +56,8 @@ function applyLang(lang) {
             : (currentLang === 'tr' ? 'Sesi Kapat' : 'Mute Sounds');
     }
 
+    if (muteBtn) muteBtn.setAttribute('aria-label', muteBtn.title);
+
     // Modal button titles
     var mClose = document.querySelector('#cert-modal .t-btn-red');
     var mZoom = document.querySelector('#cert-modal .t-btn-yellow');
@@ -60,12 +65,13 @@ function applyLang(lang) {
     if (mClose) mClose.title = currentLang === 'tr' ? 'Kapat' : 'Close';
     if (mZoom) mZoom.title = currentLang === 'tr' ? 'Yakınlaştır' : 'Zoom';
     if (mFull) mFull.title = currentLang === 'tr' ? 'Tam Ekran' : 'Fullscreen';
+    [mClose, mZoom, mFull].forEach(function (btn) { if (btn) btn.setAttribute('aria-label', btn.title); });
 
     // Screen reader fix: set aria-hidden on inactive language elements
-    document.querySelectorAll('[data-lang-tr], [data-lang-tr-block], [data-lang-tr-grid], [data-lang-tr-li]').forEach(function(el) {
+    document.querySelectorAll('[data-lang-tr], [data-lang-tr-block], [data-lang-tr-grid], [data-lang-tr-li], [data-lang-tr-flex]').forEach(function(el) {
         el.setAttribute('aria-hidden', currentLang === 'en' ? 'true' : 'false');
     });
-    document.querySelectorAll('[data-lang-en], [data-lang-en-block], [data-lang-en-grid], [data-lang-en-li]').forEach(function(el) {
+    document.querySelectorAll('[data-lang-en], [data-lang-en-block], [data-lang-en-grid], [data-lang-en-li], [data-lang-en-flex]').forEach(function(el) {
         el.setAttribute('aria-hidden', currentLang === 'tr' ? 'true' : 'false');
     });
 

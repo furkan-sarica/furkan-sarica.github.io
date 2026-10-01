@@ -75,9 +75,11 @@ PortfolioTerminal.kaydetRuntime = function () {
         muteBtn.addEventListener('click', function () {
             soundEnabled = !soundEnabled;
             muteBtn.textContent = soundEnabled ? '🔊' : '🔇';
+            muteBtn.setAttribute('aria-pressed', String(soundEnabled));
             muteBtn.title = soundEnabled
                 ? (currentLang === 'tr' ? 'Sesi Kapat' : 'Mute Sounds')
                 : (currentLang === 'tr' ? 'Sesi Aç' : 'Enable Sounds');
+            muteBtn.setAttribute('aria-label', muteBtn.title);
         });
     }
 }());

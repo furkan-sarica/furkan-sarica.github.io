@@ -1,7 +1,11 @@
 // ===== Feature: Linux Boot Preloader =====
 var _pageLoadTime = Date.now();
 
-function runBootSequence() {
+var runBootSequence = (function () {
+var baslatildi = false;
+return function runBootSequence() {
+    if (baslatildi) return;
+    baslatildi = true;
     var bootLines = [
         '[ OK ] Initializing kernel modules...',
         '[ OK ] Mounting filesystems...',
@@ -19,6 +23,13 @@ function runBootSequence() {
     log.textContent = '';
     screen.style.display = 'flex';
     screen.style.opacity = '1';
+
+    if (PortfolioUI.hareketAz()) {
+        log.textContent = bootLines.join('\n') + '\n';
+        screen.classList.add('fade-out');
+        screen.style.display = 'none';
+        return;
+    }
 
     var idx = 0;
     var delay = 80;
@@ -55,6 +66,7 @@ function runBootSequence() {
             setTimeout(function () { screen.style.display = 'none'; }, 200);
         }
     }, 1200);
-}
+};
+}());
 
 runBootSequence();

@@ -96,6 +96,7 @@ PortfolioTerminal.kaydetEfektler = function () {
 }());
 
 function startMatrixRain() {
+    if (PortfolioUI.hareketAz()) return;
     if (document.getElementById('matrix-rain')) return;
     var canvas = document.createElement('canvas');
     canvas.id = 'matrix-rain';
@@ -202,7 +203,7 @@ function stopMatrixRain() {
 (function () {
     var highestZ = 5000; // starting z-index above general content layers
 
-    document.querySelectorAll('.terminal-window').forEach(function (win) {
+    document.querySelectorAll('.terminal-window:not(.ai-terminal-window)').forEach(function (win) {
         var header = win.querySelector('.terminal-header');
         if (!header) return;
 
@@ -252,6 +253,11 @@ function stopMatrixRain() {
             win.classList.remove('win-minimized');
             isMaximized = false;
             isDragging = false;
+            document.removeEventListener('mousemove', fareyiTasi);
+            document.removeEventListener('mouseup', endDrag);
+            document.removeEventListener('touchmove', dokunmayiTasi);
+            document.removeEventListener('touchend', endDrag);
+            document.removeEventListener('touchcancel', endDrag);
             savedBeforeMax = null;
             clearInlinePos();
             header.style.cursor = '';
@@ -312,18 +318,28 @@ function stopMatrixRain() {
             startX = clientX - rect.left;
             startY = clientY - rect.top;
             isDragging = true;
+            document.addEventListener('mousemove', fareyiTasi);
+            document.addEventListener('mouseup', endDrag);
+            document.addEventListener('touchmove', dokunmayiTasi, { passive: false });
+            document.addEventListener('touchend', endDrag);
+            document.addEventListener('touchcancel', endDrag);
             header.style.cursor = 'grabbing';
         }
 
         function doDrag(clientX, clientY) {
             if (!isDragging) return;
-            win.style.left = (clientX - startX) + 'px';
-            win.style.top  = (clientY - startY) + 'px';
+            win.style.left = Math.max(0, Math.min(clientX - startX, innerWidth - win.offsetWidth)) + 'px';
+            win.style.top = Math.max(0, Math.min(clientY - startY, innerHeight - header.offsetHeight)) + 'px';
         }
 
         function endDrag() {
             if (!isDragging) return;
             isDragging = false;
+            document.removeEventListener('mousemove', fareyiTasi);
+            document.removeEventListener('mouseup', endDrag);
+            document.removeEventListener('touchmove', dokunmayiTasi);
+            document.removeEventListener('touchend', endDrag);
+            document.removeEventListener('touchcancel', endDrag);
             header.style.cursor = 'grab';
         }
 
@@ -341,8 +357,7 @@ function stopMatrixRain() {
             e.preventDefault();
         });
 
-        document.addEventListener('mousemove', function (e) { doDrag(e.clientX, e.clientY); });
-        document.addEventListener('mouseup', endDrag);
+        function fareyiTasi(e) { doDrag(e.clientX, e.clientY); }
 
         header.addEventListener('touchstart', function (e) {
             if (e.target.classList.contains('t-btn')) return;
@@ -351,15 +366,13 @@ function stopMatrixRain() {
             e.preventDefault();
         }, { passive: false });
 
-        document.addEventListener('touchmove', function (e) {
-            if (isDragging) {
-                var touch = e.touches[0];
-                doDrag(touch.clientX, touch.clientY);
-                e.preventDefault();
-            }
-        }, { passive: false });
+        function dokunmayiTasi(e) {
+            if (!isDragging || !e.touches.length) return;
+            var touch = e.touches[0];
+            doDrag(touch.clientX, touch.clientY);
+            e.preventDefault();
+        }
 
-        document.addEventListener('touchend', endDrag);
     });
 }());
 window.startMatrixRain = startMatrixRain;

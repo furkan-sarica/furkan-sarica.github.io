@@ -104,7 +104,7 @@ baglam.komutlar.push({ sira: 0, eslesir: function (c, cmd) { return c === 'help'
 baglam.komutlar.push({ sira: 1, eslesir: function (c, cmd) { return baglam.sections[c]; }, calistir: function (c, cmd) {
             baglam.addLine('Scrolling to #' + c + '...', 'ok');
             var target = document.querySelector(baglam.sections[c]);
-            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (target) target.scrollIntoView({ behavior: PortfolioUI.hareketAz() ? 'auto' : 'smooth', block: 'start' });
         } });
 
 baglam.komutlar.push({ sira: 2, eslesir: function (c, cmd) { return c === 'clear'; }, calistir: function (c, cmd) {

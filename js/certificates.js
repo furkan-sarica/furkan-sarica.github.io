@@ -30,7 +30,7 @@ function updateCertDisplay() {
     if (counter) counter.textContent = (currentCertIdx + 1) + ' / ' + ALL_CERTS.length;
 }
 
-window.openCertModal = function(imageSrc, title) {
+window.openCertModal = function(imageSrc, title, tetikleyen) {
     var modal = document.getElementById('cert-modal');
     if (!modal) return;
     var foundIdx = ALL_CERTS.findIndex(function(c) { return c.src === imageSrc; });
@@ -38,7 +38,7 @@ window.openCertModal = function(imageSrc, title) {
     updateCertDisplay();
     modal.classList.add('active');
     modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
+    PortfolioUI.dialogAc(modal, closeCertModal, null, tetikleyen);
 };
 
 window.navCert = function(direction) {
@@ -53,7 +53,7 @@ window.closeCertModal = function() {
     modal.classList.remove('active');
     modal.setAttribute('aria-hidden', 'true');
     if (modalImg) modalImg.classList.remove('zoomed');
-    document.body.style.overflow = '';
+    PortfolioUI.dialogKapat(modal);
 };
 
 window.toggleCertZoom = function() {
@@ -64,9 +64,9 @@ window.toggleCertZoom = function() {
 window.toggleCertFullscreen = function() {
     var modalImg = document.getElementById('cert-modal-img');
     if (!modalImg) return;
-    if (!document.fullscreenElement) {
+    if (!document.fullscreenElement && modalImg.requestFullscreen) {
         modalImg.requestFullscreen().catch(function() {});
-    } else {
+    } else if (document.exitFullscreen) {
         document.exitFullscreen().catch(function() {});
     }
 };

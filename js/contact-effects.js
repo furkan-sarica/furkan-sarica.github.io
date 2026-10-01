@@ -21,6 +21,10 @@
     var statusEl = document.getElementById('system-status');
     if (!statusEl) return;
     statusEl.textContent = '[ OK ] System Status: ONLINE | Last commit: ...';
+    if (!navigator.onLine) {
+        statusEl.textContent = '[ OK ] System Status: ONLINE';
+        return;
+    }
     fetch('https://api.github.com/repos/furkan-sarica/furkan-sarica.github.io/commits/main')
         .then(function (r) { return r.json(); })
         .then(function (data) {
@@ -44,6 +48,7 @@
     document.querySelectorAll('.hero-nav a').forEach(function (link) {
         link.dataset.value = link.textContent;
         link.addEventListener('mouseover', function () {
+            if (PortfolioUI.hareketAz()) return;
             var original = link.dataset.value;
             var iterations = 0;
             var maxIter = original.length * 3;
