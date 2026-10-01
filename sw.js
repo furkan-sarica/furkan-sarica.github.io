@@ -1,4 +1,4 @@
-const CACHE_NAME = 'furkan-portfolio-v21';
+const CACHE_NAME = 'furkan-portfolio-v22';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -13,7 +13,18 @@ const ASSETS_TO_CACHE = [
   '/js/hero-navigation.js',
   '/js/contact-effects.js',
   '/js/boot.js',
+  '/js/terminal/core.js',
+  '/js/terminal/commands-system.js',
+  '/js/terminal/commands-files.js',
+  '/js/terminal/easter-eggs.js',
+  '/js/terminal/security-sim.js',
+  '/js/terminal/runtime.js',
+  '/js/terminal/effects.js',
   '/js/terminal.js',
+  '/js/ai/ui.js',
+  '/js/ai/render.js',
+  '/js/ai/local.js',
+  '/js/ai/transport.js',
   '/js/ai-shell.js',
   '/js/keyboard-navigation.js',
   '/js/content-effects.js',

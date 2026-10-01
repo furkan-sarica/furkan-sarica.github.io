@@ -5,6 +5,7 @@ const yerelAdres = 'http://127.0.0.1:8080';
 
 module.exports = defineConfig({
     testDir: './tests',
+    testMatch: '**/*.spec.cjs',
     timeout: 20000,
     expect: { timeout: 5000 },
     workers: 1,

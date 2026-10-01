@@ -6,11 +6,12 @@
   "scripts": {
     "dev": "python3 -m http.server 8080",
     "serve": "python3 -m http.server 8080",
-    "test": "npm run test:integrity && npm run test:syntax && npm run test:smoke",
+    "test": "npm run test:integrity && npm run test:syntax && npm run test:unit && npm run test:smoke",
     "test:integrity": "python3 scripts/verify-integrity.py",
     "test:syntax": "python3 scripts/verify-javascript.py",
     "test:smoke": "playwright test",
-    "security:scan": "python3 scripts/verify-integrity.py"
+    "security:scan": "python3 scripts/verify-integrity.py",
+    "test:unit": "node --test tests/unit/*.test.cjs"
   },
   "keywords": [
     "portfolio",
