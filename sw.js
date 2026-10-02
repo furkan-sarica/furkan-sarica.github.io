@@ -1,4 +1,4 @@
-const CACHE_NAME = 'furkan-portfolio-v22';
+const CACHE_NAME = 'furkan-portfolio-v23';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -64,6 +64,27 @@ self.addEventListener('fetch', (event) => {
   const sunumKaynaklari = ['fonts.googleapis.com', 'fonts.gstatic.com', 'cdn.jsdelivr.net'];
   const sunumAsseti = sunumKaynaklari.includes(url.hostname) && ['style', 'font'].includes(event.request.destination);
 
+  // Yerel CSS her online yüklemede doğrulanır; offline durumda precache kullanılır.
+  if (url.origin === self.location.origin && url.pathname.endsWith('.css')) {
+    event.respondWith(
+      fetch(event.request, { cache: 'no-cache' })
+        .then(async (yanit) => {
+          if (!yanit.ok) throw new Error('CSS ağ yanıtı başarısız');
+          const onbellek = await caches.open(CACHE_NAME);
+          // Query'li HTML include ile precache aynı CSS kaydını günceller.
+          await onbellek.put(url.pathname, yanit.clone());
+          return yanit;
+        })
+        .catch(async (hata) => {
+          const onbellek = await caches.open(CACHE_NAME);
+          const kayit = await onbellek.match(url.pathname);
+          if (kayit) return kayit;
+          throw hata;
+        })
+    );
+    return;
+  }
+
   // Cache-first for local static assets (images, fonts, stylesheets, pdfs)
   const isStaticAsset = url.origin === self.location.origin && 
     (url.pathname.startsWith('/certs/') || 
@@ -71,7 +92,6 @@ self.addEventListener('fetch', (event) => {
      url.pathname.endsWith('.png') || 
      url.pathname.endsWith('.jpg') || 
      url.pathname.endsWith('.svg') || 
-     url.pathname.endsWith('.css') || 
      url.pathname.endsWith('.json') ||
      url.pathname.endsWith('.pdf'));
 
