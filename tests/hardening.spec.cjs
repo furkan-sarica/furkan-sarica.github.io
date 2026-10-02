@@ -2,6 +2,8 @@ const { test, expect } = require('@playwright/test');
 const { hazirla } = require('./helpers/site.cjs');
 
 test('responsive kontroller ve floating pencereler taşmaz', async ({ page, context, baseURL }) => {
+    // On viewport ve pencere geçişi Linux WebKit'te tek viewport smoke süresini aşabilir.
+    test.setTimeout(45000);
     const hatalar = await hazirla(page, context, baseURL);
     for (const genislik of [320, 360, 375, 390, 430, 768, 1024, 1440]) {
         await page.setViewportSize({ width: genislik, height: 900 });
