@@ -31,7 +31,12 @@
         baglam.sorgula = async function (mesajlar, tokenGeldi) {
             if (typeof navigator !== 'undefined' && !navigator.onLine) throw new Error('Offline');
             var controller = new AbortController();
-            var timeoutId = setTimeout(function () { controller.abort(); }, 30000);
+            var timeoutId;
+            function beklemeSuresiniYenile() {
+                if (timeoutId !== undefined) clearTimeout(timeoutId);
+                timeoutId = setTimeout(function () { controller.abort(); }, 30000);
+            }
+            beklemeSuresiniYenile();
             var reader;
             try {
                 var res = await fetch('https://vitonom-ai.sarica-furkan.workers.dev', {
@@ -46,6 +51,7 @@
                 while (!akis.bitti()) {
                     var chunk = await reader.read();
                     if (chunk.done) { akis.ekle(decoder.decode()); break; }
+                    beklemeSuresiniYenile();
                     akis.ekle(decoder.decode(chunk.value, { stream: true }));
                 }
                 if (akis.bitti()) await reader.cancel();
