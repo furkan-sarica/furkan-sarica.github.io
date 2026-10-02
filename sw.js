@@ -1,4 +1,4 @@
-const CACHE_NAME = 'furkan-portfolio-v23';
+const CACHE_NAME = 'furkan-portfolio-v24';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -35,26 +35,73 @@ const ASSETS_TO_CACHE = [
   '/js/easter-eggs.js'
 ];
 
+function uygulamaKabuguMu(url) {
+  return url.origin === self.location.origin &&
+    (url.pathname === '/' || url.pathname.endsWith('.html') ||
+     url.pathname.endsWith('.css') ||
+     (url.pathname.startsWith('/js/') && url.pathname.endsWith('.js')) ||
+     url.pathname === '/api.json');
+}
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE);
-    }).then(() => self.skipWaiting())
+    (async () => {
+      try {
+        // Önce bütün yanıtlar başarılı olmalı; eski worker bu sırada çalışır.
+        const yanitlar = await Promise.all(ASSETS_TO_CACHE.map(async (yol) => {
+          const istek = new Request(yol, {
+            cache: uygulamaKabuguMu(new URL(yol, self.location.origin)) ? 'reload' : 'default'
+          });
+          const yanit = await fetch(istek);
+          if (!yanit.ok) throw new Error('Precache başarısız: ' + yol);
+          return [yol, yanit];
+        }));
+        const onbellek = await caches.open(CACHE_NAME);
+        await Promise.all(yanitlar.map(([yol, yanit]) => onbellek.put(yol, yanit)));
+        await self.skipWaiting();
+      } catch (hata) {
+        await caches.delete(CACHE_NAME);
+        throw hata;
+      }
+    })()
   );
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.map((key) => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
-        })
-      );
-    }).then(() => self.clients.claim())
+    (async () => {
+      const anahtarlar = await caches.keys();
+      const eskiSurumler = anahtarlar.filter(ad => ad.startsWith('furkan-portfolio-v') && ad !== CACHE_NAME);
+      const pencereler = eskiSurumler.length
+        ? await self.clients.matchAll({ type: 'window', includeUncontrolled: true }) : [];
+      await Promise.all(eskiSurumler.map(ad => caches.delete(ad)));
+      const kimlikler = pencereler.filter(pencere => new URL(pencere.url).origin === self.location.origin)
+        .map(pencere => pencere.id);
+      if (kimlikler.length) {
+        // Activate, kendi kontrolündeki navigation'ı beklerse fetch/activate kilitlenir.
+        self.registration.active.postMessage({ tur: 'portfolio-surum-gecisi', kimlikler });
+      } else {
+        await self.clients.claim();
+      }
+    })()
   );
+});
+
+self.addEventListener('message', (event) => {
+  // Yalnız worker'ın kendi lifecycle mesajı: page JS upgrade kararı vermez.
+  if (event.source?.scriptURL !== self.location.href || event.data?.tur !== 'portfolio-surum-gecisi') return;
+  event.waitUntil((async () => {
+    const worker = self.registration.active;
+    if (worker.state !== 'activated') {
+      await new Promise(resolve => worker.addEventListener('statechange', function durumDegisti() {
+        if (worker.state === 'activated') { worker.removeEventListener('statechange', durumDegisti); resolve(); }
+      }));
+    }
+    // Eski handler'ın tamamladığı reload yeni client ID üretir: ona ikinci navigation yapılmaz.
+    const eskiPencereler = await Promise.all(event.data.kimlikler.map(id => self.clients.get(id)));
+    await Promise.all(eskiPencereler.filter(Boolean).map(pencere => pencere.navigate(pencere.url)));
+    await self.clients.claim();
+  })());
 });
 
 self.addEventListener('fetch', (event) => {
@@ -64,14 +111,14 @@ self.addEventListener('fetch', (event) => {
   const sunumKaynaklari = ['fonts.googleapis.com', 'fonts.gstatic.com', 'cdn.jsdelivr.net'];
   const sunumAsseti = sunumKaynaklari.includes(url.hostname) && ['style', 'font'].includes(event.request.destination);
 
-  // Yerel CSS her online yüklemede doğrulanır; offline durumda precache kullanılır.
-  if (url.origin === self.location.origin && url.pathname.endsWith('.css')) {
+  // Mutable HTML/CSS/JS/config online doğrulanır; offline durumda canonical kayıt kullanılır.
+  if (uygulamaKabuguMu(url)) {
     event.respondWith(
       fetch(event.request, { cache: 'no-cache' })
         .then(async (yanit) => {
-          if (!yanit.ok) throw new Error('CSS ağ yanıtı başarısız');
+          if (!yanit.ok) throw new Error('App-shell ağ yanıtı başarısız');
           const onbellek = await caches.open(CACHE_NAME);
-          // Query'li HTML include ile precache aynı CSS kaydını günceller.
+          // Query'li include ve precache aynı canonical kaydı günceller.
           await onbellek.put(url.pathname, yanit.clone());
           return yanit;
         })
