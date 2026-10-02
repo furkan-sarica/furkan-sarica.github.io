@@ -1,13 +1,6 @@
 // Typing effect for hero
 document.addEventListener('DOMContentLoaded', () => {
-// Set initial aria-hidden for screen readers
-document.querySelectorAll('[data-lang-en], [data-lang-en-block], [data-lang-en-grid], [data-lang-en-li]').forEach(function(el) {
-    el.setAttribute('aria-hidden', 'true');
-});
-document.querySelectorAll('[data-lang-tr], [data-lang-tr-block], [data-lang-tr-grid], [data-lang-tr-li]').forEach(function(el) {
-    el.setAttribute('aria-hidden', 'false');
-});
-
+// Dil görünürlüğünü language.js belirler; kaydedilmiş EN tercihi ezilmez.
 const text = "Furkan SARICA";
 const typingElement = document.querySelector('.typing');
 if (typingElement) {
@@ -19,6 +12,7 @@ if (typingElement) {
         if (started) return;
         started = true;
         typingElement.textContent = '';
+        if (PortfolioUI.hareketAz()) { typingElement.textContent = text; return; }
         function typeStep() {
             if (i < text.length) {
                 typingElement.textContent += text.charAt(i);
@@ -30,7 +24,7 @@ if (typingElement) {
     }
 
     var bootScreen = document.getElementById('boot-screen');
-    if (bootScreen) {
+    if (bootScreen && bootScreen.style.display !== 'none') {
         var bootObserver = new MutationObserver(function() {
             if (bootScreen.classList.contains('fade-out') || bootScreen.style.display === 'none') {
                 setTimeout(runTerminalTypewriter, 150);
@@ -51,7 +45,7 @@ anchor.addEventListener('click', function (e) {
 e.preventDefault();
 const target = document.querySelector(this.getAttribute('href'));
 if (target) {
-target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+target.scrollIntoView({ behavior: PortfolioUI.hareketAz() ? 'auto' : 'smooth', block: 'start' });
 }
 });
 });
@@ -77,7 +71,7 @@ observer.observe(el);
 // Back to Top Button
 const backToTopBtn = document.getElementById('backToTop');
 backToTopBtn.addEventListener('click', () => {
-window.scrollTo({ top: 0, behavior: 'smooth' });
+window.scrollTo({ top: 0, behavior: PortfolioUI.hareketAz() ? 'auto' : 'smooth' });
 });
 window.addEventListener('scroll', () => {
 if (window.scrollY > 300) {

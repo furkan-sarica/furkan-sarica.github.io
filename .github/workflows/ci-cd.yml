@@ -17,7 +17,7 @@ concurrency:
 jobs:
   quality-and-security:
     name: Code Quality & DevSecOps Verification
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - name: Checkout Repository
@@ -65,14 +65,56 @@ jobs:
           npm ci --ignore-scripts --no-audit --no-fund
           npx --no-install playwright install --with-deps chromium
 
-      - name: Masaüstü ve mobil browser smoke gate
-        run: npm run test:smoke
+      - name: Saf transport regression testleri
+        run: npm run test:unit
+
+      - name: Chromium ve PWA regression gate
+        run: npm run test:smoke -- --project=masaustu --project=mobil --project=pwa
 
       - name: Başarısız smoke kanıtları
         if: failure()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: pr-smoke-hata-kanitlari
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 7
+
+  webkit-uyumluluk:
+    name: WebKit browser uyumluluğu
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    # Bağımsız ve non-required: deploy yalnız quality-and-security sonucuna bağlıdır.
+    steps:
+      - name: Test kaynakları
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Python kurulumu
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: '3.11'
+
+      - name: Node kurulumu
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: WebKit kurulumu
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npx --no-install playwright install --with-deps webkit
+
+      - name: WebKit browser regression
+        run: npm run test:smoke -- --project=webkit
+
+      - name: Başarısız WebKit kanıtları
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: webkit-smoke-hata-kanitlari
           path: test-results/
           if-no-files-found: ignore
           retention-days: 7
@@ -84,7 +126,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
       contents: read
@@ -111,7 +153,7 @@ jobs:
   post-deploy-smoke:
     name: Canlı yayın smoke doğrulaması
     needs: deploy
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - name: Test kaynakları
@@ -133,7 +175,7 @@ jobs:
       - name: Canlı HTTP, boot, hero ve runtime smoke
         env:
           SMOKE_ADRESI: https://furkan-sarica.github.io/
-        run: npm run test:smoke
+        run: npm run test:production
 
       - name: Başarısız canlı smoke kanıtları
         if: failure()

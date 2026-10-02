@@ -95,12 +95,12 @@
 
 <!-- Top Controls Bar -->
 <div class="top-bar-controls" id="top-bar-controls">
-  <button class="ai-chat-trigger" id="ai-chat-btn" title="Vitonom AI Shell (Cmd+K)" onclick="openAIChat()">
+  <button class="ai-chat-trigger" id="ai-chat-btn" aria-haspopup="dialog" aria-controls="ai-chat-overlay" aria-expanded="false" title="Vitonom AI Shell (Cmd+K)" onclick="openAIChat(this)">
     <span class="ai-term-prompt">❯_</span>
     <span>ai.sh</span>
   </button>
-  <button class="mute-toggle" id="mute-btn" title="Sesi Aç" aria-label="Toggle sound">🔇</button>
-  <button class="lang-toggle" onclick="toggleLang()" id="lang-toggle-btn" title="Dil Değiştir" aria-label="Toggle language">
+  <button class="mute-toggle" id="mute-btn" aria-pressed="false" title="Sesi Aç" aria-label="Sesi aç">🔇</button>
+  <button class="lang-toggle" onclick="toggleLang()" id="lang-toggle-btn" title="Dil Değiştir" aria-label="Dili değiştir">
     <span class="lang-option active" id="lang-tr-btn">TR</span>
     <span class="lang-separator">/</span>
     <span class="lang-option" id="lang-en-btn">EN</span>
@@ -161,9 +161,9 @@
 <div class="about-text">
 <div class="terminal-window" data-win-title="~/profile.md">
 <div class="terminal-header">
-<span class="t-btn t-btn-red"></span>
-<span class="t-btn t-btn-yellow"></span>
-<span class="t-btn t-btn-green"></span>
+<button type="button" class="t-btn t-btn-red" aria-label="Pencereyi kapat"></button>
+<button type="button" class="t-btn t-btn-yellow" aria-label="Pencereyi küçült"></button>
+<button type="button" class="t-btn t-btn-green" aria-label="Pencere boyutunu değiştir"></button>
 <span class="terminal-title">~/profile.md</span>
 </div>
 <pre><code class="comment"># AI Solutions Engineer</code>
@@ -451,7 +451,7 @@
 <span data-lang-en>Artificial intelligence, machine learning, deep learning, and modern AI techniques</span>
 </div>
 <div class="cert-actions">
-  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/stanford-ai.jpg', 'Stanford University — Artificial Intelligence Professional Certificate')">
+  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/stanford-ai.jpg', 'Stanford University — Artificial Intelligence Professional Certificate', this)">
     <span data-lang-tr>🔍 Sertifikayı Görüntüle</span>
     <span data-lang-en>🔍 View Certificate</span>
   </button>
@@ -469,7 +469,7 @@
 <span data-lang-en>Azure AI, machine learning model development and deployment processes</span>
 </div>
 <div class="cert-actions">
-  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/microsoft-ai-ml.jpg', 'Microsoft — AI & ML Engineering Professional Certificate')">
+  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/microsoft-ai-ml.jpg', 'Microsoft — AI & ML Engineering Professional Certificate', this)">
     <span data-lang-tr>🔍 Sertifikayı Görüntüle</span>
     <span data-lang-en>🔍 View Certificate</span>
   </button>
@@ -487,7 +487,7 @@
 <span data-lang-en>Generative AI, prompt engineering, and AI-assisted software development</span>
 </div>
 <div class="cert-actions">
-  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/vanderbilt-genai.jpg', 'Vanderbilt University — Generative AI Software Engineering Specialization')">
+  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/vanderbilt-genai.jpg', 'Vanderbilt University — Generative AI Software Engineering Specialization', this)">
     <span data-lang-tr>🔍 Sertifikayı Görüntüle</span>
     <span data-lang-en>🔍 View Certificate</span>
   </button>
@@ -505,7 +505,7 @@
 <span data-lang-en>Access to NVIDIA ecosystem for software development, machine learning, and GPU-accelerated applications. Development competencies in CUDA, cuDNN, and AI/ML frameworks.</span>
 </div>
 <div class="cert-actions">
-  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/nvidia-developer.jpg', 'NVIDIA — Developer Program Member')">
+  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/nvidia-developer.jpg', 'NVIDIA — Developer Program Member', this)">
     <span data-lang-tr>🔍 Sertifikayı Görüntüle</span>
     <span data-lang-en>🔍 View Certificate</span>
   </button>
@@ -523,7 +523,7 @@
 <span data-lang-en>Cybersecurity fundamentals, network security, threat intelligence, and incident response</span>
 </div>
 <div class="cert-actions">
-  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/ibm-isc2-cybersecurity.jpg', 'IBM & ISC2 — Cybersecurity Specialist Professional Certificate')">
+  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/ibm-isc2-cybersecurity.jpg', 'IBM & ISC2 — Cybersecurity Specialist Professional Certificate', this)">
     <span data-lang-tr>🔍 Sertifikayı Görüntüle</span>
     <span data-lang-en>🔍 View Certificate</span>
   </button>
@@ -541,7 +541,7 @@
 <span data-lang-en>Cloud architecture design, AWS services, security, and scalable systems</span>
 </div>
 <div class="cert-actions">
-  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/aws-cloud-solutions-architect.jpg', 'AWS — Cloud Solutions Architect Professional Certificate')">
+  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/aws-cloud-solutions-architect.jpg', 'AWS — Cloud Solutions Architect Professional Certificate', this)">
     <span data-lang-tr>🔍 Sertifikayı Görüntüle</span>
     <span data-lang-en>🔍 View Certificate</span>
   </button>
@@ -559,7 +559,7 @@
 <span data-lang-en>iOS application development, Swift, UI design, and version control</span>
 </div>
 <div class="cert-actions">
-  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/meta-ios-developer.jpg', 'Meta — iOS Developer Professional Certificate')">
+  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/meta-ios-developer.jpg', 'Meta — iOS Developer Professional Certificate', this)">
     <span data-lang-tr>🔍 Sertifikayı Görüntüle</span>
     <span data-lang-en>🔍 View Certificate</span>
   </button>
@@ -577,7 +577,7 @@
 <span data-lang-en>IT support fundamentals, computer networking, systems administration, and security</span>
 </div>
 <div class="cert-actions">
-  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/google-it-support.jpg', 'Google — IT Support Professional Certificate')">
+  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/google-it-support.jpg', 'Google — IT Support Professional Certificate', this)">
     <span data-lang-tr>🔍 Sertifikayı Görüntüle</span>
     <span data-lang-en>🔍 View Certificate</span>
   </button>
@@ -595,7 +595,7 @@
 <span data-lang-en>DevOps principles, Agile/Scrum, CI/CD, cloud computing architecture, Linux commands, Git, container-based application deployment and observability (Grafana, etc.)</span>
 </div>
 <div class="cert-actions">
-  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/ibm-devops-software-engineering.jpg', 'IBM — DevOps and Software Engineering Professional Certificate')">
+  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/ibm-devops-software-engineering.jpg', 'IBM — DevOps and Software Engineering Professional Certificate', this)">
     <span data-lang-tr>🔍 Sertifikayı Görüntüle</span>
     <span data-lang-en>🔍 View Certificate</span>
   </button>
@@ -613,7 +613,7 @@
 <span data-lang-en>TCP/IP, routing, Linux network tools, network security and network operations</span>
 </div>
 <div class="cert-actions">
-  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/akamai-network-engineering.jpg', 'Akamai Technologies — Network Engineering Professional Certificate')">
+  <button type="button" class="cert-view-btn" onclick="openCertModal('certs/akamai-network-engineering.jpg', 'Akamai Technologies — Network Engineering Professional Certificate', this)">
     <span data-lang-tr>🔍 Sertifikayı Görüntüle</span>
     <span data-lang-en>🔍 View Certificate</span>
   </button>
@@ -815,9 +815,9 @@
 <!-- More projects — terminal redirect -->
 <div class="terminal-window" style="margin-top: 3rem;">
 <div class="terminal-header">
-<span class="t-btn t-btn-red"></span>
-<span class="t-btn t-btn-yellow"></span>
-<span class="t-btn t-btn-green"></span>
+<button type="button" class="t-btn t-btn-red" aria-label="Pencereyi kapat"></button>
+<button type="button" class="t-btn t-btn-yellow" aria-label="Pencereyi küçült"></button>
+<button type="button" class="t-btn t-btn-green" aria-label="Pencere boyutunu değiştir"></button>
 <span class="terminal-title">~/projects</span>
 </div>
 <pre class="term-output" style="text-align: center; padding: 2rem;"><code class="comment"># Tracing route to additional repositories...</code>
@@ -1050,9 +1050,9 @@ traceroute to github.com/furkan-sarica (140.82.121.4), 30 hops max
   <div id="server-metrics"></div>
   <div class="terminal-window" data-win-title="furkan@devops:~$">
     <div class="terminal-header">
-      <span class="t-btn t-btn-red"></span>
-      <span class="t-btn t-btn-yellow"></span>
-      <span class="t-btn t-btn-green"></span>
+      <button type="button" class="t-btn t-btn-red" aria-label="Pencereyi kapat"></button>
+      <button type="button" class="t-btn t-btn-yellow" aria-label="Pencereyi küçült"></button>
+      <button type="button" class="t-btn t-btn-green" aria-label="Pencere boyutunu değiştir"></button>
       <span class="terminal-title">furkan@devops:~$</span>
     </div>
     <div id="cli-box">
@@ -1086,22 +1086,22 @@ traceroute to github.com/furkan-sarica (140.82.121.4), 30 hops max
 <button id="backToTop" class="back-to-top" title="Yukarı Çık">cd ~</button>
 
 <!-- Certificate Terminal Viewer Modal -->
-<div id="cert-modal" role="dialog" aria-modal="true" aria-label="Certificate Viewer" aria-hidden="true">
+<div id="cert-modal" role="dialog" aria-modal="true" aria-label="Certificate Viewer" aria-hidden="true" tabindex="-1">
   <div class="cert-modal-backdrop" onclick="closeCertModal()"></div>
   <div class="cert-modal-window">
     <div class="terminal-header">
-      <span class="t-btn t-btn-red" onclick="closeCertModal()" title="Kapat"></span>
-      <span class="t-btn t-btn-yellow" onclick="toggleCertZoom()" title="Yakınlaştır"></span>
-      <span class="t-btn t-btn-green" onclick="toggleCertFullscreen()" title="Tam Ekran"></span>
+      <button type="button" class="t-btn t-btn-red" onclick="closeCertModal()" title="Kapat" aria-label="Kapat"></button>
+      <button type="button" class="t-btn t-btn-yellow" onclick="toggleCertZoom()" title="Yakınlaştır" aria-label="Yakınlaştır"></button>
+      <button type="button" class="t-btn t-btn-green" onclick="toggleCertFullscreen()" title="Tam Ekran" aria-label="Tam Ekran"></button>
       <span class="terminal-title" id="cert-modal-title">view ~/certs/credential.jpg</span>
       <button class="cert-modal-close-btn" onclick="closeCertModal()" aria-label="Close">✕</button>
     </div>
     <div class="cert-modal-toolbar">
       <span class="cert-modal-status">● VERIFIED_CREDENTIAL [200 OK]</span>
       <div class="cert-modal-nav">
-        <button class="cert-nav-btn" onclick="navCert(-1)" title="Önceki (←)">◀</button>
+        <button class="cert-nav-btn" onclick="navCert(-1)" aria-label="Önceki sertifika" title="Önceki (←)">◀</button>
         <span class="cert-counter" id="cert-modal-counter">1 / 10</span>
-        <button class="cert-nav-btn" onclick="navCert(1)" title="Sonraki (→)">▶</button>
+        <button class="cert-nav-btn" onclick="navCert(1)" aria-label="Sonraki sertifika" title="Sonraki (→)">▶</button>
       </div>
       <a id="cert-modal-download" href="#" target="_blank" rel="noopener" class="cert-toolbar-btn">
         <span data-lang-tr>Tam Boyut Aç ↗</span>
@@ -1115,12 +1115,12 @@ traceroute to github.com/furkan-sarica (140.82.121.4), 30 hops max
 </div>
 
 <!-- Vitonom AI Terminal Shell Modal -->
-<div id="ai-chat-overlay" role="dialog" aria-modal="true" aria-label="Vitonom AI Terminal Shell" aria-hidden="true">
+<div id="ai-chat-overlay" role="dialog" aria-modal="true" aria-label="Vitonom AI Terminal Shell" aria-hidden="true" tabindex="-1">
   <div class="terminal-window ai-terminal-window">
     <div class="terminal-header" onclick="handleAiHeaderClick(event)">
-      <span class="t-btn t-btn-red" onclick="event.stopPropagation(); closeAIChat()" title="Kapat (ESC)"></span>
-      <span class="t-btn t-btn-yellow" onclick="event.stopPropagation(); minimizeAIChat()" title="Simge Durumuna Küçült"></span>
-      <span class="t-btn t-btn-green" onclick="event.stopPropagation(); toggleMaximizeAIChat()" title="Tam Ekran"></span>
+      <button type="button" class="t-btn t-btn-red" onclick="event.stopPropagation(); closeAIChat()" title="Kapat (ESC)" aria-label="Kapat (ESC)"></button>
+      <button type="button" class="t-btn t-btn-yellow" onclick="event.stopPropagation(); minimizeAIChat()" title="Simge Durumuna Küçült" aria-label="Simge Durumuna Küçült"></button>
+      <button type="button" class="t-btn t-btn-green" onclick="event.stopPropagation(); toggleMaximizeAIChat()" title="Tam Ekran" aria-label="Tam Ekran"></button>
       <span class="terminal-title">guest@furkan-sarica:~$ vitonom-cli --interactive</span>
     </div>
 
@@ -1198,7 +1198,7 @@ traceroute to github.com/furkan-sarica (140.82.121.4), 30 hops max
 </div>
 
 <!-- Interactive Mouse-Tracking Logs -->
-<div id="bg-logs" aria-hidden="true"></div>
+
 
 <!-- Vim Overlay -->
 <div id="vim-overlay" tabindex="-1" aria-hidden="true">
@@ -1218,11 +1218,23 @@ traceroute to github.com/furkan-sarica (140.82.121.4), 30 hops max
   <div id="kernel-panic-countdown"></div>
 </div>
 
+<script defer src="js/ui.js"></script>
 <script defer src="js/language.js"></script>
 <script defer src="js/hero-navigation.js"></script>
 <script defer src="js/contact-effects.js"></script>
 <script defer src="js/boot.js"></script>
+<script defer src="js/terminal/core.js"></script>
+<script defer src="js/terminal/commands-system.js"></script>
+<script defer src="js/terminal/commands-files.js"></script>
+<script defer src="js/terminal/easter-eggs.js"></script>
+<script defer src="js/terminal/security-sim.js"></script>
+<script defer src="js/terminal/runtime.js"></script>
+<script defer src="js/terminal/effects.js"></script>
 <script defer src="js/terminal.js"></script>
+<script defer src="js/ai/ui.js"></script>
+<script defer src="js/ai/render.js"></script>
+<script defer src="js/ai/local.js"></script>
+<script defer src="js/ai/transport.js"></script>
 <script defer src="js/ai-shell.js"></script>
 <script defer src="js/keyboard-navigation.js"></script>
 <script defer src="js/content-effects.js"></script>

@@ -16,7 +16,8 @@
     function isPaletteOpen() {
         var ov = document.getElementById('cmd-palette-overlay');
         var ai = document.getElementById('ai-chat-overlay');
-        return (ov && ov.classList.contains('active')) || (ai && ai.classList.contains('active'));
+        var cert = document.getElementById('cert-modal');
+        return (ov && ov.classList.contains('active')) || (ai && ai.classList.contains('active')) || (cert && cert.classList.contains('active'));
     }
 
     function getCurrentSectionIdx() {
@@ -44,7 +45,7 @@
             var cur = getCurrentSectionIdx();
             var next = Math.min(cur + 1, sections.length - 1);
             var el = document.querySelector(sections[next]);
-            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (el) el.scrollIntoView({ behavior: PortfolioUI.hareketAz() ? 'auto' : 'smooth', block: 'start' });
             return;
         }
         if (key === 'k') {
@@ -52,7 +53,7 @@
             var cur2 = getCurrentSectionIdx();
             var prev = Math.max(cur2 - 1, 0);
             var el2 = document.querySelector(sections[prev]);
-            if (el2) el2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (el2) el2.scrollIntoView({ behavior: PortfolioUI.hareketAz() ? 'auto' : 'smooth', block: 'start' });
             return;
         }
 
@@ -64,7 +65,7 @@
                 // second g
                 gPending = false;
                 clearTimeout(ggTimer);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior: PortfolioUI.hareketAz() ? 'auto' : 'smooth' });
                 return;
             }
             gPending = true;
@@ -81,14 +82,14 @@
                     clearTimeout(ggTimer);
                     document.removeEventListener('keydown', onceKeydown, true);
                     var el = document.querySelector('#projects');
-                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    if (el) el.scrollIntoView({ behavior: PortfolioUI.hareketAz() ? 'auto' : 'smooth', block: 'start' });
                 } else if (ev.key === 't') {
                     ev.preventDefault();
                     gPending = false;
                     clearTimeout(ggTimer);
                     document.removeEventListener('keydown', onceKeydown, true);
                     var el2 = document.querySelector('#cli-terminal');
-                    if (el2) el2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    if (el2) el2.scrollIntoView({ behavior: PortfolioUI.hareketAz() ? 'auto' : 'smooth', block: 'start' });
                 } else if (ev.key !== 'g') {
                     // any other key cancels
                     gPending = false;

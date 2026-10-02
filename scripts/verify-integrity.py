@@ -78,6 +78,17 @@ if os.path.exists(sw_path):
                 log_ok(f"Cache target verified: {clean_item}")
             else:
                 log_err(f"sw.js ASSETS_TO_CACHE references non-existent file: {clean_item}")
+        # Script include, gerçek JS dosyaları ve precache listesi aynı küme olmalı.
+        html = open(os.path.join(ROOT_DIR, "index.html"), encoding="utf-8").read()
+        scriptler = re.findall(r'<script[^>]+src=["\']([^"\']+)', html)
+        js_dosyalari = {os.path.relpath(os.path.join(kok, ad), ROOT_DIR) for kok, _, adlar in os.walk(os.path.join(ROOT_DIR, "js")) for ad in adlar if ad.endswith(".js")}
+        cache_js = [item.lstrip("/") for item in items if item.startswith("/js/")]
+        if len(cache_js) != len(set(cache_js)) or len(scriptler) != len(set(scriptler)):
+            log_err("Script veya JS precache listesinde tekrar var")
+        if set(scriptler) != js_dosyalari or set(cache_js) != js_dosyalari:
+            log_err("JS dosyaları, script include'ları ve SW precache listesi senkron değil")
+        else:
+            log_ok(f"{len(js_dosyalari)} JS asset: include/cache/disk eşleşiyor")
     else:
         log_err("Could not find ASSETS_TO_CACHE array in sw.js")
 
@@ -111,7 +122,7 @@ for root, dirs, files in os.walk(ROOT_DIR):
                 pass
 
 if secret_violations == 0:
-    log_ok("Zero secrets found. Codebase clean and leak-proof.")
+    log_ok("Zero secrets found. Known credential patterns not found.")
 
 print("\n" + "="*50)
 if ERRORS:
@@ -120,5 +131,5 @@ if ERRORS:
         print(f"  • {e}", file=sys.stderr)
     sys.exit(1)
 else:
-    print("SUCCESS: All 4 integrity and security suites passed (10/10).")
+    print("SUCCESS: All 4 integrity and security suites passed.")
     sys.exit(0)
