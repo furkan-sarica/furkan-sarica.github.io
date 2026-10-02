@@ -90,17 +90,10 @@ test('terminal history, vim, matrix, window controls ve Fail2Ban tek kez çalı�
     await page.evaluate(() => executeCliCmd('cmatrix')); await expect(page.locator('#matrix-rain')).toHaveCount(1);
     await page.evaluate(() => executeCliCmd('cmatrix')); await expect(page.locator('#matrix-rain')).toHaveCount(0);
     const pencere = page.locator('#cli-terminal .terminal-window');
-    async function kontroluTikla(secici) {
-        // Class değişimi reflow/scroll'un bitmesi değildir; devam eden smooth scroll'u sonlandır.
-        await pencere.locator('.terminal-header').evaluate(el => el.scrollIntoView({ behavior: 'instant', block: 'center', inline: 'nearest' }));
-        const kontrol = pencere.locator(secici);
-        await expect(kontrol).toBeInViewport({ ratio: 1 });
-        await kontrol.click();
-    }
-    await kontroluTikla('.t-btn-yellow'); await expect(pencere).toHaveClass(/win-minimized/);
-    await kontroluTikla('.t-btn-yellow'); await expect(pencere).not.toHaveClass(/win-minimized/);
-    await kontroluTikla('.t-btn-green'); await expect(pencere).toHaveClass(/win-maximized/);
-    await kontroluTikla('.t-btn-green'); await expect(pencere).not.toHaveClass(/win-maximized/);
+    await pencere.locator('.t-btn-yellow').click(); await expect(pencere).toHaveClass(/win-minimized/);
+    await pencere.locator('.t-btn-yellow').click(); await expect(pencere).not.toHaveClass(/win-minimized/);
+    await pencere.locator('.t-btn-green').click(); await expect(pencere).toHaveClass(/win-maximized/);
+    await pencere.locator('.t-btn-green').click(); await expect(pencere).not.toHaveClass(/win-maximized/);
     await page.clock.install();
     for (let i = 0; i < 5; i++) await page.evaluate(() => executeCliCmd('gecersiz'));
     await expect(page.locator('#cli-input')).toBeDisabled(); await page.clock.runFor(11000);
