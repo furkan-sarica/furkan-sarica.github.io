@@ -56,6 +56,51 @@ test('polish kartları TR/EN ve tüm hedef viewportlarda taşmaz', async ({ page
     expect(hatalar).toEqual([]);
 });
 
+test('mobil back-to-top kritik içerik ve aksiyonları örtmez', async ({ page, context, baseURL }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    const hatalar = await hazirla(page, context, baseURL);
+    for (const genislik of [320, 360, 375, 390, 430]) {
+        await page.setViewportSize({ width: genislik, height: 844 });
+        await page.evaluate(() => scrollTo({ top: 750, behavior: 'instant' }));
+        await expect(page.locator('#backToTop')).toHaveClass(/visible/);
+        await expect(page.locator('#backToTop')).toBeVisible();
+        const sonuc = await page.evaluate(async () => {
+            const dugme = document.getElementById('backToTop');
+            const kareBekle = () => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+            const cakisiyor = (a, b) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+            const cakismlar = [];
+            const hedefler = document.querySelectorAll('.cert-actions,.cert-view-btn,.project-body,.project-card .artifact-links,.contact-item');
+            for (const hedef of hedefler) {
+                // Her kritik alan düğmenin dikey hizasından geçer; tesadüfi screenshot konumuna bağlı değildir.
+                hedef.scrollIntoView({ block: 'center', behavior: 'instant' });
+                await kareBekle();
+                const alan = hedef.getBoundingClientRect(), kontrol = dugme.getBoundingClientRect();
+                scrollTo({ top: scrollY + (alan.top + alan.bottom - kontrol.top - kontrol.bottom) / 2, behavior: 'instant' });
+                await kareBekle();
+                const sonAlan = hedef.getBoundingClientRect(), sonKontrol = dugme.getBoundingClientRect();
+                if (cakisiyor(sonAlan, sonKontrol)) cakismlar.push({
+                    hedef: hedef.className,
+                    alan: { sol: sonAlan.left, sag: sonAlan.right, ust: sonAlan.top, alt: sonAlan.bottom },
+                    kontrol: { sol: sonKontrol.left, sag: sonKontrol.right, ust: sonKontrol.top, alt: sonKontrol.bottom }
+                });
+            }
+            const kontrol = dugme.getBoundingClientRect();
+            return {
+                cakismlar,
+                gorunur: getComputedStyle(dugme).visibility === 'visible' && getComputedStyle(dugme).opacity === '1',
+                ekranda: kontrol.left >= 0 && kontrol.right <= innerWidth && kontrol.top >= 0 && kontrol.bottom <= innerHeight,
+                dokunmaAlani: kontrol.width >= 24 && kontrol.height >= 44
+            };
+        });
+        expect(sonuc, `${genislik}px kritik alanlar`).toEqual({
+            cakismlar: [], gorunur: true, ekranda: true, dokunmaAlani: true
+        });
+        await page.locator('#backToTop').click();
+        await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
+    }
+    expect(hatalar).toEqual([]);
+});
+
 test('iletişim kopyalama ve AI boş alan yönlendirmesi mevcut davranışı korur', async ({ page, context, baseURL }) => {
     const hatalar = await hazirla(page, context, baseURL);
     // OS clipboard iznine bağlı kalmadan gerçek click handler'ın yazdığı değeri doğrula.

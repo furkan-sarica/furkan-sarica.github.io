@@ -925,6 +925,20 @@ body.lang-en [data-lang-tr-flex] {
     transform: translateY(-3px);
 }
 
+/* Mobilde cd ~, kartların 2rem kenar boşluğunda kalır. */
+@media (max-width: 768px) {
+    .back-to-top {
+        right: env(safe-area-inset-right, 0px);
+        bottom: calc(0.75rem + env(safe-area-inset-bottom));
+        width: 24px;
+        min-height: 44px;
+        padding: 0.25rem 0.125rem;
+        font-size: 0.75rem;
+        line-height: 1.2;
+    }
+    .back-to-top::before { content: none; }
+}
+
 /* Icon alignment in tool list */
 .tool-list li i {
     margin-right: 0.5rem;
