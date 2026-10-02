@@ -12,6 +12,19 @@ window.addEventListener('appinstalled', function() {
 });
 
 if ('serviceWorker' in navigator) {
+    let mevcutKontrolcu = navigator.serviceWorker.controller;
+    let yenidenYukleniyor = false;
+    navigator.serviceWorker.addEventListener('controllerchange', function() {
+        const yeniKontrolcu = navigator.serviceWorker.controller;
+        if (!yeniKontrolcu || yeniKontrolcu === mevcutKontrolcu) return;
+        const onceKontrolluydu = Boolean(mevcutKontrolcu);
+        mevcutKontrolcu = yeniKontrolcu;
+        // İlk kurulum claim'i reload gerektirmez; yalnız mevcut controller devri yeniler.
+        if (!onceKontrolluydu || yenidenYukleniyor) return;
+        yenidenYukleniyor = true;
+        window.location.reload();
+    });
+
     window.addEventListener('load', function() {
         navigator.serviceWorker.register('/sw.js').then(function(reg) {
             console.log('[PWA] Service Worker registered, scope:', reg.scope);
