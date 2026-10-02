@@ -71,6 +71,9 @@ jobs:
       - name: Chromium, WebKit ve PWA regression gate
         run: npm run test:smoke
 
+      - name: WebKit terminal senkronizasyonu (5 ardışık tekrar)
+        run: npx --no-install playwright test tests/hardening.spec.cjs --project=webkit --grep "terminal history" --repeat-each=5
+
       - name: Başarısız smoke kanıtları
         if: failure()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
