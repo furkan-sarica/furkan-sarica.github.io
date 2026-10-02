@@ -470,13 +470,15 @@ cursor: default;
 
 /* Education Section */
 .edu-item {
-margin-bottom: 2rem;
-padding: 1.5rem;
+margin-bottom: 1rem;
+padding: 1rem;
 border-left: 2px solid var(--border-color);
 transition: border-color 0.3s;
 }
 
 .edu-item:hover { border-left-color: var(--terminal-green); }
+.edu-item:last-child { margin-bottom: 0; }
+#education .terminal-content { padding: 1.5rem; }
 
 .edu-header {
 display: flex;
@@ -494,7 +496,7 @@ margin-bottom: 0.5rem;
 
 .courses-grid {
 display: grid;
-grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
 gap: 0.5rem;
 margin-top: 1rem;
 padding-top: 1rem;
@@ -516,11 +518,17 @@ color: var(--terminal-green);
 }
 
 /* Certificates Section */
+.certificates-grid {
+display: grid;
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 1rem;
+}
+
 .cert-card {
 background: var(--bg-card);
 border: 1px solid var(--border-color);
-padding: 1.5rem;
-margin-bottom: 1.5rem;
+padding: 1rem;
+margin-bottom: 0;
 transition: all 0.3s;
 }
 
@@ -537,6 +545,8 @@ margin-bottom: 0.5rem;
 }
 
 .cert-title { font-size: 1rem; color: var(--text-primary); }
+.cert-card--one-cikan { padding: 1.5rem; border-left-color: var(--terminal-green); }
+.cert-card:not(.cert-card--one-cikan) .cert-title { font-size: 0.9rem; }
 
 .cert-status {
 font-size: 0.75rem;
@@ -593,17 +603,17 @@ margin-bottom: 0.8rem;
 .exp-desc {
 color: var(--text-secondary);
 font-size: 0.85rem;
-line-height: 1.6;
+line-height: 1.75;
 margin-bottom: 1rem;
 }
 
-.exp-resp ul { list-style: none; padding: 0; }
+.exp-resp ul { list-style: none; padding: 0; max-width: 78ch; }
 
 .exp-resp li {
 color: var(--text-secondary);
 font-size: 0.85rem;
-line-height: 1.6;
-margin-bottom: 0.5rem;
+line-height: 1.75;
+margin-bottom: 0.75rem;
 padding-left: 1.2rem;
 position: relative;
 }
@@ -618,7 +628,7 @@ color: var(--terminal-green);
 .exp-skills {
 display: flex;
 flex-wrap: wrap;
-gap: 0.5rem;
+gap: 0.6rem;
 margin-top: 1rem;
 padding-top: 1rem;
 border-top: 1px solid var(--border-color);
@@ -636,8 +646,8 @@ border: 1px solid rgba(189, 147, 249, 0.3);
 .project-card {
 background: var(--bg-card);
 border: 1px solid var(--border-color);
-margin-bottom: 2rem;
-padding: 2rem;
+margin-bottom: 1.25rem;
+padding: 1.5rem;
 position: relative;
 transition: all 0.3s;
 }
@@ -660,6 +670,11 @@ margin-bottom: 0.3rem;
 }
 
 .project-title::before { content: '# '; color: var(--accent-cyan); }
+.project-card--one-cikan { border-left-color: var(--accent-cyan); }
+.project-card--ikincil { padding: 1.25rem; }
+.project-card--ikincil .project-header { margin-bottom: 0.75rem; padding-bottom: 0.75rem; }
+.project-card--ikincil .project-title { font-size: 1rem; }
+.project-card--ikincil .project-body li { font-size: 0.85rem; margin-bottom: 0.5rem; }
 .project-tag { font-size: 0.75rem; color: var(--accent-purple); }
 
 .project-body { color: var(--text-secondary); }
@@ -713,6 +728,8 @@ transition: all 0.3s;
 border-color: var(--terminal-green);
 box-shadow: var(--glow);
 }
+.tool-box--birincil { border-left-color: var(--terminal-green); }
+.tool-box:not(.tool-box--birincil) .tool-title { color: var(--text-secondary); }
 
 .tool-header {
 text-align: center;
@@ -749,16 +766,15 @@ color: var(--accent-cyan);
 
 .contact-grid {
 display: grid;
-grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-gap: 1.5rem;
-max-width: 800px;
+grid-template-columns: repeat(4, minmax(0, 1fr));
+gap: 1rem;
 margin: 2rem auto;
 }
 
 .contact-item {
 display: block;
 text-decoration: none;
-padding: 1.5rem;
+padding: 1rem;
 background: var(--bg-card);
 border: 1px solid var(--border-color);
 transition: all 0.3s;
@@ -781,6 +797,7 @@ margin-bottom: 0.5rem;
 .contact-value {
 font-size: 0.9rem;
 color: var(--terminal-green);
+overflow-wrap: anywhere;
 }
 
 .contact-value:hover { text-decoration: underline; }
@@ -840,6 +857,15 @@ body.lang-en [data-lang-tr-flex] {
 }
 
 /* Responsive */
+@media (max-width: 1023px) {
+.contact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 699px) {
+.certificates-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 360px) {
+.contact-grid { grid-template-columns: 1fr; }
+}
 @media (max-width: 768px) {
 .about-grid { grid-template-columns: 1fr; }
 .ascii-header { font-size: 0.55rem; }
@@ -2035,6 +2061,11 @@ body.glitch-mode {
     animation: ai-modal-pop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     transition: max-width 0.22s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.22s cubic-bezier(0.16, 1, 0.3, 1), width 0.22s ease, height 0.22s ease;
 }
+
+/* MOTD ve suggestions korunur; yalnız boş terminal alanının hazır durumu gösterilir. */
+.ai-term-ready { margin-top: 1.25rem; color: var(--text-secondary); font-size: 0.8rem; }
+.ai-term-ready > [aria-hidden] { color: var(--terminal-green); }
+.ai-terminal-body:has(#ai-term-history:not(:empty)) .ai-term-ready { display: none; }
 
 /* Maximized Fullscreen AI Terminal */
 .ai-terminal-window.is-maximized {

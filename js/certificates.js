@@ -2,14 +2,14 @@
 var ALL_CERTS = [
     { src: 'certs/stanford-ai.jpg', title: 'Stanford University - Artificial Intelligence Professional Certificate' },
     { src: 'certs/microsoft-ai-ml.jpg', title: 'Microsoft - AI & ML Engineering Professional Certificate' },
-    { src: 'certs/vanderbilt-genai.jpg', title: 'Vanderbilt University - Generative AI Software Engineering Specialization' },
-    { src: 'certs/nvidia-developer.jpg', title: 'NVIDIA - Developer Program Member' },
-    { src: 'certs/ibm-isc2-cybersecurity.jpg', title: 'IBM & ISC2 - Cybersecurity Specialist Professional Certificate' },
     { src: 'certs/aws-cloud-solutions-architect.jpg', title: 'AWS - Cloud Solutions Architect Professional Certificate' },
     { src: 'certs/ibm-devops-software-engineering.jpg', title: 'IBM - DevOps and Software Engineering Professional Certificate' },
+    { src: 'certs/ibm-isc2-cybersecurity.jpg', title: 'IBM & ISC2 - Cybersecurity Specialist Professional Certificate' },
+    { src: 'certs/akamai-network-engineering.jpg', title: 'Akamai Technologies - Network Engineering Professional Certificate' },
+    { src: 'certs/nvidia-developer.jpg', title: 'NVIDIA - Developer Program Member' },
+    { src: 'certs/vanderbilt-genai.jpg', title: 'Vanderbilt University - Generative AI Software Engineering Specialization' },
     { src: 'certs/google-it-support.jpg', title: 'Google - IT Support Professional Certificate' },
-    { src: 'certs/meta-ios-developer.jpg', title: 'Meta - iOS Developer Professional Certificate' },
-    { src: 'certs/akamai-network-engineering.jpg', title: 'Akamai Technologies - Network Engineering Professional Certificate' }
+    { src: 'certs/meta-ios-developer.jpg', title: 'Meta - iOS Developer Professional Certificate' }
 ];
 var currentCertIdx = 0;
 
